@@ -1,6 +1,6 @@
-ff03f069ca1aa9e79d264673aade2ba2 *DESCRIPTION
+22ff95a7cbed457cf32d1b6b4a9e3348 *DESCRIPTION
 b4e28ba0ccb1fc0a34e63111376abe20 *NAMESPACE
-5457613e851051570520cadf57009102 *NEWS
+03f11c4c883f170305c3965d8b5d1f6a *NEWS
 25176b11bb788d54a4a764481cd6d386 *R/Models.R
 55f95aafeed8ff03659d369775a6071d *R/assay_funcs.R
 a6505eb1b17f6cd5b974323ca27b72b0 *R/attachFormals.R
@@ -31,7 +31,7 @@ cab8b689fe51d7d0950ef28e46c67d4e *R/mthd_funcs.R
 1bc0bca9f8f9c1ee5fa029ff57d064fc *R/multProc.R
 5eb23db089f67b0360db3e8b4cdda6ea *R/onAttach.R
 5984fab97a6c4aab7b2727ace7770253 *R/onLoad.R
-75249f0202f3c7a4fb286e5255032eb2 *R/plateHeat.R
+eb7700cb25f9e5adfb70e1aaec1a5ee0 *R/plateHeat.R
 345b5d83c47e41b0104469924eb4c016 *R/plotFit.R
 3a59c08367edb0f4cdf7dfa3b1c9ff59 *R/prepField.R
 d6a89050f11328828fdbaccb4aacc3ec *R/query_funcs.R
@@ -94,7 +94,7 @@ fface51d76b0df2701d46a0c352890b0 *build/vignette.rds
 834e3d5efcad9cd73eb8c2439d655103 *inst/TCPL.config
 ef364a97ad5c97b31ce72c064d27be15 *inst/doc/tcpl_Overview.R
 0f1eef7460bfd103beec50a52eef9432 *inst/doc/tcpl_Overview.Rnw
-7b1de0f3191e010c9ef5a1d2fcdde32c *inst/doc/tcpl_Overview.pdf
+87cc5bc92cd9c97ae07d646635941955 *inst/doc/tcpl_Overview.pdf
 afb7ae7680542a6e5385fadeebe849b5 *inst/sql/chdat.csv
 a70bd73af1cfed18c08a6f15f91d1162 *inst/sql/mcdat.csv
 68ba11035e7b1411066979f241c44f56 *inst/sql/scdat.csv

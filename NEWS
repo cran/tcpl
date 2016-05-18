@@ -1,4 +1,14 @@
-tcpl v1.2 (CRAN submission: 2016-01-12)
+tcpl v1.2.1
+==============
+
+Changes from v1.2
+
+* A try-statement was added to the underlying function that draws the plot for 
+  tcplPlotHeat, so that the function does not return a figure margin error when
+  running the checks for the package. 
+
+
+tcpl v1.2 
 ==============
 
 Changes from beta versions:

@@ -18,7 +18,7 @@
 #' the color scale
 #' 
 #' @note
-#' Optimized for an output with height = 10*(2/3), width = 10, and 
+#' Optimized for an output with height = 20/3, width = 10, and 
 #' pointsize = 10
 #' 
 #' @importFrom RColorBrewer brewer.pal
@@ -104,36 +104,44 @@
        col = "black",
        cex = 0.65)
   
-  plot.new()
-  par(mar = c(2, 0, 2, 6) + 0.1, family = "mono")
-  plot.window(xlim = c(0, 1), 
-              ylim = arng, 
-              xaxs = "i", 
-              yaxs = "i")
-  rect(0, 
-       seq(arng[1], arng[2], length.out = 101)[-101],
-       1,
-       seq(arng[1], arng[2], length.out = 101)[-1],
-       col = myPal(100),
-       border = myPal(100))
-  apts <- quantile(arng, probs = seq(0, 1, length.out = 10))
-  axis(side = 4,
-       at = apts, 
-       las = 2, 
-       cex = 0.5,
-       labels = sprintf("%5.1f", apts))
-  axis(side = 4, 
-       at = range(vals, na.rm = TRUE), 
-       labels = c("", ""),
-       lwd = 0, 
-       lwd.ticks = 2, 
-       tck = -0.5)
-  axis(side = 4, 
-       at = range(vals, na.rm = TRUE), 
-       labels = c("", ""),
-       lwd = 0, 
-       lwd.ticks = 2, 
-       tck = 0.5)
+  lgnd <- try(plot.new(), silent = TRUE)
+  if (is(lgnd, "try-error")) {
+    par(mar = rep(0, 4), family = "mono", new = FALSE)
+    plot.new()
+    warning("Could not add the legend. Please adjust device size. See",
+            " ?tcplPlotPlate for more information.")
+  } else {
+    par(mar = c(2, 0, 2, 6) + 0.1, family = "mono")
+    plot.window(xlim = c(0, 1), 
+                ylim = arng, 
+                xaxs = "i", 
+                yaxs = "i")
+    rect(0, 
+         seq(arng[1], arng[2], length.out = 101)[-101],
+         1,
+         seq(arng[1], arng[2], length.out = 101)[-1],
+         col = myPal(100),
+         border = myPal(100))
+    apts <- quantile(arng, probs = seq(0, 1, length.out = 10))
+    axis(side = 4,
+         at = apts, 
+         las = 2, 
+         cex = 0.5,
+         labels = sprintf("%5.1f", apts))
+    axis(side = 4, 
+         at = range(vals, na.rm = TRUE), 
+         labels = c("", ""),
+         lwd = 0, 
+         lwd.ticks = 2, 
+         tck = -0.5)
+    axis(side = 4, 
+         at = range(vals, na.rm = TRUE), 
+         labels = c("", ""),
+         lwd = 0, 
+         lwd.ticks = 2, 
+         tck = 0.5)
+  }
+  
 }
 
 #-------------------------------------------------------------------------------
