@@ -6,10 +6,8 @@
 #' 
 #' @import DBI
 #' @importFrom RSQLite SQLite 
-#' @importMethodsFrom RSQLite dbConnect dbDisconnect dbGetQuery 
 #' @import data.table
 #' @importFrom RMySQL MySQL
-#' @importMethodsFrom RMySQL dbConnect dbDisconnect 
 #' @export
 
 
@@ -59,7 +57,7 @@ tcplQuery <- function(query, db = getOption("TCPL_DB"),
   }
   
   dbcon <- do.call(dbConnect, db_pars)
-  result <- dbGetQuery(dbcon, query)
+  result <- DBI::dbGetQuery(dbcon, query)
   
   dbDisconnect(dbcon)
   

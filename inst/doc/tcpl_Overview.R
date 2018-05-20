@@ -1,18 +1,23 @@
 ### R code from vignette source 'tcpl_Overview.Rnw'
 
 ###################################################
-### code chunk number 1: tcpl_Overview.Rnw:43-49
+### code chunk number 1: tcpl_Overview.Rnw:43-54
 ###################################################
 options(continue = "  ", width = 60, warn = -1)
 pdf.options(pointsize = 10)
 library(tcpl)
-tbls <- unlist(tcplQuery("SELECT name FROM sqlite_master WHERE type='table';"))
-keep <- grepl("methods|categories", tbls)
-for (i in tbls[!keep]) tcplSendQuery(paste("DELETE FROM", i))
+
+## This chunk copies the sqlite db to the temp directory used in installation
+## to comply with CRAN policies on not writing to the installation directory
+dbfile <- file.path(system.file(package = "tcpl"), "sql", "tcpldb.sqlite")
+dbfile_temp <- file.path(tempdir(), "tcpldb.sqlite")
+file.copy(from = dbfile, dbfile_temp)
+tcplConf(db = dbfile_temp)
+tcpl:::.clearSQLite(dbfile_temp)
 
 
 ###################################################
-### code chunk number 2: tcpl_Overview.Rnw:91-95
+### code chunk number 2: tcpl_Overview.Rnw:96-100
 ###################################################
 library(data.table)
 library(tcpl)
@@ -21,7 +26,7 @@ pkg_dir <- system.file(package = "tcpl")
 
 
 ###################################################
-### code chunk number 3: tcpl_Overview.Rnw:118-123 (eval = FALSE)
+### code chunk number 3: tcpl_Overview.Rnw:123-128 (eval = FALSE)
 ###################################################
 ## tcplConf(drvr = "MySQL", 
 ##          user = "root", 
@@ -31,7 +36,7 @@ pkg_dir <- system.file(package = "tcpl")
 
 
 ###################################################
-### code chunk number 4: tcpl_Overview.Rnw:157-161
+### code chunk number 4: tcpl_Overview.Rnw:162-166
 ###################################################
 ## Add a new assay source, call it CTox,
 ## that produced the data
@@ -40,7 +45,7 @@ tcplLoadAsid()
 
 
 ###################################################
-### code chunk number 5: tcpl_Overview.Rnw:166-170
+### code chunk number 5: tcpl_Overview.Rnw:171-175
 ###################################################
 tcplRegister(what = "aid", 
              flds = list(asid = 1, 
@@ -49,7 +54,7 @@ tcplRegister(what = "aid",
 
 
 ###################################################
-### code chunk number 6: tcpl_Overview.Rnw:177-188
+### code chunk number 6: tcpl_Overview.Rnw:182-193
 ###################################################
 tcplRegister(what = "acid", 
              flds = list(aid = 1, acnm = "CTox_CORT"))
@@ -65,7 +70,7 @@ tcplRegister(what = "aeid",
 
 
 ###################################################
-### code chunk number 7: tcpl_Overview.Rnw:199-207
+### code chunk number 7: tcpl_Overview.Rnw:204-212
 ###################################################
 ch <- fread(file.path(pkg_dir, "sql", "chdat.csv"))
 head(ch)
@@ -78,7 +83,7 @@ tcplRegister(what = "chid",
 
 
 ###################################################
-### code chunk number 8: tcpl_Overview.Rnw:212-217
+### code chunk number 8: tcpl_Overview.Rnw:217-222
 ###################################################
 cmap <- tcplLoadChem()
 tcplRegister(what = "spid", 
@@ -88,7 +93,7 @@ tcplRegister(what = "spid",
 
 
 ###################################################
-### code chunk number 9: tcpl_Overview.Rnw:222-228
+### code chunk number 9: tcpl_Overview.Rnw:227-233
 ###################################################
 grp1 <- cmap[chid %% 2 == 0, unique(chid)]
 grp2 <- cmap[chid %% 2 == 1, unique(chid)]
@@ -99,7 +104,7 @@ tcplRegister(what = "clib",
 
 
 ###################################################
-### code chunk number 10: tcpl_Overview.Rnw:233-236
+### code chunk number 10: tcpl_Overview.Rnw:238-241
 ###################################################
 tcplRegister(what = "clib", 
              flds = list(clib = "other", chid = 1:2))
@@ -107,7 +112,7 @@ tcplLoadClib(field = "chid", val = 1:2)
 
 
 ###################################################
-### code chunk number 11: tcpl_Overview.Rnw:241-244
+### code chunk number 11: tcpl_Overview.Rnw:246-249
 ###################################################
 scdat <- fread(file.path(pkg_dir, "sql", "scdat.csv"))
 mcdat <- fread(file.path(pkg_dir, "sql", "mcdat.csv"))
@@ -115,27 +120,27 @@ c(unique(scdat$acsn), unique(mcdat$acsn))
 
 
 ###################################################
-### code chunk number 12: tcpl_Overview.Rnw:249-251
+### code chunk number 12: tcpl_Overview.Rnw:254-256
 ###################################################
 tcplRegister(what = "acsn", 
              flds = list(acid = 1, acsn = "cort"))
 
 
 ###################################################
-### code chunk number 13: tcpl_Overview.Rnw:256-258
+### code chunk number 13: tcpl_Overview.Rnw:261-263
 ###################################################
 tcplWriteLvl0(dat = scdat, type = "sc")
 tcplWriteLvl0(dat = mcdat, type = "mc")
 
 
 ###################################################
-### code chunk number 14: tcpl_Overview.Rnw:263-264
+### code chunk number 14: tcpl_Overview.Rnw:268-269
 ###################################################
 tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "sc")
 
 
 ###################################################
-### code chunk number 15: tcpl_Overview.Rnw:321-338
+### code chunk number 15: tcpl_Overview.Rnw:326-343
 ###################################################
 ## For illustrative purposes, assign level 2 MC methods to 
 ## ACIDs 98, 99. First check for available methods.
@@ -157,13 +162,13 @@ tcplMthdLoad(lvl = 2, id = 97:98, type = "mc")
 
 
 ###################################################
-### code chunk number 16: tcpl_Overview.Rnw:420-421
+### code chunk number 16: tcpl_Overview.Rnw:425-426
 ###################################################
 tcplLoadAeid(fld = "acid", val = 1)
 
 
 ###################################################
-### code chunk number 17: tcpl_Overview.Rnw:428-438
+### code chunk number 17: tcpl_Overview.Rnw:433-443
 ###################################################
 tcplMthdAssign(lvl = 1, 
                id = 1:2,
@@ -178,14 +183,14 @@ tcplMthdAssign(lvl = 1,
 
 
 ###################################################
-### code chunk number 18: tcpl_Overview.Rnw:446-448
+### code chunk number 18: tcpl_Overview.Rnw:451-453
 ###################################################
 ## Do level 1 processing for acid 1
 sc1_res <- tcplRun(id = 1, slvl = 1, elvl = 1, type = "sc")
 
 
 ###################################################
-### code chunk number 19: tcpl_Overview.Rnw:464-469
+### code chunk number 19: tcpl_Overview.Rnw:469-474
 ###################################################
 ## Assign a cutoff value of log2(1.2)
 tcplMthdAssign(lvl = 2,
@@ -195,21 +200,21 @@ tcplMthdAssign(lvl = 2,
 
 
 ###################################################
-### code chunk number 20: tcpl_Overview.Rnw:477-479
+### code chunk number 20: tcpl_Overview.Rnw:482-484
 ###################################################
 ## Do level 1 processing for acid 1
 sc2_res <- tcplRun(id = 1:2, slvl = 2, elvl = 2, type = "sc")
 
 
 ###################################################
-### code chunk number 21: tcpl_Overview.Rnw:522-524
+### code chunk number 21: tcpl_Overview.Rnw:527-529
 ###################################################
 ## Do level 1 processing for acid 1
 mc1_res <- tcplRun(id = 1, slvl = 1, elvl = 1, type = "mc")
 
 
 ###################################################
-### code chunk number 22: tcpl_Overview.Rnw:529-537
+### code chunk number 22: tcpl_Overview.Rnw:534-542
 ###################################################
 ## Load the level 1 data and look at the cndx and repi values
 m1dat <- tcplLoadData(lvl = 1, 
@@ -228,7 +233,7 @@ tcplPlotPlate(dat = m1dat, apid = "09Apr2014.Plate.17")
 
 
 ###################################################
-### code chunk number 24: tcpl_Overview.Rnw:558-563
+### code chunk number 24: tcpl_Overview.Rnw:563-568
 ###################################################
 tcplMthdAssign(lvl = 2,
                id = 1,
@@ -238,21 +243,21 @@ tcplMthdAssign(lvl = 2,
 
 
 ###################################################
-### code chunk number 25: tcpl_Overview.Rnw:568-570
+### code chunk number 25: tcpl_Overview.Rnw:573-575
 ###################################################
 ## Do level 2 processing for acid 1
 mc2_res <- tcplRun(id = 1, slvl = 2, elvl = 2, type = "mc")
 
 
 ###################################################
-### code chunk number 26: tcpl_Overview.Rnw:582-584
+### code chunk number 26: tcpl_Overview.Rnw:587-589
 ###################################################
 ## Look at the assay endpoints for acid 1
 tcplLoadAeid(fld = "acid", val = 1)
 
 
 ###################################################
-### code chunk number 27: tcpl_Overview.Rnw:588-598
+### code chunk number 27: tcpl_Overview.Rnw:593-603
 ###################################################
 tcplMthdAssign(lvl = 3,
                id = 1:2,
@@ -267,21 +272,21 @@ tcplMthdAssign(lvl = 3,
 
 
 ###################################################
-### code chunk number 28: tcpl_Overview.Rnw:604-606
+### code chunk number 28: tcpl_Overview.Rnw:609-611
 ###################################################
 ## Do level 3 processing for acid 1
 mc3_res <- tcplRun(id = 1, slvl = 3, elvl = 3, type = "mc")
 
 
 ###################################################
-### code chunk number 29: tcpl_Overview.Rnw:696-698
+### code chunk number 29: tcpl_Overview.Rnw:701-703
 ###################################################
 ## Do level 4 processing for aeid 1 and load the data
 mc4_res <- tcplRun(id = 1:2, slvl = 4, elvl = 4, type = "mc")
 
 
 ###################################################
-### code chunk number 30: tcpl_Overview.Rnw:703-708
+### code chunk number 30: tcpl_Overview.Rnw:708-713
 ###################################################
 ## Load the level 4 data 
 m4dat <- tcplLoadData(lvl = 4, type = "mc")
@@ -298,7 +303,7 @@ tcplPlotM4ID(m4id = 686, lvl = 4)
 
 
 ###################################################
-### code chunk number 32: tcpl_Overview.Rnw:747-752
+### code chunk number 32: tcpl_Overview.Rnw:752-757
 ###################################################
 ## Assign a cutoff value of bmad*6
 tcplMthdAssign(lvl = 5,
@@ -349,7 +354,7 @@ tcplPlotFitc()
 
 
 ###################################################
-### code chunk number 35: tcpl_Overview.Rnw:818-820
+### code chunk number 35: tcpl_Overview.Rnw:823-825
 ###################################################
 ## Do level 5 processing for aeid 1 and load the data
 mc5_res <- tcplRun(id = 1:2, slvl = 5, elvl = 5, type = "mc")
@@ -369,7 +374,7 @@ tcplPlotFitc(fitc = m5dat$fitc)
 
 
 ###################################################
-### code chunk number 38: tcpl_Overview.Rnw:845-848
+### code chunk number 38: tcpl_Overview.Rnw:850-853
 ###################################################
 head(m5dat[fitc == 21, 
            list(m4id, hill_tp, gnls_tp, 
@@ -383,7 +388,7 @@ tcplPlotM4ID(m4id = 45, lvl = 5)
 
 
 ###################################################
-### code chunk number 40: tcpl_Overview.Rnw:867-872
+### code chunk number 40: tcpl_Overview.Rnw:872-877
 ###################################################
 tcplMthdAssign(lvl = 6,
                id = 1:2,
@@ -393,7 +398,7 @@ tcplMthdLoad(lvl = 6, id = 1, type = "mc")
 
 
 ###################################################
-### code chunk number 41: tcpl_Overview.Rnw:879-882
+### code chunk number 41: tcpl_Overview.Rnw:884-887
 ###################################################
 ## Do level 6 processing
 mc6_res <- tcplRun(id = 1:2, slvl = 6, elvl = 6, type = "mc")
@@ -401,7 +406,7 @@ m6dat <- tcplLoadData(lvl = 6, type = "mc")
 
 
 ###################################################
-### code chunk number 42: tcpl_Overview.Rnw:887-888
+### code chunk number 42: tcpl_Overview.Rnw:892-893
 ###################################################
 m6dat[m4id == 46]
 
