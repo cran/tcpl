@@ -6,16 +6,16 @@
 #' 
 #' @description
 #' \code{tcplLoadClib} queries the tcpl databases and returns information 
-#' about the chemial library.
+#' about the chemical library.
 #' 
 #' @param field Character of length 1, \code{'chid'} or \code{'clib'}, whether 
 #' to search by chemical id (chid), or chemical library (clib)
 #' @param val The values to query on
 #' 
 #' @details
-#' Chemicals are stored in different libraries by chemcial ID. Therefore, it 
+#' Chemicals are stored in different libraries by chemical ID. Therefore, it 
 #' is not possible to delineate samples with the same chemical ID into two 
-#' distinct chemical libraries. However, it is possible for a chemcial ID to 
+#' distinct chemical libraries. However, it is possible for a chemical ID to 
 #' belong to more than one (or no) chemical libraries. 
 #' 
 #' When chemicals belong to more than one library, the chemical is listed 
@@ -25,7 +25,7 @@
 #' ## Store the current config settings, so they can be reloaded at the end 
 #' ## of the examples
 #' conf_store <- tcplConfList()
-#' tcplConfDefault()
+#' tcplConfExample()
 #' 
 #' ## Passing no parameters gives all of the chemical ISs that have a chemical
 #' ## library registered
@@ -46,8 +46,8 @@
 #' 
 #' ## Specifying a chemical library will not show what other libraries a 
 #' ## chemical might belong to.
-#' tcplLoadClib(field = "clib", val = "other")
-#' tcplLoadClib(field = "chid", val = 1:2)
+#' tcplLoadClib(field = "clib", val = "TOXCAST")
+#' tcplLoadClib(field = "chid", val = 20182)
 #' 
 #' ## Reset configuration
 #' options(conf_store)
@@ -59,7 +59,7 @@
 #' @export
 
 tcplLoadClib <- function(field = NULL, val = NULL) {
-  
+  tbl = c("chemical_library")
   if (!is.null(field)) {
     vfield <- c("chid", "clib")
     if (!field %in% vfield) stop("Invalid 'field' value.")
@@ -67,7 +67,7 @@ tcplLoadClib <- function(field = NULL, val = NULL) {
     
   qstring <- .ClibQ(field = field, val = val)
   
-  dat <- tcplQuery(query = qstring, db = getOption("TCPL_DB"))
+  dat <- tcplQuery(query = qstring, db = getOption("TCPL_DB"), tbl=tbl)
   
   
   if (!is.null(field)) {

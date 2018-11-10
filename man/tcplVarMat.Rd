@@ -4,9 +4,9 @@
 \alias{tcplVarMat}
 \title{Create chemical by assay matrices}
 \usage{
-tcplVarMat(chid = NULL, aeid = NULL, add.vars = NULL, row.id = "code",
-  flag = TRUE, cyto.pars = list(), include.na.chid = FALSE, odir = NULL,
-  file.prefix = NULL)
+tcplVarMat(chid = NULL, aeid = NULL, add.vars = NULL,
+  row.id = "code", flag = TRUE, cyto.pars = list(),
+  include.na.chid = FALSE, odir = NULL, file.prefix = NULL)
 }
 \arguments{
 \item{chid}{Integer, chemical ID values to subset on}
@@ -34,7 +34,7 @@ is not NULL}
 }
 \value{
 A list of chemical by assay matrices where the rownames are given by
-the 'row.id' paramter, and the colnames are given by assay endpoint name 
+the 'row.id' parameter, and the colnames are given by assay endpoint name 
 (aenm).
 }
 \description{
@@ -42,7 +42,7 @@ the 'row.id' paramter, and the colnames are given by assay endpoint name
 }
 \details{
 The \code{tcplVarMat} function is used to create chemical by assay matrices
-for different paramters. The standard list of matrices returned includes:
+for different parameters. The standard list of matrices returned includes:
 
 \enumerate{
  \item "modl_ga" -- The logAC50 (in the gain direction) for the winning 
@@ -66,7 +66,7 @@ for different paramters. The standard list of matrices returned includes:
  not tested, or tested and had a hitcall of 0 or -1 have the value 0. 
 }
 
-To add addtitional matrices, the 'add.vars' parameter can be used to specify
+To add additional matrices, the 'add.vars' parameter can be used to specify
 the fields from the mc4 or mc5 tables to create matrices for.
 
 When more than one sample is included for a chemical/assay pair, 
@@ -76,7 +76,7 @@ utilizing \code{\link{tcplSubsetChid}}.
 By setting \code{odir} the function will write out a csv with, naming the 
 file with the convention: "var_Matrix_date.csv" where 'var' is the name 
 of the matrix. A prefix can be added to the output files using the 
-'file.prefix' paramter. 
+'file.prefix' parameter. 
 
 When a concentration series has a sample id not listed in the \code{tcpl} 
 database, and 'include.na.chid' is TRUE, the rowname for that series will 
@@ -97,8 +97,9 @@ be modified by passing a separate 'flag' element in the list defined by the
 ## Store the current config settings, so they can be reloaded at the end 
 ## of the examples
 conf_store <- tcplConfList()
-tcplConfDefault()
-
+TCPLlite <- file.path(system.file(package = "tcpl"), "example")
+tcplConf(db = TCPLlite, user = NA, host = NA, drvr = "tcplLite")
+\dontrun{
 ## Demonstrate the returned values. Note with no "burst" assays defined in
 ## the example database, the user must provide which aeid values to use 
 ## in calculating the cytotoxicity distributions for the 'zscore' matrix.
@@ -107,7 +108,7 @@ tcplVarMat(chid = 1:5, cyto.pars = list(aeid = 1:2))
 ## Other changes can be made
 tcplVarMat(chid = 1:5, row.id = "chnm", cyto.pars = list(aeid = 1:2))
 tcplVarMat(chid = 1:5, add.vars = "max_med", cyto.pars = list(aeid = 1:2))
-
+}
 ## Reset configuration
 options(conf_store)
 

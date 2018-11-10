@@ -18,12 +18,12 @@ parameters.
 }
 \description{
 \code{tcplLoadClib} queries the tcpl databases and returns information 
-about the chemial library.
+about the chemical library.
 }
 \details{
-Chemicals are stored in different libraries by chemcial ID. Therefore, it 
+Chemicals are stored in different libraries by chemical ID. Therefore, it 
 is not possible to delineate samples with the same chemical ID into two 
-distinct chemical libraries. However, it is possible for a chemcial ID to 
+distinct chemical libraries. However, it is possible for a chemical ID to 
 belong to more than one (or no) chemical libraries. 
 
 When chemicals belong to more than one library, the chemical is listed 
@@ -33,7 +33,7 @@ multiple times (one for each distinct library).
 ## Store the current config settings, so they can be reloaded at the end 
 ## of the examples
 conf_store <- tcplConfList()
-tcplConfDefault()
+tcplConfExample()
 
 ## Passing no parameters gives all of the chemical ISs that have a chemical
 ## library registered
@@ -54,8 +54,8 @@ clib[ , unique(clib)]
 
 ## Specifying a chemical library will not show what other libraries a 
 ## chemical might belong to.
-tcplLoadClib(field = "clib", val = "other")
-tcplLoadClib(field = "chid", val = 1:2)
+tcplLoadClib(field = "clib", val = "TOXCAST")
+tcplLoadClib(field = "chid", val = 20182)
 
 ## Reset configuration
 options(conf_store)

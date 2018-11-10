@@ -33,14 +33,14 @@
 #' ## Store the current config settings, so they can be reloaded at the end 
 #' ## of the examples
 #' conf_store <- tcplConfList()
-#' tcplConfDefault()
+#' tcplConfExample()
 #' 
 #' ## Load the example level 5 data
-#' d1 <- tcplLoadData(lvl = 5, fld = "aeid", val = 2)
+#' d1 <- tcplLoadData(lvl = 5, fld = "aeid", val = 797)
 #' d1 <- tcplPrepOtpt(d1)
 #' 
 #' ## Subset to an example of a duplicated chid
-#' d2 <- d1[chid == 559]
+#' d2 <- d1[chid == 20182]
 #' d2[ , list(m4id, hitc, fitc, modl_ga)]
 #' 
 #' ## Here the consensus hit-call is 1 (active), and the fit categories are 
@@ -74,13 +74,13 @@ tcplSubsetChid <- function(dat, flag = TRUE) {
   dat[ , chit := mean(hitc[hitc %in% 0:1]) >= 0.5, by = list(aeid, chid)]
   dat <- dat[hitc == chit | (is.na(chit) & (hitc == -1 | is.na(m4id)))]
   
+  
   dat[ , fitc.ordr := NA_integer_]  
   dat[fitc %in% c(37, 41, 46, 50), fitc.ordr := 0]
   dat[fitc %in% c(38, 42, 47, 51), fitc.ordr := 1]
   dat[fitc %in% c(36, 40, 45, 49), fitc.ordr := 2]
-    
   if (is.null(flag)) flag <- TRUE
-  
+
   if (flag[1] | length(flag) > 1) {
     
     tst <- is.logical(flag)
@@ -97,11 +97,13 @@ tcplSubsetChid <- function(dat, flag = TRUE) {
     dat[ , nflg := FALSE]
     
   }
-  
+
   setkeyv(dat, c("aeid", "chid", "fitc.ordr", "nflg", "modl_ga"))
+
   min_modl_ga <- dat[ , list(ind = .I[1]), by = list(aeid, casn)]
+
   dat <- dat[min_modl_ga$ind]
-  
+
   dat[]
   
 }

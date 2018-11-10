@@ -1,8 +1,8 @@
 #-------------------------------------------------------------------------------
-# tcplPrepOtpt: Map assay/chemcial ID values to names
+# tcplPrepOtpt: Map assay/chemical ID values to names
 #-------------------------------------------------------------------------------
 
-#' @title Map assay/chemcial ID values to annotation information
+#' @title Map assay/chemical ID values to annotation information
 #' 
 #' @description
 #' \code{tcplPrepOtpt} queries the chemical and assay information from the tcpl
@@ -21,10 +21,11 @@
 #' function will only attempt to map the ID fields given by 'ids.'
 #' 
 #' @examples
+#' 
 #' ## Store the current config settings, so they can be reloaded at the end 
 #' ## of the examples
 #' conf_store <- tcplConfList()
-#' tcplConfDefault()
+#' tcplConfExample()
 #' 
 #' ## Load some example data
 #' d1 <- tcplLoadData(1)
@@ -32,18 +33,19 @@
 #' ## Check for chemical name in 'dat'
 #' "chnm" %in% names(d1) ## FALSE
 #' 
-#' ## Map chemical annotation only
-#' d2 <- tcplPrepOtpt(d1, ids = "spid")
-#' "chnm" %in% names(d2) ## TRUE
-#' "acnm" %in% names(d2) ## FALSE
-#' 
-#' ## Map all annotations 
-#' d3 <- tcplPrepOtpt(d1) ## Also works if function is given d2
+#' #' ## Map all annotations 
+#' d2 <- tcplPrepOtpt(d1) ##
 #' "chnm" %in% names(d2) ## TRUE
 #' "acnm" %in% names(d2) ## TRUE
+#'  
+#' ## Map chemical annotation only
+#' d3 <- tcplPrepOtpt(d1, ids = "spid")
+#' "chnm" %in% names(d3) ## TRUE
+#' "acnm" %in% names(d3) ## FALSE
 #' 
 #' ## Reset configuration
 #' options(conf_store)
+#' 
 #' 
 #' @return The given data.table with chemical and assay information mapped
 #' @export

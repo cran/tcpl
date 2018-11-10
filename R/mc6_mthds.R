@@ -40,7 +40,7 @@
 #'   is greater than the cutoff for the assay endpoint.}
 #'   \item{border.hit}{The border.hit flag identifies active concentration 
 #'   series where the top parameter of the winning model was less than or equal 
-#'   to 1.2*cut-off or the the activity probablity was less than 0.9.}
+#'   to 1.2*cut-off or the the activity probability was less than 0.9.}
 #'   \item{border.miss}{The border.miss flag identifies inactive concentration
 #'   series where either the Hill or gain-loss top parameter was greater than 
 #'   or equal to 0.8*cut-off and the activity probability was greater than 0.5.}
@@ -73,7 +73,7 @@ mc6_mthds <- function() {
       e3 <- bquote(ft[ , test := nmed_gtbl == 1 & hitc == 1 & lstc])
       e4 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test", "lstc")
-      e5 <- bquote(ft[ , .((cr)) := NULL])
+      e5 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4, e5)
       
     },
@@ -89,7 +89,7 @@ mc6_mthds <- function() {
       e3 <- bquote(ft[ , test := nmed_gtbl == 1 & hitc == 1 & !lstc])
       e4 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test", "lstc")
-      e5 <- bquote(ft[ , .((cr)) := NULL])
+      e5 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4, e5)
       
     },
@@ -104,7 +104,7 @@ mc6_mthds <- function() {
       e2 <- bquote(ft[ , test := nmed_gtbl > 1 & hitc == 0])
       e3 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test")
-      e4 <- bquote(ft[ , .((cr)) := NULL])
+      e4 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4)
       
     },
@@ -121,7 +121,7 @@ mc6_mthds <- function() {
       e3 <- bquote(ft[ , test := modl_ga < logc_min & modl_la < cmen])
       e4 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test", "cmen")
-      e5 <- bquote(ft[ , .((cr)) := NULL])
+      e5 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4, e5)
       
     },
@@ -136,7 +136,7 @@ mc6_mthds <- function() {
       e2 <- bquote(ft[ , test := modl_rmse > coff])
       e3 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test")
-      e4 <- bquote(ft[ , .((cr)) := NULL])
+      e4 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4)
       
     },    
@@ -153,7 +153,7 @@ mc6_mthds <- function() {
       e4 <- bquote(ft[ , test := hitc == 1 & (t1 | t2)])
       e5 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test")
-      e6 <- bquote(ft[ , .((cr)) := NULL])
+      e6 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4, e5, e6)
       
     },
@@ -169,7 +169,7 @@ mc6_mthds <- function() {
       e3 <- bquote(ft[ , test := hitc == 0L & actp > 0.5 & tp.8])
       e4 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test", "tp.8")
-      e5 <- bquote(ft[ , .((cr)) := NULL])
+      e5 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4, e5)
       
     },
@@ -199,7 +199,7 @@ mc6_mthds <- function() {
       e15 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test", 
               "cna", "hna", "gna", "nma", "nmdl", "nhc")
-      e16 <- bquote(ft[ , .((cr)) := NULL])
+      e16 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, 
            e11, e12, e13, e14, e15, e16)
       
@@ -218,7 +218,7 @@ mc6_mthds <- function() {
                       test := modl_tp < log2(1.5) | max_med < log2(1.5)])
       e4 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test")
-      e5 <- bquote(ft[ , .((cr)) := NULL])
+      e5 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4, e5)
       
     },
@@ -233,7 +233,7 @@ mc6_mthds <- function() {
       e2 <- bquote(ft[hitc == 1, test := modl_ga < logc_min])
       e3 <- bquote(f[[.(mthd)]] <- ft[which(test), .SD, .SDcols = .(out)])
       cr <- c("mc6_mthd_id", "flag", "fval", "fval_unit", "test")
-      e4 <- bquote(ft[ , .((cr)) := NULL])
+      e4 <- bquote(ft[ , .(cr) := NULL])
       list(e1, e2, e3, e4)
       
     }   

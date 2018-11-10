@@ -25,7 +25,7 @@
 #' 
 #' @details
 #' The \code{tcplVarMat} function is used to create chemical by assay matrices
-#' for different paramters. The standard list of matrices returned includes:
+#' for different parameters. The standard list of matrices returned includes:
 #' 
 #' \enumerate{
 #'  \item "modl_ga" -- The logAC50 (in the gain direction) for the winning 
@@ -49,7 +49,7 @@
 #'  not tested, or tested and had a hitcall of 0 or -1 have the value 0. 
 #' }
 #' 
-#' To add addtitional matrices, the 'add.vars' parameter can be used to specify
+#' To add additional matrices, the 'add.vars' parameter can be used to specify
 #' the fields from the mc4 or mc5 tables to create matrices for.
 #' 
 #' When more than one sample is included for a chemical/assay pair, 
@@ -59,7 +59,7 @@
 #' By setting \code{odir} the function will write out a csv with, naming the 
 #' file with the convention: "var_Matrix_date.csv" where 'var' is the name 
 #' of the matrix. A prefix can be added to the output files using the 
-#' 'file.prefix' paramter. 
+#' 'file.prefix' parameter. 
 #' 
 #' When a concentration series has a sample id not listed in the \code{tcpl} 
 #' database, and 'include.na.chid' is TRUE, the rowname for that series will 
@@ -77,15 +77,16 @@
 #' 'cyto.pars' parameter.
 #' 
 #' @return A list of chemical by assay matrices where the rownames are given by
-#' the 'row.id' paramter, and the colnames are given by assay endpoint name 
+#' the 'row.id' parameter, and the colnames are given by assay endpoint name 
 #' (aenm).
 #' 
 #' @examples 
 #' ## Store the current config settings, so they can be reloaded at the end 
 #' ## of the examples
 #' conf_store <- tcplConfList()
-#' tcplConfDefault()
-#' 
+#' TCPLlite <- file.path(system.file(package = "tcpl"), "example")
+#' tcplConf(db = TCPLlite, user = NA, host = NA, drvr = "tcplLite")
+#' \dontrun{
 #' ## Demonstrate the returned values. Note with no "burst" assays defined in
 #' ## the example database, the user must provide which aeid values to use 
 #' ## in calculating the cytotoxicity distributions for the 'zscore' matrix.
@@ -94,7 +95,7 @@
 #' ## Other changes can be made
 #' tcplVarMat(chid = 1:5, row.id = "chnm", cyto.pars = list(aeid = 1:2))
 #' tcplVarMat(chid = 1:5, add.vars = "max_med", cyto.pars = list(aeid = 1:2))
-#' 
+#' }
 #' ## Reset configuration
 #' options(conf_store)
 #' 
@@ -114,9 +115,9 @@ tcplVarMat <- function(chid = NULL,
                        include.na.chid = FALSE,
                        odir = NULL,
                        file.prefix = NULL) {
-  
+
   ## Variable-binding to pass R CMD Check
-  sc_tst <- spid <- mc_tst <- acid <- cyto_pt <- global_mad <- zscore <- NULL
+  sc_tst <- spid <- mc_tst <- acid <- cyto_pt <- global_mad <- zscore <- hitc <- NULL
   modl_ga <- NULL
   
   if (length(file.prefix) > 1) {
@@ -129,8 +130,9 @@ tcplVarMat <- function(chid = NULL,
   
   row.id <- row.id[1]
   if (!row.id %in% c("code", "casn", "chid", "chnm")) row.id <- "code"
-  
+
   valid_var <- c(tcplListFlds("mc4"), tcplListFlds("mc5"))
+
   if (!all(add.vars %in% valid_var)) stop("Invald add.vars value(s).")
   
   std.vars <- c("modl_ga", "hitc", "m4id", "zscore")
@@ -139,15 +141,16 @@ tcplVarMat <- function(chid = NULL,
   cform <- reformulate(termlabels = "aenm", response = row.id)
   
   ## Load all possibilities to create matrix dimensions
-  sc <- tcplQuery("SELECT DISTINCT acid, spid FROM sc0;")
-  mc <- tcplQuery("SELECT DISTINCT acid, spid FROM mc0;")
-  
+
+  sc <- tcplQuery("SELECT DISTINCT acid, spid FROM sc0;", tbl=c('sc0'))
+  mc <- tcplQuery("SELECT DISTINCT acid, spid FROM mc0;", tbl=c('mc0'))
+
   tst <- rbindlist(list(sc, mc))
   tst <- unique(tst)
   tst[ , sc_tst := spid %in% sc$spid]
   tst[ , mc_tst := spid %in% mc$spid]
   rm(sc, mc)
-  
+
   ## Expand acid to aeid
   aeid_info <- tcplLoadAeid("acid", tst[ , unique(acid)])
   setkey(aeid_info, acid)
@@ -199,8 +202,10 @@ tcplVarMat <- function(chid = NULL,
   setkey(dat, chid)
   
   dat <- zdst[ , list(chid, cyto_pt, global_mad)][dat]
-  dat[ , zscore := -(modl_ga - cyto_pt)/global_mad]
-  
+
+  dat[hitc==1 , zscore := -(modl_ga - cyto_pt)/global_mad]
+  dat[hitc==0 , zscore := NA]
+
   mat.tested <- dcast(dat, 
                       formula = cform, 
                       fun.aggregate = lu,

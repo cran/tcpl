@@ -6,7 +6,7 @@
 #' 
 #' @description
 #' \code{tcplCytoPt} calculates the cytotoxicity point and average cytotoxicity 
-#' distribution based on the acitivty in the "burst" assay endpoints.
+#' distribution based on the activity in the "burst" assay endpoints.
 #' 
 #' @param chid Integer, chemical ID values to subset on
 #' @param aeid Integer, assay endpoint ID values to override the "burst assay"
@@ -14,7 +14,7 @@
 #' @param flag Integer, mc6_mthd_id values to be passed to 
 #' \code{\link{tcplSubsetChid}}
 #' @param min.test Integer or Boolean, the number of tested assay endpoints
-#' required for a cheimcal to be used in calculating the "global MAD."
+#' required for a chemical to be used in calculating the "global MAD."
 #' @param default.pt Numeric of length 1, the default cytotoxicity point value
 #' 
 #' @details
@@ -53,14 +53,14 @@
 #' The resulting data.table has the following fields:
 #' \enumerate{
 #'  \item "chid" -- The chemical ID.
-#'  \item "code" -- The chemcial code.
+#'  \item "code" -- The chemical code.
 #'  \item "chnm" -- The chemical name.
 #'  \item "casn" -- The chemical CASRN.
 #'  \item "med" -- The median of the "burst" endpoint log(AC50) ("modl_ga" in 
 #'  the level 5 output) values.
 #'  \item "mad" -- The MAD of the "burst" endpoint log(AC50) values.
 #'  \item "ntst" -- The number of "burst" endpoints tested.
-#'  \item "nhit" -- The number of acive "burst" endpoints.
+#'  \item "nhit" -- The number of active "burst" endpoints.
 #'  \item "use_global_mad" -- TRUE/FALSE, whether the mad value was used in the
 #'  global MAD calculation.
 #'  \item "global_mad" -- The median of the "mad" values where "use_global_mad" 
@@ -78,6 +78,11 @@
 #' conf_store <- tcplConfList()
 #' tcplConfDefault()
 #' 
+#' ## Can only calculate the cytotox burst if using the MySQL database and
+#' ## TCPL_DRVR == 'RMySQL'
+#' 
+#' if (conf_store == 'RMySQL') {
+#' 
 #' ## Load the "burst" endpoints -- none are defined in the example dataset
 #' tcplLoadAeid(fld = "burst_assay", val = 1)
 #' 
@@ -87,13 +92,14 @@
 #' ## The above example does not calculate a global MAD, because no chemical
 #' ## hit both endpoints. (This makes sense, because both endpoints are 
 #' ## derived from one component, where one endpoint is acitivity in the
-#' ## up direction, and the other is acitivty in the down direction.)
+#' ## up direction, and the other is activity in the down direction.)
 #' ## Note, the cyto_pt is also 3 for all chemicals, because the function
 #' ## requires at least two endpoints to calculate a cytotoxicity point. If 
 #' ## the user wishes to use one assay, this function is not necessary. 
 #' 
 #' ## Changing 'default.pt' will change cyto_pt in the resulting data.table
 #' tcplCytoPt(aeid = 1:2, default.pt = 6)
+#' }
 #' 
 #' ## Reset configuration
 #' options(conf_store)
@@ -114,22 +120,23 @@ tcplCytoPt <- function(chid = NULL, aeid = NULL, flag = TRUE,
   if (!is.null(aeid) & !is.vector(aeid)) {
     stop("'aeid' must be NULL or a vector.")
   }
-  
+  print(1)
   if (!is.null(chid) & !is.vector(chid)) {
     stop("'chid' must be NULL or a vector.")
   }
-  
+  print(2)
   mt_type <- (is.numeric(min.test) | is.null(min.test) | is.logical(min.test))
   if (!(length(min.test) == 1 & mt_type)) {
     stop("Invalid 'min.test' input. See details.")
   }
-  
+  print(3)
   if (is.null(aeid)) {
+    print(3.1)
     ae <- suppressWarnings(tcplLoadAeid("burst_assay", 1)$aeid)
   } else {
     ae <- aeid
   }
-  
+  print(4)
   if (length(ae) == 0) stop("No burst assays defined.")
   
   if (is.null(min.test)) {
@@ -142,20 +149,22 @@ tcplCytoPt <- function(chid = NULL, aeid = NULL, flag = TRUE,
   } else {
     mtst <- 0
   }
-  
+  print(5)
   zdat <- tcplLoadData(lvl = 5L, fld = "aeid", val = ae, type = "mc") 
+  print(6)
   zdat <- tcplPrepOtpt(dat = zdat)
-  
+  print(7)
   if (!is.null(chid)) {ch <- chid; zdat <- zdat[chid %in% ch]}
-  
+  print(8)
   zdat <- tcplSubsetChid(dat = zdat, flag = flag)  
-  
+  print(9)
   zdst <- zdat[ , 
                 list(med = median(modl_ga[hitc == 1]),
                      mad = mad(modl_ga[hitc == 1]),
                      ntst = .N,
                      nhit = lw(hitc == 1)),
                 by = list(chid, code, chnm, casn)]
+  print(10)
   zdst[ , use_global_mad := nhit > 1 & ntst > mtst]
   zdst[ , global_mad := median(mad[use_global_mad])]
   zdst[ , cyto_pt := med]

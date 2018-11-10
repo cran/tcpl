@@ -41,14 +41,14 @@ considering any flags.
 ## Store the current config settings, so they can be reloaded at the end 
 ## of the examples
 conf_store <- tcplConfList()
-tcplConfDefault()
+tcplConfExample()
 
 ## Load the example level 5 data
-d1 <- tcplLoadData(lvl = 5, fld = "aeid", val = 2)
+d1 <- tcplLoadData(lvl = 5, fld = "aeid", val = 797)
 d1 <- tcplPrepOtpt(d1)
 
 ## Subset to an example of a duplicated chid
-d2 <- d1[chid == 559]
+d2 <- d1[chid == 20182]
 d2[ , list(m4id, hitc, fitc, modl_ga)]
 
 ## Here the consensus hit-call is 1 (active), and the fit categories are 

@@ -12,7 +12,7 @@ tcplMthdAssign <- function(lvl, id, mthd_id, ordr = NULL, type) {
   
   if (length(lvl) > 1) stop("'lvl' must be an integer of length 1.")
   if (!type %in% c("mc", "sc")) stop("Invalid 'type' value.")
-  if (type == "mc" & !lvl %in% c(2, 3, 5, 6)) stop("Invalid 'lvl' value.")
+  if (type == "mc" & !lvl %in% c(2, 3,4, 5, 6)) stop("Invalid 'lvl' value.")
   if (type == "sc" & !lvl %in% 1:2) stop("Invalid 'lvl' value.")
   
   id_name <- if (type == "mc" & lvl == 2) "acid" else "aeid" 
@@ -29,14 +29,14 @@ tcplMthdAssign <- function(lvl, id, mthd_id, ordr = NULL, type) {
       stop("'ordr' must be specified and the same length as 'mthd_id'")
     }
     
-    dat[ , exec_ordr := ordr[match(get("mthd"), mthd_id)]]
+    dat[ , "exec_ordr" := ordr[match(get("mthd"), mthd_id)]]
         
   }
   
   setnames(dat, old = c("id", "mthd"), flds)
   
   mb <- paste(Sys.info()[c("login", "user", "effective_user")], collapse = ".")
-  dat[ , modified_by := mb]
+  dat[ , "modified_by" := mb]
   
   tcplAppend(dat = dat, 
              tbl = paste0(type, lvl, "_", flds[1]), 

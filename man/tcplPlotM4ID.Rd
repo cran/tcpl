@@ -26,19 +26,21 @@ Level 5 plots include the level 4 information with the activity call and
 model selection. The winning model will be highlighted red in the side panel
 containing the summary statistics. Level 6 plots, in addition the all of the 
 level 4 and 5 information, include the positive flag IDs. If the flag has 
-an associated value, the value will be in parentheses follwing the flag ID.
+an associated value, the value will be in parentheses following the flag ID.
+Level 7 plots in addition to all of the level 4, 5, and 6 information, include
+the AC50 confidence interval and hit percentage information from bootstrapping.
 }
 \examples{
 ## Store the current config settings, so they can be reloaded at the end 
 ## of the examples
 conf_store <- tcplConfList()
-tcplConfDefault()
- 
-tcplPlotM4ID(m4id = 686, lvl = 4) ## Create a level 4 plot
-tcplPlotM4ID(m4id = 370, lvl = 5) ## Create a level 5 plot
-tcplPlotM4ID(m4id = 322, lvl = 6) ## Create a level 6 plot
+tcplConfExample()
 
-## Reset configuration
+tcplPlotM4ID(m4id = 18609966, lvl = 4) ## Create a level 4 plot
+tcplPlotM4ID(m4id = 18609966, lvl = 5) ## Create a level 5 plot
+tcplPlotM4ID(m4id = 18609966, lvl = 6) ## Create a level 6 plot
+
+#' ## Reset configuration
 options(conf_store)
 
 }

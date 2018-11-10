@@ -5,7 +5,7 @@
 #' @title Load sample/chemical information
 #' 
 #' @description
-#' \code{tcplLoadChem} queries the tcpl database and returns the chemcial 
+#' \code{tcplLoadChem} queries the tcpl database and returns the chemical 
 #' information for the given field and values. 
 #' 
 #' @param field Character of length 1, the field to query on
@@ -17,11 +17,10 @@
 #' The 'field' parameter is named differently from the 'fld' parameter seen
 #' in other functions because it only takes one input.
 #' 
-#' The functionality of the 'exact' parameter cannot be demonstrated within
-#' the SQLite environment. However, in the MySQL environment the user should
-#' be able to give parital chemcial name strings, to find chemicals with 
-#' similar names. For example, setting 'val' to "phenol" when 'field' is "chnm"
-#' and 'exact' is \code{FALSE} might pull up the chemicals "Bisphenol A" and
+#' In the MySQL environment the user should be able to give partial
+#' chemical name strings, to find chemicals with similar names. For example,
+#' setting 'val' to "phenol" when 'field' is "chnm" and 'exact' is
+#' \code{FALSE} might pull up the chemicals "Bisphenol A" and
 #' "4-Butylphenol". More technically, setting 'exact' to \code{FALSE} passes
 #' the string in 'val' to an RLIKE statement within the MySQL query.  
 #' 
@@ -29,7 +28,7 @@
 #' ## Store the current config settings, so they can be reloaded at the end 
 #' ## of the examples
 #' conf_store <- tcplConfList()
-#' tcplConfDefault()
+#' tcplConfExample()
 #' 
 #' ## Passing no parameters gives all of the registered chemicals with their
 #' ## sample IDs
@@ -38,9 +37,12 @@
 #' ## Or the user can exclude spid and get a unique list of chemicals
 #' tcplLoadChem(include.spid = FALSE)
 #' 
+#' ## In addition, the user can retrieve only the registered chemicals from the chemical table
+#' tcplLoadChem(field = 'chem.only')
+#' 
 #' ## Other examples:
 #' tcplLoadChem(field = "chnm", val = "Bisphenol A")
-#' tcplLoadChem(field = "chid", val = 1:5)
+#' tcplLoadChem(field = "chid", val = 20182)
 #' 
 #' ## Reset configuration
 #' options(conf_store)
@@ -50,26 +52,23 @@
 #' @import data.table
 #' @export
 
-tcplLoadChem <- function(field = NULL, val = NULL, exact = TRUE, 
+tcplLoadChem <- function(field = NULL, val = NULL, exact = TRUE,
                          include.spid = TRUE) {
-  
+  tbl <- c("chemical", "sample")
   ## Variable-binding to pass R CMD Check
   code <- casn <- chid <- chnm <- NULL
   
   if (!is.null(field)) {
-    vfield <- c("chid", "spid", "chnm", "casn", "code")
+    vfield <- c("chid", "spid", "chnm", "casn", "code", "chem.only")
     if (!field %in% vfield) stop("Invalid 'field' value.")
   }
   
-  if (getOption("TCPL_DRVR") == "SQLite") {
-    if (!exact) warning("The exact = FALSE option is not supported in SQLite.")
-    exact <- TRUE
-  }
   
   qstring <- .ChemQ(field = field, val = val, exact = exact)
-    
-  dat <- tcplQuery(query = qstring)
   
+  dat <- tcplQuery(query = qstring, tbl=tbl)
+  dat <- as.data.table(dat)
+
   if (nrow(dat) == 0) {
     warning("The given ", field,"(s) are not in the tcpl database.")
     return(dat[])

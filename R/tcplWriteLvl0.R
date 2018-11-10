@@ -66,24 +66,24 @@ tcplWriteLvl0 <- function(dat, type) {
   char_test <- dat[ , sapply(.SD, class) != "character", .SDcols = char]
   if (any(char_test)) {
     char <- char[char_test]
-    warning(paste(char, collapse = ";"), " coerced to character. May affect ",
-            "data integrity.")
+    #warning(paste(char, collapse = ";"), " coerced to character. May affect ",
+           # "data integrity.")
     dat[ , (char) := lapply(.SD, as.character), .SDcols = char]
   }
   intg <- c("acid", "rowi", "coli", "wllq")
   intg_test <- dat[ , sapply(.SD, class) != "integer", .SDcols = intg]
   if (any(intg_test)) {
     intg <- intg[intg_test]
-    warning(paste(intg, collapse = ";"), " coerced to integer. May affect ",
-            "data integrity.")
+    #warning(paste(intg, collapse = ";"), " coerced to integer. May affect ",
+     #       "data integrity.")
     dat[ , (intg) := lapply(.SD, as.integer), .SDcols = intg]
   } 
   real <- c("conc", "rval")
   real_test <- dat[ , sapply(.SD, class) != "numeric", .SDcols = real]
   if (any(real_test)) {
     real <- real[real_test]
-    warning(paste(real, collapse = ";"), " coerced to numeric. May affect ",
-            "data integrity.")
+    #warning(paste(real, collapse = ";"), " coerced to numeric. May affect ",
+     #       "data integrity.")
     dat[ , (real) := lapply(.SD, as.numeric), .SDcols = real]
   } 
   
@@ -113,6 +113,7 @@ tcplWriteLvl0 <- function(dat, type) {
     not_used <- names(dat)[!names(dat) %in% outcols]
     warning(paste(not_used, collapse = ","), " not inserted to databse.")
   }
+  
   tcplWriteData(dat = dat[ , .SD, .SDcols = outcols], lvl = 0L, type = type)
   
 }

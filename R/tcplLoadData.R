@@ -40,14 +40,15 @@
 #' mc \tab agg \tab mc3, mc4_agg \cr
 #' mc \tab 4 \tab mc4 \cr
 #' mc \tab 5 \tab mc4, mc5 \cr
-#' mc \tab 6 \tab mc4, mc6
+#' mc \tab 6 \tab mc4, mc6 \cr
+#' mc \tab 7 \tab mc4, mc7
 #' }
 #' 
 #' @examples
 #' ## Store the current config settings, so they can be reloaded at the end 
 #' ## of the examples
 #' conf_store <- tcplConfList()
-#' tcplConfDefault()
+#' tcplConfExample()
 #' 
 #' ## Load all of level 0 for multiple-concentration data, note 'mc' is the 
 #' ## default value for type
@@ -490,6 +491,23 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc") {
       "
 
   }
+  
+  if (lvl == 7L && type == "mc") {
+    
+    tbls <- c("mc7")
+    
+    qformat <-
+      "
+    SELECT
+    mc7.*
+    FROM
+      mc4,
+      mc7
+    WHERE
+      mc7.m4id = mc4.m4id
+    "
+    
+  }
 
   if (is.null(tbls)) stop("Invalid 'lvl' and 'type' combination.")
 
@@ -515,8 +533,8 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc") {
     qstring <- qformat
 
   }
-  
-  dat <- suppressWarnings(tcplQuery(query = qstring, db = getOption("TCPL_DB")))
+
+  dat <- suppressWarnings(tcplQuery(query = qstring, db = getOption("TCPL_DB"), tbl=tbls))
 
   dat[]
 

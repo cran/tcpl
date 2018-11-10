@@ -6,10 +6,11 @@
 \alias{tcplSendQuery}
 \title{Wrappers for sending queries and fetching results}
 \usage{
-tcplQuery(query, db = getOption("TCPL_DB"), drvr = getOption("TCPL_DRVR"))
+tcplQuery(query, db = getOption("TCPL_DB"),
+  drvr = getOption("TCPL_DRVR"), tbl = NULL)
 
 tcplSendQuery(query, db = getOption("TCPL_DB"),
-  drvr = getOption("TCPL_DRVR"))
+  drvr = getOption("TCPL_DRVR"), tbl = NULL, delete = F)
 }
 \arguments{
 \item{query}{Character of length 1, the query string}
@@ -17,13 +18,17 @@ tcplSendQuery(query, db = getOption("TCPL_DB"),
 \item{db}{Character of length 1, the name of the tcpl database}
 
 \item{drvr}{Character of length 1, which database driver to use}
+
+\item{tbl}{Tables to be read queried}
+
+\item{delete}{Logical of length 1, execute delete on queried table}
 }
 \description{
 These functions send a query to the given database, and are the access point
 for all tcpl functions that query or update the tcpl database.
 }
 \details{
-Currently, the tcpl package only supports the "MySQL" and "SQLite" database
+Currently, the tcpl package only supports the "MySQL" and "tcplLite" database
 drivers.
 
 \code{tcplQuery} returns a data.table object with the query results.
@@ -35,10 +40,17 @@ returns 'TRUE' or the error message given by the database.
 ## Store the current config settings, so they can be reloaded at the end 
 ## of the examples
 conf_store <- tcplConfList()
-tcplConfDefault()
+TCPLlite <- file.path(system.file(package = "tcpl"), "example")
+tcplConf(db = TCPLlite, user = NA, host = NA, drvr = "tcplLite")
 
 tcplQuery("SELECT 'Hello World';")
-tcplQuery("SELECT * FROM assay;")
+
+## When using tcplLite, name of table must be passed into tcplQuery
+if (conf_store$TCPL_DRVR == 'MySQL') {
+  tcplQuery("SELECT * FROM assay;")
+} else {
+  tcplQuery("SELECT * FROM assay;", tbl='assay')
+}
  
 ## Reset configuration
 options(conf_store)

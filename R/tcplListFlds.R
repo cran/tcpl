@@ -32,13 +32,6 @@ tcplListFlds <- function(tbl, db = getOption("TCPL_DB")) {
     stop("tbl and db must both be of length 1.")  
   } 
   
-  if (getOption("TCPL_DRVR") == "SQLite") {
-    
-    qformat <- "PRAGMA table_info(%s);" 
-    qstring <- sprintf(qformat, tbl)
-    return(tcplQuery(qstring, db)[ , name])
-    
-  }
   
   if (getOption("TCPL_DRVR") == "MySQL") {
     
@@ -55,6 +48,16 @@ tcplListFlds <- function(tbl, db = getOption("TCPL_DB")) {
       "
     
     return(tcplQuery(sprintf(qformat, db, tbl), db)[ , COLUMN_NAME])
+    
+  }
+  
+  if (getOption("TCPL_DRVR") == "tcplLite")  {
+    # return the data table by reading the file. No need to run tcplQuery, simply return data.table columns here
+    fpath <- paste(db, tbl, sep='/')
+    fpath <- paste(fpath, 'csv', sep='.')
+    DT <- read.table(fpath, header=T, sep=',', fill=T)
+    return(colnames(DT))
+
     
   }
   

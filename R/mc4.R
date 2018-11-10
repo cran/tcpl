@@ -15,7 +15,7 @@
 #' chemical-assay pairs, and fits three models to the data: constant, hill, 
 #' and gain-loss. For more information about the models see 
 #' \code{\link{Models}}. When a chemical has more than one sample, the function 
-#' fits each sample seperately.
+#' fits each sample separately.
 #' 
 #' @seealso \code{\link{tcplFit}}, \code{\link{Models}}
 #' 
@@ -44,7 +44,7 @@ mc4 <- function(ae, wr = FALSE) {
   
   ## Load level 3 data
   dat <- tcplLoadData(lvl = 3L, type = "mc", fld = "aeid", val = ae)
-  dat <- dat[wllt %in% c("t", "c", "o")]
+  dat <- dat[wllt %in% c("t", "c", "o","n")]
   
   ## Check if any level 3 data was loaded
   if (nrow(dat) == 0) {
@@ -60,8 +60,23 @@ mc4 <- function(ae, wr = FALSE) {
   
   stime <- Sys.time()
   
-  ## Calculate the baseline mad
-  dat[ , bmad := mad(resp[cndx %in% 1:2 & wllt == "t"], na.rm = TRUE)]
+  ## Load bmad functions
+  mthd_funcs <- mc4_mthds()
+  
+  ## Load cutoff methods
+  ms <- tcplMthdLoad(lvl = 4L, id = ae, type = "mc")
+  if (nrow(ms) == 0) {
+    warning(paste("No level 4 methods for AEID", ae,"Level 4 processing incomplete; no updates\n  made to the mc4 "))
+    if(wr) return(FALSE) else return(list(FALSE, NULL))
+  }
+  
+  ## calculate bmad
+  exprs <- lapply(mthd_funcs[ms$mthd], do.call, args = list())
+  fenv <- environment()
+  invisible(rapply(exprs, eval, envir = fenv))
+  
+  # ## Calculate the baseline mad
+  # dat[ , bmad := mad(resp[cndx %in% 1:2 & wllt == "t"], na.rm = TRUE)]
   
   ## Check to see if all samples should be fit
   fit_all <- as.logical(tcplLoadAeid("aeid", ae, "fit_all")$fit_all)
@@ -118,7 +133,8 @@ mc4 <- function(ae, wr = FALSE) {
                                       resp = resp,
                                       bmad = bmad,
                                       force.fit = fit_all)),
-      by = spid]
+      by = spid
+      ]
   
   ## Calculate the aic probabilities
   aic_probs <- c("cnst_prob", "hill_prob", "gnls_prob")

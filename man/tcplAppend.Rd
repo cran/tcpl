@@ -4,7 +4,7 @@
 \alias{tcplAppend}
 \title{Append rows to a table}
 \usage{
-tcplAppend(dat, tbl, db)
+tcplAppend(dat, tbl, db, lvl = NULL)
 }
 \arguments{
 \item{dat}{data.table, the data to append to a table}
@@ -12,6 +12,8 @@ tcplAppend(dat, tbl, db)
 \item{tbl}{Character of length 1, the table to append to}
 
 \item{db}{Character of length 1, the database containing \code{tbl}}
+
+\item{lvl}{Usually Integer to indicate what level to auto-increment}
 }
 \description{
 \code{tcplAppend} takes a data.table (dat) and appends the data.table into 

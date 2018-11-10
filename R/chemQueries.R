@@ -6,32 +6,18 @@
   
   qformat <- 
     "
-      SELECT * FROM 
-      (
-      SELECT 
-        spid, 
-        chemical.*
-      FROM chemical 
-      LEFT JOIN sample ON sample.chid = chemical.chid
-      UNION ALL
-      SELECT 
-        spid, 
-        chemical.*
-      FROM sample
-      LEFT JOIN chemical ON sample.chid = chemical.chid
-      WHERE  chemical.chid IS NULL
-      ) AS cs 
+      SELECT spid,chemical.chid,casn,chnm
+      FROM sample LEFT JOIN chemical ON chemical.chid=sample.chid
       "
       
-  if (getOption("TCPL_DRVR") == "SQLite") exact <- TRUE
-  
   if (!is.null(field)) {
     
     nfld <- switch(field,
                    spid = "spid",
-                   chid = "chid",
+                   chid = "chemical.chid",
                    casn = "casn",
                    code = "casn",
+                   chem.only = 'chem.only',
                    "chnm")
     
     if (field == "code") val <- suppressWarnings(sapply(val, tcplCode2CASN))
@@ -48,7 +34,13 @@
         val <- paste0("\"", paste(val, collapse = "|"), "\"")
         qstring <- sprintf(qformat, val, val)
       }
-    } else {
+    } else if (nfld == 'chem.only') {
+      qstring <- "
+                SELECT *
+                FROM chemical
+                "
+    }
+      else {
       qformat <- paste(qformat, nfld, "IN (%s)")
       qstring <- sprintf(qformat, paste0("\"", val, "\"", collapse = ","))
     }

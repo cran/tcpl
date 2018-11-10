@@ -13,6 +13,7 @@
 #' @param flg data.table, level 6 data, see details.
 #' @param ordr.fitc Logical, should the fits be ordered by fit category?
 #' @param browse Logical, should \code{browser()} be called after every plot?
+#' @param boot data.table, level 7 data, see details.
 #' 
 #' @details
 #' The data for 'dat', 'agg', and 'flg' should be loaded using the 
@@ -35,17 +36,17 @@
 #' 
 #' ## tcplPlotFits needs data.tables supplying the concentration/response
 #' ## data stored in mc4_agg, as well as the fit information from mc4 or mc5.
-#' ## Additionally, tcplPlotFits will take level 6 data from mc6 and add the
-#' ## flag information to the plots. The following shows how to make level 6
-#' ## plots. Omitting the 'flg' parameter would result in level 5 plots, and 
+#' ## Additionally, tcplPlotFits can take level 6 data from mc6 and add the
+#' ## flag information to the plots. The following shows how to make level 5
+#' ## plots. Adding the 'flg' parameter would result in level 6 plots, and 
 #' ## loading level 4, rather than level 5 data, would result in level 4 plots.
 #'  
-#' l5 <- tcplLoadData(lvl = 5, fld = "aeid", val = 1)
-#' l4_agg <- tcplLoadData(lvl = "agg", fld = "aeid", val = 1)
-#' l6 <- tcplLoadData(lvl = 6, fld = "aeid", val = 1)
+#' l5 <- tcplLoadData(lvl = 5, fld = "m4id", val = 18609966)
+#' l4_agg <- tcplLoadData(lvl = "agg", fld = "m4id", val = 18609966)
+#' 
 #' \dontrun{
 #' pdf(file = "tcplPlotFits.pdf", height = 6, width = 10, pointsize = 10)
-#' tcplPlotFits(dat = l5, agg = l4_agg, flg = l6)
+#' tcplPlotFits(dat = l5, agg = l4_agg)
 #' graphics.off()
 #' }
 #' 
@@ -69,7 +70,7 @@
 #' @import data.table
 #' @export
 
-tcplPlotFits <- function(dat, agg, flg = NULL, ordr.fitc = FALSE, 
+tcplPlotFits <- function(dat, agg, flg = NULL, boot = NULL, ordr.fitc = FALSE, 
                          browse = FALSE) {
   
   ## Variable-binding to pass R CMD Check
@@ -99,6 +100,7 @@ tcplPlotFits <- function(dat, agg, flg = NULL, ordr.fitc = FALSE,
       flg[is.na(fval),  flgo := as.character(mc6_mthd_id)]
       flg[!is.na(fval), 
           flgo := paste0(mc6_mthd_id, " (", signif(fval, 3), ")")]
+      #LINE BELOW THIS IS WHERE DATA.TABLE ERRORS
       flg <- flg[ , 
                  list(flgo = paste(unique(flgo), collapse = "; ")), 
                  by = m4id]
@@ -107,7 +109,14 @@ tcplPlotFits <- function(dat, agg, flg = NULL, ordr.fitc = FALSE,
     } else {
       dat[ , flgo := NA]
     }
-  } 
+  }
+  
+  if (!is.null(boot)) {
+    setkey(boot, m4id)
+    #Join boot table with dat table
+    dat <- boot[dat]
+    dat$toxboot <- 1
+  }
   
   for (i in m4ids) {
     

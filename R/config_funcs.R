@@ -13,7 +13,7 @@
 #' @param show.pass Logical, should the password be returned
 #' 
 #' @details
-#' Currently, the tcpl package only supports the "MySQL" and "SQLite" database
+#' Currently, the tcpl package only supports the "MySQL" and "tcplLite" database
 #' drivers.
 #' 
 #' The settings can be stored in a configuration file to make the using the 
@@ -27,7 +27,7 @@
 #' TCPL_CONF=path/to/confFile.conf
 #' 
 #' Here 'path/to/confFile.conf' can be any path to a file. One suggestion would
-#' be to include .tcplConf in the home directory, eg. TCPL_CONF=~/.tcplConf. 
+#' be to include .tcplConf in the home directory, e.g. TCPL_CONF=~/.tcplConf. 
 #' Note, '~' may not indicate the home directory on every operating system.
 #' Once the environment variable is added, the user can change the settings
 #' using \code{tcplConf}, then save the settings to the file given by the
@@ -47,8 +47,8 @@
 #' configuration file.
 #' 
 #' \code{tcplConfDefault} changes the \code{options} to reflect the default
-#' settings for the example SQLite database, but does not alter the 
-#' configuration file.
+#' settings for the example tcplLite database, i.e. local directory, but does  
+#' not alter the configuration file.
 #' 
 #' \code{tcplConfReset} is used to generate the initial configuration script,
 #' and can be used to reset or regenerate the configuration script by the user.

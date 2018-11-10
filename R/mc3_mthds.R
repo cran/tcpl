@@ -103,6 +103,8 @@
 #'     \item{resp.pc}{Calculate resp as \eqn{\frac{\mathit{cval} - 
 #'     \mathit{bval}}{\mathit{pval} - \mathit{bval}}100}{(cval - bval)/(pval 
 #'     - bval)*100}.}
+#'     \item{resp.pc.pval.cor}{Calculate resp as \eqn{\frac{\mathit{cval} - 
+#'     \mathit{bval}}{\mathit{pval}}100}{(cval - bval)/(pval)*100}.}
 #'     \item{resp.fc}{Calculate resp as \eqn{\mathit{cval}/\mathit{bval}}{
 #'     cval/bval}.}
 #'     \item{resp.logfc}{Calculate resp as \eqn{\mathit{cval} - \mathit{bval}}{
@@ -143,7 +145,6 @@ mc3_mthds <- function() {
   list(
     
     bval.apid.nwlls.med = function(aeids) {
-            
       e1 <- bquote(dat[J(.(aeids)), 
                        bval := median(cval[wllt == "n"], na.rm = TRUE), 
                        by = list(aeid, apid)])
@@ -369,6 +370,14 @@ mc3_mthds <- function() {
       
     },
     
+    resp.pc.pval.cor = function(aeids) {
+      
+      e1 <- bquote(dat[J(.(aeids)),
+                       resp := (cval - bval)/(pval)*100])
+      list(e1)
+      
+    },
+    
     resp.fc = function(aeids) {
       
       e1 <- bquote(dat[J(.(aeids)), resp := cval/bval])
@@ -529,6 +538,41 @@ mc3_mthds <- function() {
                                       na.rm = TRUE),
                        by = list(aeid, apid)])
       list(e1)
+    },
+    
+        pval.apid.owlls.med = function(aeids) {
+      
+      e1 <- bquote(dat[J(.(aeids)), 
+                       pval := median(cval[wllt == "o"], na.rm = TRUE), 
+                       by = list(aeid, apid)])
+      list(e1)
+      
+    },
+    
+     pval.2bval = function(aeids) {
+      
+      e1 <- bquote(dat[J(.(aeids)), 
+                       pval := ((median(cval[wllt == "n"], na.rm = TRUE))*2), 
+                       by = list(aeid, apid)])
+      list(e1)
+      
+    },
+    
+     pval.maxp = function(aeids) {
+      
+      e1 <- bquote(dat[J(.(aeids)), 
+                       pval := max(cval[wllt == "p"], na.rm = TRUE), 
+                       by = list(aeid)])
+      list(e1)
+      
+    },
+     pval.apid.bwlls.med = function(aeids) {
+      
+      e1 <- bquote(dat[J(.(aeids)), 
+                       pval := median(cval[wllt == "b"], na.rm = TRUE), 
+                       by = list(aeid, apid)])
+      list(e1)
+      
     }
     
   )
