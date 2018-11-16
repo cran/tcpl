@@ -1,6 +1,6 @@
 Package: tcpl
 Title: ToxCast Data Analysis Pipeline
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: c(
     person("Richard S", "Judson",role = c("cre","ths"), email = "Judson.Richard@epa.gov"),
     person("Dayne L", "Filer", role = "aut",email = "dayne.filer@gmail.com"),
@@ -24,7 +24,7 @@ RoxygenNote: 6.1.0
 VignetteBuilder: knitr
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2018-10-31 12:25:08 UTC; jbrown20
+Packaged: 2018-11-16 12:44:55 UTC; jbrown20
 Author: Richard S Judson [cre, ths],
   Dayne L Filer [aut],
   Jason Brown [ctb],
@@ -33,4 +33,4 @@ Author: Richard S Judson [cre, ths],
   Matthew T Martin [ctb, ths]
 Maintainer: Richard S Judson <Judson.Richard@epa.gov>
 Repository: CRAN
-Date/Publication: 2018-11-10 16:20:04 UTC
+Date/Publication: 2018-11-16 16:20:03 UTC

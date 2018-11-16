@@ -1,10 +1,20 @@
 ## ----eval = TRUE, echo = FALSE, message = FALSE--------------------------
-rm(list=ls())
 library(htmlTable)
 library(tcpl)
-library(data.table)
+
+
+## ----eval = TRUE, echo = FALSE, message = FALSE, results = "hide"--------
+## This chunk copies the tcplLite local directory to the temp directory used in installation
+## to comply with CRAN policies on not writing to the installation directory
+tmpdir <- tempdir()
+dbfile <- file.path(system.file(package = "tcpl"), "csv")
+file.copy(from = dbfile, tmpdir, recursive  = TRUE)
+dbfile_temp <- file.path(tmpdir, "csv")
+tcplConf(db = dbfile_temp)
+
 
 ## ----eval = TRUE, echo = FALSE, message = FALSE--------------------------
+
 
 
 sample <- data.table (spid = c("Tox21_400088", "Tox21_303655", "Tox21_110011", "Tox21_400081",
@@ -58,21 +68,21 @@ mc6 <- data.table (m6id =numeric(),	m5id =numeric(),	m4id =numeric(),	aeid =nume
 
 
 
-dir <- file.path(system.file(package = "tcpl"))
-write.csv(mc0, file = file.path(dir,"csv/mc0.csv"), row.names = F)
-write.csv(mc1, file = file.path(dir,"csv/mc1.csv"), row.names = F)
-write.csv(mc2, file = file.path(dir,"csv/mc2.csv"), row.names = F)
-write.csv(mc3, file = file.path(dir,"csv/mc3.csv"), row.names = F)
-write.csv(mc4, file = file.path(dir,"csv/mc4.csv"), row.names = F)
-write.csv(mc5, file = file.path(dir,"csv/mc5.csv"), row.names = F)
-write.csv(mc6, file = file.path(dir,"csv/mc6.csv"), row.names = F)
-write.csv(sample, file = file.path(dir,"csv/sample.csv"), row.names = F)
-write.csv(assay, file = file.path(dir,"csv/assay.csv"), row.names = F)
-write.csv(assay_component, file = file.path(dir,"csv/assay_component.csv"), row.names = F)
-write.csv(assay_component_map, file = file.path(dir,"csv/assay_component_map.csv"), row.names = F)
-write.csv(assay_component_endpoint, file = file.path(dir,"csv/assay_component_endpoint.csv"), row.names = F)
-write.csv(assay_source, file = file.path(dir,"csv/assay_source.csv"), row.names = F)
-write.csv(chemical, file = file.path(dir,"csv/chemical.csv"), row.names = F)
+
+write.csv(mc0, file = file.path(dbfile_temp,"mc0.csv"), row.names = F)
+write.csv(mc1, file = file.path(dbfile_temp,"mc1.csv"), row.names = F)
+write.csv(mc2, file = file.path(dbfile_temp,"mc2.csv"), row.names = F)
+write.csv(mc3, file = file.path(dbfile_temp,"mc3.csv"), row.names = F)
+write.csv(mc4, file = file.path(dbfile_temp,"mc4.csv"), row.names = F)
+write.csv(mc5, file = file.path(dbfile_temp,"mc5.csv"), row.names = F)
+write.csv(mc6, file = file.path(dbfile_temp,"mc6.csv"), row.names = F)
+write.csv(sample, file = file.path(dbfile_temp,"sample.csv"), row.names = F)
+write.csv(assay, file = file.path(dbfile_temp,"assay.csv"), row.names = F)
+write.csv(assay_component, file = file.path(dbfile_temp,"assay_component.csv"), row.names = F)
+write.csv(assay_component_map, file = file.path(dbfile_temp,"assay_component_map.csv"), row.names = F)
+write.csv(assay_component_endpoint, file = file.path(dbfile_temp,"assay_component_endpoint.csv"), row.names = F)
+write.csv(assay_source, file = file.path(dbfile_temp,"assay_source.csv"), row.names = F)
+write.csv(chemical, file = file.path(dbfile_temp,"chemical.csv"), row.names = F)
 
 ## ----eval = TRUE, message = FALSE----------------------------------------
 ## Add a new assay source, call it CTox,
@@ -450,11 +460,11 @@ m6dat[m4id == 6]
 ## ----eval = TRUE, fig.width = 15, fig.height= 10-------------------------
 tcplPlotM4ID(m4id = 6, lvl = 6)
 
-## ----eval = TRUE, echo = FALSE, message = FALSE--------------------------
-rm(list=ls())
-library(htmlTable)
-library(tcpl)
-library(data.table)
+## ----eval = FALSE, echo = FALSE, message = FALSE-------------------------
+#  rm(list=ls())
+#  library(htmlTable)
+#  library(tcpl)
+#  library(data.table)
 
 ## ----eval = TRUE, echo = FALSE, message = FALSE--------------------------
 
@@ -510,19 +520,19 @@ mc6 <- data.table (m6id =numeric(),	m5id =numeric(),	m4id =numeric(),	aeid =nume
 
 
 
-dir <- file.path(system.file(package = "tcpl"))
-write.csv(mc0, file = file.path(dir,"csv/mc0.csv"), row.names = F)
-write.csv(mc1, file = file.path(dir,"csv/mc1.csv"), row.names = F)
-write.csv(mc2, file = file.path(dir,"csv/mc2.csv"), row.names = F)
-write.csv(mc3, file = file.path(dir,"csv/mc3.csv"), row.names = F)
-write.csv(mc4, file = file.path(dir,"csv/mc4.csv"), row.names = F)
-write.csv(mc5, file = file.path(dir,"csv/mc5.csv"), row.names = F)
-write.csv(mc6, file = file.path(dir,"csv/mc6.csv"), row.names = F)
-write.csv(sample, file = file.path(dir,"csv/sample.csv"), row.names = F)
-write.csv(assay, file = file.path(dir,"csv/assay.csv"), row.names = F)
-write.csv(assay_component, file = file.path(dir,"csv/assay_component.csv"), row.names = F)
-write.csv(assay_component_map, file = file.path(dir,"csv/assay_component_map.csv"), row.names = F)
-write.csv(assay_component_endpoint, file = file.path(dir,"csv/assay_component_endpoint.csv"), row.names = F)
-write.csv(assay_source, file = file.path(dir,"csv/assay_source.csv"), row.names = F)
-write.csv(chemical, file = file.path(dir,"csv/chemical.csv"), row.names = F)
+dir <- dbfile_temp
+write.csv(mc0, file = file.path(dir,"mc0.csv"), row.names = F)
+write.csv(mc1, file = file.path(dir,"mc1.csv"), row.names = F)
+write.csv(mc2, file = file.path(dir,"mc2.csv"), row.names = F)
+write.csv(mc3, file = file.path(dir,"mc3.csv"), row.names = F)
+write.csv(mc4, file = file.path(dir,"mc4.csv"), row.names = F)
+write.csv(mc5, file = file.path(dir,"mc5.csv"), row.names = F)
+write.csv(mc6, file = file.path(dir,"mc6.csv"), row.names = F)
+write.csv(sample, file = file.path(dir,"sample.csv"), row.names = F)
+write.csv(assay, file = file.path(dir,"assay.csv"), row.names = F)
+write.csv(assay_component, file = file.path(dir,"assay_component.csv"), row.names = F)
+write.csv(assay_component_map, file = file.path(dir,"assay_component_map.csv"), row.names = F)
+write.csv(assay_component_endpoint, file = file.path(dir,"assay_component_endpoint.csv"), row.names = F)
+write.csv(assay_source, file = file.path(dir,"assay_source.csv"), row.names = F)
+write.csv(chemical, file = file.path(dir,"chemical.csv"), row.names = F)
 

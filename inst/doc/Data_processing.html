@@ -198,7 +198,7 @@ grp2 &lt;-<span class="st"> </span>cmap[chid <span class="op">%%</span><span cla
 <pre><code>## [1] TRUE</code></pre>
 <p>The data are now ready to be loaded with the <font face="CMTT10"> tcplWriteLvl0 </font> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tcplWriteLvl0</span>(<span class="dt">dat =</span> mcdat, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Completed delete cascade for 2 ids (0.23 secs)</code></pre>
+<pre><code>## Completed delete cascade for 2 ids (0.24 secs)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>The <font face="CMTT10"> type </font> argument is used throughout the package to distinguish the type of data/processing: “sc” indicates single-concentration; “mc” indicates multiple-concentration. The <font face="CMTT10"> tcplLoadData </font> function can be used to load the data from the tcpl local directory or a MySQL database.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tcplLoadData</span>(<span class="dt">lvl =</span> <span class="dv">0</span>, <span class="dt">fld =</span> <span class="st">&quot;acid&quot;</span>, <span class="dt">val =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
@@ -790,10 +790,10 @@ Flag: Flag potential false positive and false negative endings based on methods 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Do level 1 processing for acid 1
 mc1_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span class="dt">id =</span> <span class="dv">1</span>, <span class="dt">slvl =</span> <span class="dv">1</span>, <span class="dt">elvl =</span> <span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
 <pre><code>## Loaded L0 ACID1 (14183 rows; 0.27 secs)
-## Processed L1 ACID1 (14183 rows; 1.16 secs)
+## Processed L1 ACID1 (14183 rows; 1.21 secs)
 ## Writing level 1 data for 1 ids...
 ## Completed delete cascade for 2 ids (0.22 secs)
-## Writing level 1 complete. (0.37 secs)
+## Writing level 1 complete. (0.34 secs)
 ## 
 ## 
 ## Total processing time: 0.03 mins</code></pre>
@@ -834,15 +834,15 @@ m1dat[chnm <span class="op">==</span><span class="st"> &quot;Bisphenol A&quot;</
                 <span class="dt">mthd_id =</span> <span class="dv">1</span>,
                 <span class="dt">ordr =</span> <span class="dv">1</span>, 
                 <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Completed delete cascade for 2 ids (0.19 secs)</code></pre>
+<pre><code>## Completed delete cascade for 2 ids (0.18 secs)</code></pre>
 <p>Every assay component needs at least one transformation method assigned to complete level 2 processing. With the method assigned, the processing can be completed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Do level 2 processing for acid 1
 mc2_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span class="dt">id =</span> <span class="dv">1</span>, <span class="dt">slvl =</span> <span class="dv">2</span>, <span class="dt">elvl =</span> <span class="dv">2</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Loaded L1 ACID1 (14183 rows; 0.43 secs)
-## Processed L2 ACID1 (14183 rows; 0.07 secs)
+<pre><code>## Loaded L1 ACID1 (14183 rows; 0.44 secs)
+## Processed L2 ACID1 (14183 rows; 0.12 secs)
 ## Writing level 2 data for 1 ids...
-## Completed delete cascade for 2 ids (0.2 secs)
-## Writing level 2 complete. (0.34 secs)
+## Completed delete cascade for 2 ids (0.19 secs)
+## Writing level 2 complete. (0.33 secs)
 ## 
 ## 
 ## Total processing time: 0.01 mins</code></pre>
@@ -862,19 +862,19 @@ mc2_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span clas
                <span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,
                <span class="dt">mthd_id =</span> <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">9</span>, <span class="dv">7</span>),
                <span class="dt">ordr =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Completed delete cascade for 2 ids (0.11 secs)</code></pre>
+<pre><code>## Completed delete cascade for 2 ids (0.12 secs)</code></pre>
 <p>Above, methods 17, 9, and 7 were assigned for both endpoints. The method assignments instruct the processing to: (1) calculate <span class="math inline">\(\mathit{bval}\)</span> for each assay plate ID by taking the median of all data where the well type equals “n” or the well type equals “t” and the concentration index is 1 or 2; (2) calculate a fold-change over <span class="math inline">\(\mathit{bval}\)</span>; (3) log-transform the fold-change values with base 2.</p>
 <p>For a complete list of normalization methods see <font face="CMTT10"> tcplMthdList(lvl = 3, type = “mc”) </font> or <font face="CMTT10"> ?MC3_Methods </font>. With the assay endpoints and normalization methods defined, the data are ready for level 3 processing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Do level 3 processing for acid 1
 mc3_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span class="dt">id =</span> <span class="dv">1</span>, <span class="dt">slvl =</span> <span class="dv">3</span>, <span class="dt">elvl =</span> <span class="dv">3</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Loaded L2 ACID1 (14183 rows; 0.55 secs)
-## Processed L3 ACID1 (AEIDS: 1, 2; 28366 rows; 1.13 secs)
+<pre><code>## Loaded L2 ACID1 (14183 rows; 0.57 secs)
+## Processed L3 ACID1 (AEIDS: 1, 2; 28366 rows; 1.29 secs)
 ## Writing level 3 data for 1 ids...
-## Completed delete cascade for 2 ids (0.11 secs)
-## Writing level 3 complete. (0.69 secs)
+## Completed delete cascade for 2 ids (0.33 secs)
+## Writing level 3 complete. (0.88 secs)
 ## 
 ## 
-## Total processing time: 0.04 mins</code></pre>
+## Total processing time: 0.05 mins</code></pre>
 <p><strong>Notice that level 3 processing takes an assay component ID, not an assay endpoint ID, as the input ID.</strong> As mentioned in previous sections, the user must assign normalization methods by assay endpoint, then do the processing by assay component. The level 3 processing will attempt to process all endpoints in the database for a given component. If one endpoint fails for any reason (e.g., does not have appropriate methods assigned), the processing for the entire component fails.</p>
 </div>
 <div id="level-4" class="section level3">
@@ -910,18 +910,18 @@ mc3_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span clas
 <p><span class="math display">\[\mathit{la}-\mathit{ga} &gt; 0.25\mathrm{.}\]</span> Level 4 does not utilize any assay endpoint-specific methods; the user only needs to run the <font face="CMTT10"> tcplRun</font> function. <strong>Level 4 processing and all subsequent processing is done by assay endpoint, not assay component</strong>. The previous section showed how to find the assay endpoints for an assay component using the <font face="CMTT10"> tcplLoadAeid</font> function. The example dataset includes two assay endpoints with aeid values of 1 and 2.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Do level 4 processing for aeids 1&amp;2 and load the data
 <span class="kw">tcplMthdAssign</span>(<span class="dt">lvl =</span> <span class="dv">4</span>, <span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">mthd_id =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span> )</code></pre></div>
-<pre><code>## Completed delete cascade for 2 ids (0.09 secs)</code></pre>
+<pre><code>## Completed delete cascade for 2 ids (0.1 secs)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mc4_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">slvl =</span> <span class="dv">4</span>, <span class="dt">elvl =</span> <span class="dv">4</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Loaded L3 AEID1 (7335 rows; 0.85 secs)
-## Processed L4 AEID1 (7335 rows; 4.82 secs)
-## Loaded L3 AEID2 (7335 rows; 0.82 secs)
-## Processed L4 AEID2 (7335 rows; 4.65 secs)
+<pre><code>## Loaded L3 AEID1 (7335 rows; 1.04 secs)
+## Processed L4 AEID1 (7335 rows; 4.76 secs)
+## Loaded L3 AEID2 (7335 rows; 0.83 secs)
+## Processed L4 AEID2 (7335 rows; 4.77 secs)
 ## Writing level 4 data for 2 ids...
 ## Completed delete cascade for 2 ids (0.1 secs)
-## Writing level 4 complete. (0.36 secs)
+## Writing level 4 complete. (0.29 secs)
 ## 
 ## 
-## Total processing time: 0.19 mins</code></pre>
+## Total processing time: 0.2 mins</code></pre>
 <p>The level 4 data include 52 variables, including the ID fields. A complete list of level 4 fields is available in Appendix A. The level 4 data include the fields <span class="math inline">\(\mathit{cnst}\)</span>, <span class="math inline">\(\mathit{hill}\)</span>, and <span class="math inline">\(\mathit{gnls}\)</span> indicating the convergence of the model where a value of 1 means the model converged and a value of 0 means the model did not converge. N/A values indicate the fitting algorithm did not attempt to fit the model. <span class="math inline">\(\mathit{cnst}\)</span> will be N/A when the concentration series had less than 4 concentrations; <span class="math inline">\(\mathit{hill}\)</span> and <span class="math inline">\(\mathit{gnls}\)</span> will be N/A when none of the medians were greater than or equal to <span class="math inline">\(3\mathit{bmad}\)</span>. Similarly, the <span class="math inline">\(\mathit{hcov}\)</span> and <span class="math inline">\(\mathit{gcov}\)</span> fields indicate the success in inverting the Hessian matrix. Where the Hessian matrix did not invert, the parameter standard deviation estimates will be N/A. NaN values in the parameter standard deviation fields indicate the covariance matrix was not positive definite. In Figure 2, the <span class="math inline">\(\mathit{hill}\)</span> field is used to find potentially active compounds to visualize with the <font face="CMTT10"> tcplPlotM4ID</font> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load the level 4 data
 m4dat &lt;-<span class="st"> </span><span class="kw">tcplPrepOtpt</span>(<span class="kw">tcplLoadData</span>(<span class="dt">lvl =</span> <span class="dv">4</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>))
@@ -952,7 +952,7 @@ m4dat[hill <span class="op">==</span><span class="st"> </span><span class="dv">1
                <span class="dt">mthd_id =</span> <span class="dv">6</span>,
                <span class="dt">ordr =</span> <span class="dv">1</span>,
                <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Completed delete cascade for 2 ids (0.06 secs)</code></pre>
+<pre><code>## Completed delete cascade for 2 ids (0.04 secs)</code></pre>
 <p>For the example data, the cutoff value is <span class="math inline">\(6\mathit{bmad}\)</span>. If the Hill or gain-loss model wins, and the estimated top parameter for the winning model (<span class="math inline">\(\mathit{modl\_tp}\)</span>) and the maximum median value (<span class="math inline">\(\mathit{max\_med}\)</span>) are both greater than or equal to the efficacy cutoff (<span class="math inline">\(\mathit{coff}\)</span>), the concentration series is considered active and the hit call (<span class="math inline">\(\mathit{hitc}\)</span>) is set to 1.</p>
 <p>The hit call can be 1, 0, or -1. A hit call of 1 or 0 indicates the concentration series is active or inactive, respectively, according to the analysis; a hit call of -1 indicates the concentration series had less than four concentrations.</p>
 <p>For active concentration series, two additional point-of-departure estimates are calculated for the winning model: (1) the activity concentration at baseline (ACB or <span class="math inline">\(\mathit{modl\_acb}\)</span>) and (2) the activity concentration at cutoff (ACC or <span class="math inline">\(\mathit{modl\_acc}\)</span>). The ACB and ACC are defined as the concentration where the estimated model value equals <span class="math inline">\(3\mathit{bmad}\)</span> and the cutoff, respectively. The point-of-departure estimates are summarized in Figure 3.</p>
@@ -1002,10 +1002,10 @@ tmp &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">
 <p>With the level 5 methods assigned, the data are ready for level 5 processing:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Do level 5 processing for aeids 1&amp;2 and load the data
 mc5_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">slvl =</span> <span class="dv">5</span>, <span class="dt">elvl =</span> <span class="dv">5</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Loaded L4 AEID1 (7 rows; 0.06 secs)
-## Processed L5 AEID1 (7 rows; 0.17 secs)
+<pre><code>## Loaded L4 AEID1 (7 rows; 0.08 secs)
+## Processed L5 AEID1 (7 rows; 0.16 secs)
 ## Loaded L4 AEID2 (7 rows; 0.06 secs)
-## Processed L5 AEID2 (7 rows; 0.17 secs)
+## Processed L5 AEID2 (7 rows; 0.19 secs)
 ## Writing level 5 data for 2 ids...
 ## Completed delete cascade for 2 ids (0.04 secs)
 ## Writing level 5 complete. (0.05 secs)
@@ -1058,13 +1058,13 @@ mc5_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span clas
 <p>The additional <span class="math inline">\(\mathit{nddr}\)</span> field in the “mc6_methods”(and the output from <font face="CMTT10"> tcplMthdLoad() </font>/<font face="CMTT10"> tcplMthdList() </font> for level 6) indicates whether the method requires additional data. Methods with an <span class="math inline">\(\mathit{nddr}\)</span> value of 0 only require the modeled/summary information from levels 4 and 5. Methods with an <span class="math inline">\(\mathit{nddr}\)</span> value of 1 also require the individual response and concentration values from level 3. Methods requiring data from level 3 can greatly increase the processing time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Do level 6 processing
 mc6_res &lt;-<span class="st"> </span><span class="kw">tcplRun</span>(<span class="dt">id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">slvl =</span> <span class="dv">5</span>, <span class="dt">elvl =</span> <span class="dv">6</span>, <span class="dt">type =</span> <span class="st">&quot;mc&quot;</span>)</code></pre></div>
-<pre><code>## Loaded L4 AEID1 (7 rows; 0.07 secs)
-## Processed L5 AEID1 (7 rows; 0.15 secs)
-## Loaded L4 AEID2 (7 rows; 0.07 secs)
+<pre><code>## Loaded L4 AEID1 (7 rows; 0.06 secs)
+## Processed L5 AEID1 (7 rows; 0.16 secs)
+## Loaded L4 AEID2 (7 rows; 0.08 secs)
 ## Processed L5 AEID2 (7 rows; 0.15 secs)
 ## Writing level 5 data for 2 ids...
 ## Completed delete cascade for 2 ids (0.06 secs)
-## Writing level 5 complete. (0.07 secs)
+## Writing level 5 complete. (0.08 secs)
 ## Loaded L5 AEID1 (7 rows; 0.16 secs)
 ## Processed L6 AEID1 (7 rows; 0.09 secs)
 ## Loaded L5 AEID2 (7 rows; 0.16 secs)

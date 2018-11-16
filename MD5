@@ -1,6 +1,6 @@
-1317114b8ee98ddf16c446278eca8d7e *DESCRIPTION
+8b72f790ea038e481eb139d07c0115a7 *DESCRIPTION
 54304d06a06c205aa8b2a688f591b65e *NAMESPACE
-21a86c12b67b7a7b758695b6851506b3 *NEWS
+3247042ac03214642f69d3e822b019cf *NEWS
 2f426b1112e1b787ac03edcdecbe4f9c *R/Models.R
 80f644a6e1e90a0edadf426e04144248 *R/assay_funcs.R
 a6505eb1b17f6cd5b974323ca27b72b0 *R/attachFormals.R
@@ -145,9 +145,9 @@ f55a159d3c38db80823793d433fcae18 *inst/csv/sc2.csv
 fbc541b752c130aea0e618a28eae40ee *inst/csv/sc2_aeid.csv
 2cf7b47a96ab6ba6fa9d1d69568d0e06 *inst/csv/sc2_agg.csv
 37ada2950cf275064f2c6002cb3a5e42 *inst/csv/sc2_methods.csv
-75c18395e6232029065bc074d4400d8e *inst/doc/Data_processing.R
-db3b854ea7fed8e0ce8e3d211eb2adb5 *inst/doc/Data_processing.Rmd
-1af60776e334ee1659f3129089de5d61 *inst/doc/Data_processing.html
+0d21dcdefd507228bef8ddb9dfca0907 *inst/doc/Data_processing.R
+6b38fd4b792538c20f48de7df712e326 *inst/doc/Data_processing.Rmd
+4160dc0b200bbba6289992cca8e5fdae *inst/doc/Data_processing.html
 76712e7cbff972c5625dd136881e3e23 *inst/doc/Data_retrieval.R
 b028888a79fd63a072dce0bcbc79b54a *inst/doc/Data_retrieval.Rmd
 17cf3f6dbc58609248dc3d9213f73262 *inst/doc/Data_retrieval.html
@@ -257,6 +257,6 @@ dcf3d29edcffc2ab25e7c6fbbe6fcdbd *man/tcplPlotPlate.Rd
 5a1f5127b6a99c676fafb6c8b3235a48 *man/tcplWriteData.Rd
 8d2bec4ae9701fa31f35f2b131b9b79b *man/tcplWriteLvl0.Rd
 dce4ae362e92b5afa9e7cc2c50e961bc *man/tcpldbStats.Rd
-db3b854ea7fed8e0ce8e3d211eb2adb5 *vignettes/Data_processing.Rmd
+6b38fd4b792538c20f48de7df712e326 *vignettes/Data_processing.Rmd
 b028888a79fd63a072dce0bcbc79b54a *vignettes/Data_retrieval.Rmd
 c82e2e23d30a305d927c8ff59042176e *vignettes/Introduction_Appendices.Rmd
