@@ -8,11 +8,13 @@
 #' \code{tcplMakeAeidPlts} creates a .pdf file with the dose-response plots for 
 #' the given aeid.
 #' 
-#' @param aeid Integer of length 1, the assay endpoint id
-#' @param lvl Integer of length 1, the data level to use (4-7)
+#' @param aeid Integer of length 1 or 2, the assay endpoint id
+#' @param compare Boolean to for comparison of aeids if length(aeid)>1
+#' @param lvl Integer of length 1, the data level to use (4-7). Only level 5-6 valid for compare aeids.
 #' @param fname Character, the filename
 #' @param odir The directory to save the .pdf file in
-#' @param clib Character, the chemical library to subset on, see 
+#' @param clib Character, the chemical library to subset on, see
+#' @param cnst Constant hline to draw on plot
 #' \code{\link{tcplLoadClib}} for more information. 
 #' @inheritParams tcplPlotFits
 #' 
@@ -27,25 +29,32 @@
 #' Note, the default value for ordr.fitc is \code{TRUE} in 
 #' \code{tcplMakeAeidPlts}, but \code{FALSE} in \code{tcplPlotFits}
 #' 
+#' Note, only level 5 or level 6 is valid for comparing 2 aeids.
+#' 
 #' @examples
 #' \dontrun{
 #' ## Will produce the same result as the example for tcplPlotFits
 #' tcplMakeAeidPlts(aeid = 1, lvl = 6, ordr.fitc = FALSE)
 #' }
 #' 
+#' \dontrun{
+#' ## Compare two aeids on same plots
+#' tcplMakeAeidPlts(aeid = c(1,2), compare=T, lvl = 6)
+#' }
+#' 
 #' @import data.table
 #' @importFrom grDevices graphics.off pdf
 #' @export
 
-tcplMakeAeidPlts <- function(aeid, lvl = 4L, fname = NULL, odir = getwd(), 
-                             ordr.fitc = TRUE, clib = NULL) {
+tcplMakeAeidPlts <- function(aeid, compare=F, lvl = 4L, fname = NULL, odir = getwd(), 
+                             ordr.fitc = TRUE, clib = NULL, cnst=NULL) {
   
   ## Variable-binding to pass R CMD Check
   spid <- m4id <- NULL
   
   on.exit(graphics.off())
   
-  if (length(aeid) > 1) stop("'aeid' must be of length 1.")
+  if (length(aeid) > 2) stop("'aeid' must be of length 1 or 2.")
   if (length(lvl) > 1 | !lvl %in% 4:7) stop("Invalid 'lvl' input.")
   
   prs <- list(type = "mc", fld = "aeid", val = aeid)
@@ -70,17 +79,26 @@ tcplMakeAeidPlts <- function(aeid, lvl = 4L, fname = NULL, odir = getwd(),
   boot <- if (lvl < 7L) NULL else do.call(tcplLoadData, args = c(lvl = 7L, prs))
   
   if (is.null(fname)) {
-    fname <- file.path(odir,
-                       paste(paste0("AEID", aeid),
-                             paste0("L", lvl),
-                             tcplLoadAeid("aeid", aeid)$aenm,
-                             format(Sys.Date(), "%y%m%d.pdf"),
-                             sep = "_"))
+    if (!compare) {
+      fname <- file.path(odir,
+                         paste(paste0("AEID", aeid),
+                               paste0("L", lvl),
+                               tcplLoadAeid("aeid", aeid)$aenm,
+                               format(Sys.Date(), "%y%m%d.pdf"),
+                               sep = "_"))
+    } else {
+      tmp.aenm <- tcplLoadAeid("aeid", aeid)$aenm
+      fname <- file.path(odir,
+                         paste(sprintf("AEID%s_%s_VS_AEID%s_%s", aeid[1], tmp.aenm[1], aeid[2], tmp.aenm[2]),
+                               paste0("L", lvl),
+                               format(Sys.Date(), "%y%m%d.pdf"),
+                               sep = "_"))
+    }
   }
   
   graphics.off()
   pdf(file = fname, height = 6, width = 10, pointsize = 10)
-  tcplPlotFits(dat = dat, agg = agg, flg = flg, boot = boot, ordr.fitc = ordr.fitc)
+  tcplPlotFits(dat = dat, agg = agg, flg = flg, boot = boot, ordr.fitc = ordr.fitc, cnst=cnst, orig.aeid=aeid, compare=compare)
   graphics.off()
   
   cat(fname, "complete.")

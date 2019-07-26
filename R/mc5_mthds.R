@@ -9,6 +9,8 @@
 #' \code{mc5_mthds} returns a list of additional activity cutoff methods
 #' to be used during level 5 multiple-concentration processing.
 #'
+#' @param ae Integer of length 1, the assay endpoint id
+#'
 #' @return A list of functions
 #'
 #' @seealso \code{\link{mc5}}, \code{\link{Method functions}} to query what
@@ -35,7 +37,7 @@
 #' }
 
 
-mc5_mthds <- function() {
+mc5_mthds <- function(ae) {
 
   list(
 
@@ -135,6 +137,20 @@ mc5_mthds <- function() {
       e1 <- bquote(coff <- c(coff, 2.32))
       list(e1)
       
+    },
+    
+    fc0.2 = function() {
+
+      e1 <- bquote(coff <- c(coff, 0.2))
+      list(e1)
+
+    },
+    
+    fc0.3 = function() {
+
+      e1 <- bquote(coff <- c(coff, 0.3))
+      list(e1)
+
     }
   )
 }

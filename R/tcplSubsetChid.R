@@ -13,6 +13,7 @@
 #' @param dat data.table, a data.table with level 5 data
 #' @param flag Integer, the mc6_mthd_id values to go into the flag count, see
 #' details for more information
+#' @param type Character of length 1, the data type, "sc" or "mc"
 #'  
 #' @details
 #' \code{tcplSubsetChid} is intended to work with level 5 data that has 
@@ -59,12 +60,17 @@
 #' @import data.table
 #' @export
 
-tcplSubsetChid <- function(dat, flag = TRUE) {
+tcplSubsetChid <- function(dat, flag = TRUE, type = "mc") {
   
   ## Variable-binding to pass R CMD Check
   chit <- hitc <- aeid <- casn <- fitc <- fitc.ordr <- m4id <- nflg <- NULL
-  chid <- NULL
+  chid <- logc <- minc <- NULL
   
+  if (!type %in% c("mc","sc")) {
+    stop("type must be sc (single concentration) or mc (multi-concentration)")
+  }
+  
+  if(type == "mc"){
   if (!"m5id" %in% names(dat)) {
     stop("'dat' must be a data.table with level 5 data. See ?tcplLoadData for",
          " more information.")
@@ -104,7 +110,42 @@ tcplSubsetChid <- function(dat, flag = TRUE) {
 
   dat <- dat[min_modl_ga$ind]
 
-  dat[]
+  return(dat[])
+  }
+  
+  if(type == "sc"){
+    if (!"s2id" %in% names(dat)) {
+      stop("'dat' must be a single concentration data.table with level 2 data. See ?tcplLoadData for",
+           " more information.")
+    }
+    if (!"casn" %in% names(dat)) dat <- tcplPrepOtpt(dat)
+    
+    dat[ , chit := mean(hitc[hitc %in% 0:1]) >= 0.5, by = list(aeid, chid)]
+    dat <- dat[hitc == chit ]
+    
+    #select those that are at lowest concentration in the consensus hitc
+    dat1 <- tcplLoadData("agg",fld = "s2id", val = dat$s2id,type = "sc")
+    setkey(dat1,"s2id")
+    setkey(dat,"s2id")
+    dat <- dat[dat1]
+    
+    setkeyv(dat,c("aeid","chid","logc"))
+    dat[ , minc := min(logc), by = list(aeid, chid)]
+    dat <- dat[logc == minc ]
+    dat <- unique(dat[,c("spid","chid","casn","chnm","dsstox_substance_id","code","aeid","aenm","s2id","bmad","max_med","hitc","coff","resp_unit")])
+    setkeyv(dat, c("aeid", "chid", "max_med"))
+    
+    #select top max_med per casn
+    min_max_med <- dat[ , list(ind = .I[.N]), by = list(aeid, casn)]
+    
+    #filter out all others
+    dat <- dat[min_max_med$ind]
+    
+    return(dat[]  )
+  }
+  
+  
+  
   
 }
 

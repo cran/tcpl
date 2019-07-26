@@ -49,6 +49,7 @@
     }
   }
   
+  if (!("fitc" %in% names(pars))) pars$fitc = -10000L # Create placeholder fitc for lvl 4
   fmax <- suppressWarnings(with(pars, 1.05*max(hill_tp, gnls_tp, na.rm = TRUE)))
   if (is.infinite(fmax)) fmax <- NA_real_
   view <- fmax/diff(range(resp))
@@ -133,9 +134,16 @@
            col = "darkorange",
            lty = ifelse(pars$modl == "cnst", "solid", "dashed"))
     
+    if (pars$fitc == 100L) {
+      # loec analysis
+      abline(v = pars$modl_acc,
+             lwd = 4,
+             col = 'tomato3')
+    }
+    
   }
   
-  if (!is.na(pars$hill) & pars$hill) {
+  if (!is.na(pars$hill) & pars$hill & pars$fitc != 100L) {
     
     hill.eq <- function(x) with(pars, hill_tp/(1 + 10^((hill_ga - x)*hill_gw)))
     curve(hill.eq, 
@@ -153,7 +161,7 @@
     
   }
   
-  if (!is.na(pars$gnls) & pars$gnls) {
+  if (!is.na(pars$gnls) & pars$gnls & pars$fitc != 100L) {
     
     gnls.eq <- function(x) {
       with(pars, {

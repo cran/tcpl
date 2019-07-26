@@ -4,15 +4,6 @@
 \alias{mc5}
 \title{Perform level 5  
 multiple-concentration processing}
-\usage{
-mc5(ae, wr = FALSE)
-}
-\arguments{
-\item{ae}{Integer of length 1, assay endpoint id (aeid) for processing.}
-
-\item{wr}{Logical, whether the processed data should be written to the tcpl
-database}
-}
 \value{
 A boolean of length 1, indicating the success of the processing, or 
 when 'wr' is FALSE, a list where the first element is a boolean indiciating 
@@ -39,10 +30,8 @@ call and identify the winning model for each fit.
 \seealso{
 \code{\link{Method functions}}, \code{\link{MC5_Methods}}
 
-Other multiple-concentration data 
-processing functions: \code{\link{mc1}},
+Other multiple-concentration: \code{\link{mc1}},
   \code{\link{mc2}}, \code{\link{mc3}}, \code{\link{mc4}},
   \code{\link{mc6}}
 }
-\concept{multiple-concentration data 
-processing functions}
+\concept{multiple-concentration}

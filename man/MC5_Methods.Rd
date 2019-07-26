@@ -5,7 +5,10 @@
 \alias{mc5_mthds}
 \title{Load list of level 5 multiple-concentration cutoff methods}
 \usage{
-mc5_mthds()
+mc5_mthds(ae)
+}
+\arguments{
+\item{ae}{Integer of length 1, the assay endpoint id}
 }
 \value{
 A list of functions
