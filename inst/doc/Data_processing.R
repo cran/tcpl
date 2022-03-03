@@ -1,106 +1,49 @@
-## ----eval = TRUE, echo = FALSE, message = FALSE--------------------------
+## ----eval = TRUE, echo = FALSE, message = FALSE-------------------------------
 library(htmlTable)
 library(tcpl)
 library(data.table)
 
 
-## ----eval = TRUE, echo = FALSE, message = FALSE, results = "hide"--------
+## ----eval = TRUE, echo = FALSE, message = FALSE, results = "hide"-------------
 ## This chunk copies the tcplLite local directory to the temp directory used in installation
 ## to comply with CRAN policies on not writing to the installation directory
 tmpdir <- tempdir()
-dbfile <- file.path(system.file(package = "tcpl"), "csv")
-file.copy(from = dbfile, tmpdir, recursive  = TRUE)
+#dbfile <- file.path(system.file(package = "tcpl"), "csv")
+#file.copy(from = dbfile, tmpdir, recursive  = TRUE)
 dbfile_temp <- file.path(tmpdir, "csv")
-tcplConf(db = dbfile_temp)
+dir.create(dbfile_temp, showWarnings = F)
+tcplConf(db = dbfile_temp, drvr = 'tcplLite')
 
 
-## ----eval = TRUE, echo = FALSE, message = FALSE--------------------------
-
-
-
-sample <- data.table (spid = c("Tox21_400088", "Tox21_303655", "Tox21_110011", "Tox21_400081",
-                               "DMSO", "Tox21_400037"),
-                      chid= c("20182", "22364", "23463", "24102", "21735", "20283"),
-                      stkc = c("", "", "", "", "", ""),
-                      stkc_unit = c("", "", "", "", "", ""),
-                      tested_conc_unit= c("", "", "", "", "", ""),
-                      spid_legacy = c("", "", "", "", "", ""))
-        
-assay <- data.table(aid=numeric(),	asid=numeric(),	assay_name= character(),	assay_desc= character(),	timepoint_hr=numeric(),	organism_id=numeric(),	organism= character(),	tissue= character(),	cell_format= character(),	cell_free_component_source= character(),	cell_short_name= character(),	cell_growth_mode= character(),	assay_footprint= character(),	assay_format_type= character(),	assay_format_type_sub= character(),	content_readout_type= character(),	dilution_solvent= character(),	dilution_solvent_percent_max= character()
-)
-
-assay_component <- data.table(acid=numeric(),	aid=numeric(),	assay_component_name= character(),	assay_component_desc= character(),	assay_component_target_desc= character(),	parameter_readout_type= character(),	assay_design_type= character(),	assay_design_type_sub	= character(),biological_process_target	= character(),detection_technology_type	= character(),detection_technology_type_sub= character(),	 detection_technology= character(),	signal_direction_type= character(),key_assay_reagent_type= character(),
-                      key_assay_reagent	= character(),technological_target_type= character(),	technological_target_type_sub= character() )
-
-assay_component_endpoint <- data.table(aeid=numeric(),	acid=numeric(),	assay_component_endpoint_name= character(),	export_ready=numeric(),	internal_ready= character(),	assay_component_endpoint_desc= character(),	assay_function_type= character(),	normalized_data_type= character(),	analysis_direction= character(),	burst_assay= character(),	key_positive_control= character(),	signal_direction= character(),	intended_target_type= character(),	intended_target_type_sub= character(),	intended_target_family= character(),	intended_target_family_sub= character(),	fit_all=numeric())
-
-assay_component_map <- data.table(acid =numeric(), acsn = character())
-
-
-
-assay_source <- data.table(asid=numeric(),	assay_source_name= character(),	assay_source_long_name= character(),	assay_source_desc= character())
-
-chemical <- data.table(chid = c("20182", "22364", "23463" , "24102", "21735","20283"),
-                       casn = c("80-05-7", "521-18-6", "150-30-1", "22224-92-6", "67-68-5", "95-83-0"),
-                       chnm = c("Bisphenol A", "5alpha-Dihydrotestosterone","Phenylalanine","Fenamiphos",
+## ----eval = TRUE, echo = FALSE, message = FALSE-------------------------------
+tcplRegister(what='spid', flds = list(spid=c("Tox21_303655", "Tox21_110011", "Tox21_400081", "DMSO", "Tox21_400037"),
+                                      chid=c("22364", "23463", "24102", "21735", "20283"),
+                                      tested_conc_unit=c('uM', 'uM', 'uM', 'uM', 'uM')
+                                      
+                                      ) )
+tcplRegister(what='chid', flds=list(chid = c("22364", "23463" , "24102", "21735","20283"),
+                       casn = c("521-18-6", "150-30-1", "22224-92-6", "67-68-5", "95-83-0"),
+                       chnm = c("5alpha-Dihydrotestosterone","Phenylalanine","Fenamiphos",
 "Dimethyl sulfoxide","4-Chloro-1,2-diaminobenzene"),
-                      dsstox_substance_id = c("DTXSID7020182", "DTXSID9022364",         "DTXSID9023463", "DTXSID3024102", "DTXSID2021735", "DTXSID5020283"),
-                    code = c("C80057", "C521186","C150301","C22224926", "C67685","C95830"))
+                      dsstox_substance_id = c("DTXSID9022364",         "DTXSID9023463", "DTXSID3024102", "DTXSID2021735", "DTXSID5020283"),
+                    code = c("C521186","C150301","C22224926", "C67685","C95830")))
 
-
-
-
-mc0 <- data.table(m0id =numeric(), acid =numeric(), spid = character(), apid = character(), rowi =numeric(),
-                  coli =numeric(), wllt = character(), wllq =numeric(), conc = character(), rval = character(),
-                  srcf =character(), created_date = character(), modified_date = character(), 
-                  modified_by = character())
-mc1 <- data.table(m1id = character(),m0id =numeric(), acid = character(), cndx = character(), repi = character(), created_date = character(),
-                  modified_date = character(), modified_by = character())
-mc2 <- data.table(m2id = character(),m0id =numeric(), acid = character(),m1id =numeric(), cval = character(), created_date = character(),
-                  modified_date = character(), modified_by = character())
-mc3 <- data.table(m3id =numeric(), aeid =numeric(),m0id =numeric(), acid = character(),m1id =numeric(),m2id =numeric(), bval = character(), pval = character(),
-                  logc = character(), resp = character(), created_date = character(), modified_date = character(), modified_by = character())
-
-mc4 <- data.table(m4id =numeric(), aeid =numeric(),	spid = character(),	bmad = character(),	resp_max = character(),	resp_min = character(),	max_mean = character(),	max_mean_conc = character(),	max_med = character(),	max_med_conc = character(),	logc_max = character(),	logc_min = character(),	cnst = character(),	hill = character(),	hcov = character(),	gnls = character(),	gcov = character(),	cnst_er = character(),	cnst_aic = character(),	cnst_rmse = character(),	cnst_prob = character(),	hill_tp = character(),	hill_tp_sd = character(),	hill_ga = character(),	hill_ga_sd = character(),	hill_gw = character(),	hill_gw_sd = character(),	hill_er = character(),	hill_er_sd = character(),	hill_aic = character(),	hill_rmse = character(),	hill_prob = character(),	gnls_tp = character(),	gnls_tp_sd = character(),	gnls_ga = character(),	gnls_ga_sd = character(),	gnls_gw = character(),	gnls_gw_sd = character(),	gnls_la = character(),	gnls_la_sd = character(),	gnls_lw = character(),	gnls_lw_sd = character(),	gnls_er = character(),	gnls_er_sd = character(),	gnls_aic = character(),	gnls_rmse = character(),	gnls_prob = character(),	nconc = character(),	npts = character(),	nrep = character(),	nmed_gtbl = character(),	tmpi = character(),	created_date = character(),	modified_date = character(),	modified_by = character())
-
-mc5 <- data.table(m5id =numeric(),	m4id =numeric(),	aeid =numeric(),	modl = character(),	hitc = character(),	fitc = character(),	coff = character(),	actp = character(),	modl_er = character(),	modl_tp = character(),	modl_ga = character(),	modl_gw = character(),	modl_la = character(),	modl_lw = character(),	modl_prob = character(),	modl_rmse = character(),	modl_acc = character(),	modl_acb = character(),	modl_ac10 = character(), model_type = numeric(),	created_date = character(),	modified_date = character(),	modified_by = character())
-
-mc6 <- data.table (m6id =numeric(),	m5id =numeric(),	m4id =numeric(),	aeid =numeric(),	mc6_mthd_id = character(),	flag = character(),	fval = character(),	fval_unit = character(),	created_date = character(),	modified_date = character(),	modified_by = character())
-
-
-
-
-write.csv(mc0, file = file.path(dbfile_temp,"mc0.csv"), row.names = F)
-write.csv(mc1, file = file.path(dbfile_temp,"mc1.csv"), row.names = F)
-write.csv(mc2, file = file.path(dbfile_temp,"mc2.csv"), row.names = F)
-write.csv(mc3, file = file.path(dbfile_temp,"mc3.csv"), row.names = F)
-write.csv(mc4, file = file.path(dbfile_temp,"mc4.csv"), row.names = F)
-write.csv(mc5, file = file.path(dbfile_temp,"mc5.csv"), row.names = F)
-write.csv(mc6, file = file.path(dbfile_temp,"mc6.csv"), row.names = F)
-write.csv(sample, file = file.path(dbfile_temp,"sample.csv"), row.names = F)
-write.csv(assay, file = file.path(dbfile_temp,"assay.csv"), row.names = F)
-write.csv(assay_component, file = file.path(dbfile_temp,"assay_component.csv"), row.names = F)
-write.csv(assay_component_map, file = file.path(dbfile_temp,"assay_component_map.csv"), row.names = F)
-write.csv(assay_component_endpoint, file = file.path(dbfile_temp,"assay_component_endpoint.csv"), row.names = F)
-write.csv(assay_source, file = file.path(dbfile_temp,"assay_source.csv"), row.names = F)
-write.csv(chemical, file = file.path(dbfile_temp,"chemical.csv"), row.names = F)
-
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 ## Add a new assay source, call it CTox,
 ## that produced the data
 tcplRegister(what = "asid", flds = list(asid = 1, 
                       asnm = "CTox"))
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 tcplLoadAsid()
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 tcplRegister(what = "aid", 
              flds = list(asid = 1, 
                          anm = "TOX21_ERa_BLA_Agonist", 
                          assay_footprint = "1536 well"))
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 tcplRegister(what = "acid", 
              flds = list(aid = 1,
                          acnm = "TOX21_ERa_BLA_Agonist_ratio"))
@@ -114,59 +57,61 @@ tcplRegister(what = "aeid",
                          burst_assay = c(0, 0),
                          fit_all = c(0, 0)))
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 data(chdat, package = "tcpl")
 setDT(chdat)
 head(chdat)
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 ## Register the unique chemicals
-tcplRegister(what = "chid", 
-             flds = chdat[, 
-                        unique(.SD), 
-                        .SDcols = c("casn", "chnm")])
+cmap <- tcplLoadChem() # Chemicals already registered
+chdat.register <- chdat[!(chdat$code %in% cmap$code)] # Chemicals in chdat that are not registered yet
 
-## ----eval = TRUE, message = FALSE----------------------------------------
-cmap <- tcplLoadChem()
+tcplRegister(what = "chid", 
+             flds = chdat.register[, 
+                        unique(.SD), 
+                        .SDcols = c("casn", "chnm", "dsstox_substance_id", "code", "chid")])
+
+## ----eval = TRUE, message = FALSE---------------------------------------------
 tcplRegister(what = "spid", 
              flds = merge(chdat[ , list(spid, casn)], 
-                          cmap[ , list(casn, chid)], 
+                          chdat.register[ , list(casn, chid)], 
                           by = "casn")[ , list(spid, chid)])
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  grp1 <- cmap[chid %% 2 == 0, unique(chid)]
 #  grp2 <- cmap[chid %% 2 == 1, unique(chid)]
 #  tcplRegister(what = "clib",
 #               flds = list(clib = "group_1", chid = grp1))
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplRegister(what = "clib",
 #               flds = list(clib = "group_2", chid = grp2))
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplRegister(what = "clib",
 #               flds = list(clib = "other", chid = 1:2))
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplLoadClib(field = "chid", val = 1:2)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 data(mcdat, package = 'tcpl')
 setDT(mcdat)
 
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 tcplRegister(what = "acsn", 
              flds = list(acid = 1, acsn = "TCPL-MC-Demo"))
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 tcplWriteLvl0(dat = mcdat, type = "mc")
 
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "mc")
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Type <- c('SC', 'SC', 'MC', 'MC', 'MC', 'MC', 'MC', 'MC')
 Level <- c('Lvl1', 'Lvl2', 'Lvl1', 'Lvl2', 'Lvl3', 'Lvl4', 'Lvl5', 'Lvl6')
 InputID <- c('acid', 'aeid', 'acid', 'acid', 'acid', 'aeid', 'aeid', 'aeid')
@@ -180,7 +125,7 @@ htmlTable(Table,
           tfoot = " The Input ID column indicates the ID used for each processing step; Method ID indicates the ID used for assigning methods for data processing, when necessary. SC = single-concentration; MC = multiple-concentration.")
           
 
-## ----eval= FALSE---------------------------------------------------------
+## ----eval= FALSE--------------------------------------------------------------
 #  ## For illustrative purposes, assign level 2 MC methods to
 #  ## ACIDs 97, 98, and 99. First check for available methods.
 #  mthds <- tcplMthdList(lvl = 2, type = "mc")
@@ -199,7 +144,7 @@ htmlTable(Table,
 #  tcplMthdClear(lvl = 2, id = 97:98, type = "mc")
 #  tcplMthdLoad(lvl = 2, id = 97:98, type = "mc")
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 output <- 
   matrix(c("1. bval.apid.nwlls.med", "2. resp.fc", "1. bval.apid.lowconc.med", "2. bval.apid.pwlls.med",
 "3. resp.log2", "4. resp.mult.neg1", "3. resp.pc", "4. resp.multneg1 ", 
@@ -221,7 +166,7 @@ htmlTable(output,
           caption="Table 2: Example normalization method assignments.")
           
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Level <- c(" Lvl 0", "Lvl 1  ", "Lvl 2  ")
 Description <- c("Pre-processing: Vendor/dataset-specific pre-processing to organize heterogeneous raw data to the uniform format for processing by the *tcpl* package&dagger;",
                  "Normalize: Apply assay endpoint-specific normalization listed in the \'sc1_aeid\' table to the raw data to define response",
@@ -243,10 +188,10 @@ htmlTable(output,
         tfoot="&dagger; Level 0 pre-processing is outside the scope of this package")
 
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplLoadAeid(fld = "acid", val = 2)
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplMthdAssign(lvl = 1,
 #                 id = 1:2,
 #                 mthd_id = c(1, 11, 13),
@@ -254,29 +199,29 @@ htmlTable(output,
 #                 type = "sc")
 #  
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplMthdAssign(lvl = 1,
 #                 id = 2,
 #                 mthd_id = 16,
 #                 ordr = 1,
 #                 type = "sc")
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ## Do level 1 processing for acid 1
 #  sc1_res <- tcplRun(id = 1, slvl = 1, elvl = 1, type = "sc")
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ## Assign a cutoff value of log2(1.2)
 #  tcplMthdAssign(lvl = 2,
 #                 id = 1,
 #                 mthd_id = 3,
 #                 type = "sc")
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ## Do level 2 processing for acid 1
 #  sc2_res <- tcplRun(id = 1, slvl = 2, elvl = 2, type = "sc")
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Level <- c("Lvl 0 ", "Lvl 1", "Lvl 2", "Lvl 3", "Lvl 4", "Lvl 5", "Lvl 6")
 Description <- c("Pre-processing: Vendor/dataset-specific pre-processing to organize heterogeneous raw data to the uniform format for processing by the *tcpl* package&dagger;",
                  "Index: Defne the replicate and concentration indices to facilitate
@@ -309,11 +254,11 @@ htmlTable(output,
         tfoot="&dagger; Level 0 pre-processing is outside the scope of this package")
 
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 ## Do level 1 processing for acid 1
 mc1_res <- tcplRun(id = 1, slvl = 1, elvl = 1, type = "mc")
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 ## Load the level 1 data and look at the cndx and repi values
 m1dat <- tcplLoadData(lvl = 1, 
                       fld = "acid", 
@@ -328,50 +273,50 @@ m1dat[chnm == "Bisphenol A",
 tcplPlotPlate(dat = m1dat, apid = "4009721")
 
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 tcplMthdAssign(lvl = 2,
                 id =1,
                 mthd_id = 1,
                 ordr = 1, 
                 type = "mc")
 
-## ----eval = TRUE,  warning = FALSE, message = FALSE----------------------
+## ----eval = TRUE,  warning = FALSE, message = FALSE---------------------------
 ## Do level 2 processing for acid 1
 mc2_res <- tcplRun(id = 1, slvl = 2, elvl = 2, type = "mc")
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 ## Look at the assay endpoints for acid 1
 tcplLoadAeid(fld = "acid", val = 1)
 
-## ----eval = TRUE, message = FALSE----------------------------------------
+## ----eval = TRUE, message = FALSE---------------------------------------------
 tcplMthdAssign(lvl = 3, 
                id = 1:2,
                mthd_id = c(17, 9, 7),
                ordr = 1:3, type = "mc")
 
 
-## ----eval = TRUE,warning = FALSE, message = FALSE------------------------
+## ----eval = TRUE,warning = FALSE, message = FALSE-----------------------------
 ## Do level 3 processing for acid 1
 mc3_res <- tcplRun(id = 1, slvl = 3, elvl = 3, type = "mc")
 
-## ----eval = TRUE, message = FALSE, warning = FALSE-----------------------
+## ----eval = TRUE, message = FALSE, warning = FALSE----------------------------
 ## Do level 4 processing for aeids 1&2 and load the data
 tcplMthdAssign(lvl = 4, id = 1:2, mthd_id = c(1,2), type = "mc" )
 mc4_res <- tcplRun(id = 1:2, slvl = 4, elvl = 4, type = "mc")
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 ## Load the level 4 data
 m4dat <- tcplPrepOtpt(tcplLoadData(lvl = 4, type = "mc"))
 ## List the first m4ids where the hill model converged
 ## for AEID 1
 m4dat[hill == 1 & aeid == 1, head(m4id)]
 
-## ----eval = TRUE, fig.width = 15, fig.height= 10-------------------------
+## ----eval = TRUE, fig.width = 15, fig.height= 10------------------------------
 ## Plot a fit for m4id 7
 tcplPlotM4ID(m4id = 7, lvl = 4)
 
 
-## ----eval = TRUE, warning = FALSE----------------------------------------
+## ----eval = TRUE, warning = FALSE---------------------------------------------
 ## Assign a cutoff value of 6*bmad
 tcplMthdAssign(lvl = 5,
                id = 1:2,
@@ -379,7 +324,7 @@ tcplMthdAssign(lvl = 5,
                ordr = 1,
                type = "mc")
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 
 par(family = "mono", mar = rep(1, 4), pty = "m")
 plot.new()
@@ -413,33 +358,33 @@ points(x = c(8.46, 10.24, 12), y = c(15, 26, 40),
        bg = c("firebrick", "yellow2", "dodgerblue2"))
 
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 mc5_fit_categories <- fread(system.file("/example/mc5_fit_categories.csv",
   package = "tcpl"), 
   sep = ",", 
   header = TRUE)
 tcplPlotFitc(mc5_fit_categories)
 
-## ----eval = TRUE, warning = FALSE, message = FALSE-----------------------
+## ----eval = TRUE, warning = FALSE, message = FALSE----------------------------
 ## Do level 5 processing for aeids 1&2 and load the data
 mc5_res <- tcplRun(id = 1:2, slvl = 5, elvl = 5, type = "mc")
 
-## ----eval = TRUE, fig.width = 15, fig.height= 10-------------------------
+## ----eval = TRUE, fig.width = 15, fig.height= 10------------------------------
 tcplPlotM4ID(m4id = 4, lvl = 5)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 m5dat <- tcplLoadData(lvl = 5, type = "mc")
 tcplPlotFitc(fitc = m5dat$fitc)
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 head(m5dat[fitc == 21, 
            list(m4id, hill_tp, gnls_tp, 
                 max_med, coff, hitc)])
 
-## ----eval = TRUE, fig.width = 15, fig.height= 10-------------------------
+## ----eval = TRUE, fig.width = 15, fig.height= 10------------------------------
 tcplPlotM4ID(m4id = 3, lvl = 5)
 
-## ----eval = TRUE, warning = FALSE, message = FALSE, error = TRUE---------
+## ----eval = TRUE, warning = FALSE, message = FALSE, error = TRUE--------------
 ## Clear old methods
 tcplMthdClear(lvl = 6, id = 1:2, type = "mc")
 tcplMthdAssign(lvl = 6, id = 1:2,
@@ -447,27 +392,27 @@ tcplMthdAssign(lvl = 6, id = 1:2,
                type = "mc")
 tcplMthdLoad(lvl = 6, id = 1, type = "mc")
 
-## ----eval = TRUE, warning = FALSE, error = TRUE--------------------------
+## ----eval = TRUE, warning = FALSE, error = TRUE-------------------------------
 
 ## Do level 6 processing
 mc6_res <- tcplRun(id = 1:2, slvl = 5, elvl = 6, type = "mc")
 
-## ----eval = TRUE, warning = FALSE----------------------------------------
+## ----eval = TRUE, warning = FALSE---------------------------------------------
 m6dat <- tcplLoadData(lvl = 6, type = "mc")
 
-## ----eval = TRUE---------------------------------------------------------
+## ----eval = TRUE--------------------------------------------------------------
 m6dat[m4id == 6]
 
-## ----eval = TRUE, fig.width = 15, fig.height= 10-------------------------
+## ----eval = TRUE, fig.width = 15, fig.height= 10------------------------------
 tcplPlotM4ID(m4id = 6, lvl = 6)
 
-## ----eval = FALSE, echo = FALSE, message = FALSE-------------------------
+## ----eval = FALSE, echo = FALSE, message = FALSE------------------------------
 #  rm(list=ls())
 #  library(htmlTable)
 #  library(tcpl)
 #  library(data.table)
 
-## ----eval = TRUE, echo = FALSE, message = FALSE--------------------------
+## ----eval = TRUE, echo = FALSE, message = FALSE-------------------------------
 
 
 sample <- data.table (spid = c("Tox21_400088", "Tox21_303655", "Tox21_110011", "Tox21_400081",

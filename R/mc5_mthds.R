@@ -151,6 +151,24 @@ mc5_mthds <- function(ae) {
       e1 <- bquote(coff <- c(coff, 0.3))
       list(e1)
 
+    },
+    pc25 = function() {
+
+      e1 <- bquote(coff <- c(coff, 25))
+      list(e1)
+    },
+      
+	pc30 = function() {
+
+      e1 <- bquote(coff <- c(coff, 30))
+      list(e1)
+    },
+    
+    bmad1 = function() {
+
+      e1 <- bquote(coff <- c(coff, dat[ , unique(bmad)]))
+      list(e1)
+
     }
   )
 }

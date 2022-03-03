@@ -1,10 +1,10 @@
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ## Load mc tables from levels of interest
 #  mc4 <- tcplLoadData(lvl = 4, type = "mc")
 #  mc5 <- tcplLoadData(lvl = 5, type = "mc")
 #  mc6 <- tcplLoadData(lvl = 6, type = "mc")
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ## Find all sample IDs (spids) associated with Bisphenol A
 #  chnm <- 'Bisphenol A'
 #  ch <- fread(system.file("/csv/chemical.csv",
@@ -14,18 +14,18 @@
 #  chem <- tcplLoadChem('chnm', chnm)
 #  dat4spid <- mc4[mc4$spid %in% chem$spid]
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  dat5spid <- mc5[mc5$m4id %in% dat4spid$m4id]
 #  dat5hit <- dat5spid[hitc == 1]
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  mc6_flags <- mc6[ , .( flag = paste(flag, collapse=";")),
 #                      by = m5id]
 #  dat5dat6 <- merge(x = mc6_flags,
 #                    y = dat5hit,
 #                    by = "m5id", all.y = TRUE)
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplConf(
 #            user = 'XXXXXXX',
 #            pass = 'XXXXXXX',
@@ -33,11 +33,11 @@
 #            db = 'invitrodb',
 #            drvr = 'MySQL')
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  chnm <- 'Bisphenol A'
 #  chem <- tcplLoadChem('chnm', chnm)
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  dat5 <- tcplPrepOtpt(tcplLoadData
 #                       (lvl = 5, fld = 'spid',
 #                         val = chem$spid, type = 'mc'))
@@ -53,7 +53,7 @@
 #                            paste(flag, collapse = ";")),
 #                     by = m4id]
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  m4ids <- dat5[ , m4id]
 #  graphics.off()
 #  pdf(file = file.path(getwd(),
@@ -68,7 +68,7 @@
 #  tcplPlotM4ID(m4ids, lvl = 6)
 #  graphics.off()
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  ## List the assay source IDs
 #  tcplLoadAsid()
 #  ## Find the assay source (NVS)
@@ -95,7 +95,7 @@
 #  tcplPlotM4ID(m4ids, lvl = 6)
 #  graphics.off()
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  spids <- unique(dat5[,spid])
 #  ## logc = log10concentration, starting with micromolar
 #  ## units (x-axis), resp = normalized response value (y-axis)
@@ -104,7 +104,7 @@
 #                        val = spids))
 #  mc3 <- mc3[aeid %in% aeids]
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  library(ggplot2)
 #  
 #  graphics.off()

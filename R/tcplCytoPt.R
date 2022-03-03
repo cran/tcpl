@@ -79,9 +79,9 @@
 #' tcplConfDefault()
 #' 
 #' ## Can only calculate the cytotox burst if using the MySQL database and
-#' ## TCPL_DRVR == 'RMySQL'
+#' ## TCPL_DRVR == 'MySQL'
 #' 
-#' if (conf_store == 'RMySQL') {
+#' if (getOption("TCPL_DRVR") == "MySQL") {
 #' 
 #' ## Load the "burst" endpoints -- none are defined in the example dataset
 #' tcplLoadAeid(fld = "burst_assay", val = 1)
@@ -114,7 +114,7 @@ tcplCytoPt <- function(chid = NULL, aeid = NULL, flag = TRUE,
                        min.test = TRUE, default.pt = 3) {
   
   ## Variable-binding to pass R CMD Check
-  modl_ga <- hitc <- code <- chnm <- casn <- use_global_mad <- nhit <- NULL
+  modl_ga <- hitc <- code <- chnm <- casn <- use_global_mad <- nhit <- modl <- NULL
   ntst <- global_mad <- cyto_pt <- med <- cyto_pt_um <- lower_bnd_um <- burstpct <- NULL
   
   if (!is.null(aeid) & !is.vector(aeid)) {
@@ -160,6 +160,8 @@ tcplCytoPt <- function(chid = NULL, aeid = NULL, flag = TRUE,
   }
   print(8)
   zdat <- tcplSubsetChid(dat = zdat, flag = flag)
+  #filter out gnls curves
+  zdat <- zdat[modl != "gnls",]
   print(9)
   zdst <- zdat[, list(med = median(modl_ga[hitc == 1]), mad = mad(modl_ga[hitc == 
                                                                             1]), 

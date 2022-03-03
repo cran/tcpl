@@ -1,3 +1,17 @@
+tcpl v2.1.0
+==============
+*updated for release with toxcast invitrodb data
+*added option to allow change in single conc bmad calculation
+
+tcpl v2.0.3
+==============
+*Created tcplPlot a generic plotting function with call similar to tcplLoadData
+*added option for concentration units to be different during plotting.
+*fixed tcpllite bug for schema change
+*filtered gnls from tcplCytopt
+*updated to Rmariadb
+*various bugfixes
+
 tcpl v2.0.2
 ==============
 * Updated tcplLoadChem to return dsstox substance ids

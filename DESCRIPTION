@@ -1,6 +1,6 @@
 Package: tcpl
 Title: ToxCast Data Analysis Pipeline
-Version: 2.0.2
+Version: 2.1.0
 Authors@R: c(
     person("Richard S", "Judson",role = c("cre","ths"), email = "Judson.Richard@epa.gov"),
     person("Dayne L", "Filer", role = "aut",email = "dayne.filer@gmail.com"),
@@ -17,16 +17,17 @@ Description: A set of tools for processing and modeling high-throughput and
     can be used for diverse chemical screening efforts.
 URL: https://github.com/USEPA/CompTox-ToxCast-tcpl
 Depends: R (>= 3.2.0)
-Imports: data.table (>= 1.9.4), DBI, RMySQL, numDeriv, RColorBrewer,
+Imports: data.table (>= 1.9.4), DBI, RMariaDB, numDeriv, RColorBrewer,
         utils, stats, methods, graphics, grDevices, sqldf
-Suggests: roxygen2, knitr, prettydoc, rmarkdown, htmlTable
+Suggests: roxygen2, knitr, prettydoc, rmarkdown, htmlTable, testthat
+        (>= 2.1.0)
 License: GPL-2
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2019-07-26 13:41:17 UTC; jbrown20
+Packaged: 2022-03-03 17:58:01 UTC; jbrown20
 Author: Richard S Judson [cre, ths],
   Dayne L Filer [aut],
   Jason Brown [ctb],
@@ -37,4 +38,4 @@ Author: Richard S Judson [cre, ths],
   Katie Paul Friedman [ctb]
 Maintainer: Richard S Judson <Judson.Richard@epa.gov>
 Repository: CRAN
-Date/Publication: 2019-07-26 14:50:02 UTC
+Date/Publication: 2022-03-03 19:10:02 UTC

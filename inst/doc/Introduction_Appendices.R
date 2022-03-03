@@ -1,15 +1,15 @@
-## ----eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE--------
+## ----eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE-------------
 #  
 #  library(htmlTable)
 
-## ----eval=TRUE, message=FALSE--------------------------------------------
+## ----eval=TRUE, message=FALSE-------------------------------------------------
 library(data.table)
 library(tcpl)
 ## Store the path for the tcpl directory for loading data
 pkg_dir <- system.file(package = "tcpl")
 
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcpl (v1.3) loaded with the following settings:
 #    TCPL_DB:    C:/Users/user/R-3.4.4/library/tcpl/csv
 #    TCPL_USER:  NA
@@ -17,7 +17,7 @@ pkg_dir <- system.file(package = "tcpl")
 #    TCPL_DRVR:  tcplLite
 #  Default settings stored in TCPL.conf. See ?tcplConf for more information.
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplConf(drvr = "MySQL",
 #           user = "username",
 #           pass = "password",
@@ -25,10 +25,10 @@ pkg_dir <- system.file(package = "tcpl")
 #           db   = "invitrodb")
 #  
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  tcplConf(drvr = "tcplLite", db = system.file("csv", package = "tcpl"), user = "", pass = "", host = "")
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("s0id ", "acid", "spid", "cpid", "apid", "rowi", "coli", "wllt", "wllq", "conc", "rval", "srcf")
 Description <- c("Level 0 ID",
                  "Assay component ID",
@@ -57,7 +57,7 @@ htmlTable(output,
         tfoot="&dagger;Information about the different well types is available in Appendix B.")
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("s1id ", "s0id", "acid", "aeid", "logc", "bval", "pval", "resp")
 Description <- c("Level 1 ID",
                  "Level 0 ID",
@@ -83,7 +83,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("aeid ", "s0id", "s1id", "s2id")
 Description <- c("Assay component endpoint ID",
                  "Level 0 ID",
@@ -105,7 +105,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("s2id ", "aeid", "spid", "bmad", "max_med", "hitc", "coff", "tmpi")
 Description <- c("Level 2 ID",
                  "Assay component endpoint ID",
@@ -130,7 +130,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("m1id", "m0id", "acid", "cndx", "repi")
 Description <- c("Level 1 ID",
                  "Level 0 ID",
@@ -152,7 +152,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("m2id", "m0id", "acid", "m1id", "cval")
 Description <- c("Level 2 ID",
                  "Level 0 ID",
@@ -174,7 +174,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("m3id", "aeid", "m0id", "acid", "m1id", "m2id", "bval", "pval", "logc", "resp")
 Description <- c("Level 3 ID",
                  "Assay endpoint ID",
@@ -201,7 +201,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("aeid", "m0id", "m1id", "m2id", "m3id", "m4id")
 Description <- c(
    "Assay endpoint ID","Level 0 ID",
@@ -225,7 +225,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("m4id", "aeid", "spid", "bmad", "resp_max", "resp_min", "max_mean", "max_mean_conc", "max_med", "max_med_conc", "logc_max", "logc_min", "cnst", "hill", "hcov", "gnls", "gcov", "cnst_er", "cnst_aic", "cnst_rmse", "cnst_prob", "hill_tp", "hill_tp_sd", "hill_ga", "hill_ga_sd")
 
 Description <- c("Level 4 ID",
@@ -269,7 +269,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("hill_gw", "hill_gw_sd", "hill_er", "hill_er_sd", "hill_aic", "hill_rmse", "hill_prob", "gnls_tp", "gnls_tp_sd", "gnls_ga", "gnls_ga_sd", "gnls_gw", "gnls_gw_sd", "gnls_la", "gnls_la_sd", "gnls_lw", "gnls_lw_sd", "gnls_er", "gnls_er_sd", "gnls_aic", "gnls_rmse", "gnls_prob", "nconc", "npts", "nrep", "nmed_gtbl", "tmpi")
 
 Description <- c("Hill coefficient",
@@ -314,7 +314,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("m5id", "m4id", "aeid", "modl", "hitc", "fitc", "coff", "actp", "modl_er", "modl_tp", "modl_ga", "modl_gw", "modl_la", "modl_lw", "modl_prob", "modl_rmse", "modl_acc", "modl_acb", "modl_ac10")
 
 Description <- c("Level 5 ID",
@@ -352,7 +352,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("m6id", "m5id", "m4id", "aeid", "m6_mthd_id", "flag", "fval", "fval_unit")
 
 Description <- c("Level 6 ID",
@@ -377,7 +377,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("m4id", "Aeid", "Aenm", "Asid", "Acid", "Hit_pct", "Total_hitc", "Modl_ga_min", "Modl_ga_max", "Modl_ga_med", "Modl_gw_med", "Modl_ga_delta", "Cnst_pct", "Hill_pct", "Gnls_pct")
 
 Description <- c("Level 4 ID",
@@ -409,7 +409,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("assay", "assay_component", "assay_component_endpoint", "assay_component_map", "assay_reagent**", "assay_reference**", "assay_source", "chemical", "chemical_library", "citations**", "gene", "intended target**", "mc5_fit_categories", "organism**", "sample", "technological_target**")
 
 Description <- c("Assay-level annotation",
@@ -443,7 +443,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("aid", "asid", "assay_name", "assay_desc", "timepoint_hr", "assay_footprint")
 
 Description <- c("Assay ID",
@@ -467,7 +467,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("acid", "aid", "assay_component_name", "assay_component_desc")
 
 Description <- c("Assay component ID",
@@ -489,7 +489,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("asid", "assay_source_name", "assay_source_long_name", "assay_source_description")
 
 Description <- c("Assay source ID",
@@ -512,7 +512,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("aeid", "acid", "assay_component_endpoint_name", "assay_component_endpoint_desc", "export_ready", "normalized_data_type", "burst_assay", "fit_all")
 
 Description <- c("Assay component endpoint ID",
@@ -540,7 +540,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("acid", "acsn")
 
 Description <- c("Assay component ID",
@@ -560,7 +560,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("chid", "casn", "chnm")
 
 Description <- c("Chemical ID&dagger;",
@@ -583,7 +583,7 @@ chemicals"
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("chid", "clib")
 
 Description <- c("Chemical ID",
@@ -604,7 +604,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("fitc", "parent_fitc", "name", "xloc", "yloc")
 
 Description <- c("Fit category",
@@ -628,7 +628,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("spid", "chid", "stkc", "stkc_unit", "tested_conc_unit", 
            "spid_legacy")
 
@@ -653,7 +653,7 @@ htmlTable(output,
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("acsn", "spid", "cpid", "apid", "rowi", 
            "coli", "wllt", "wllq", "conc", "rval", "srcf")
 
@@ -690,7 +690,7 @@ type of \"t\") data.
 )
 
 
-## ----warning = FALSE, echo = FALSE---------------------------------------
+## ----warning = FALSE, echo = FALSE--------------------------------------------
 `Well Type` <- c("t", "c", "p", "n", "m", 
            "o", "b", "v")
 

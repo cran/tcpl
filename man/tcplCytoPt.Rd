@@ -4,8 +4,13 @@
 \alias{tcplCytoPt}
 \title{Calculate the cytotoxicity point based on the "burst" endpoints}
 \usage{
-tcplCytoPt(chid = NULL, aeid = NULL, flag = TRUE, min.test = TRUE,
-  default.pt = 3)
+tcplCytoPt(
+  chid = NULL,
+  aeid = NULL,
+  flag = TRUE,
+  min.test = TRUE,
+  default.pt = 3
+)
 }
 \arguments{
 \item{chid}{Integer, chemical ID values to subset on}
@@ -90,9 +95,9 @@ conf_store <- tcplConfList()
 tcplConfDefault()
 
 ## Can only calculate the cytotox burst if using the MySQL database and
-## TCPL_DRVR == 'RMySQL'
+## TCPL_DRVR == 'MySQL'
 
-if (conf_store == 'RMySQL') {
+if (getOption("TCPL_DRVR") == "MySQL") {
 
 ## Load the "burst" endpoints -- none are defined in the example dataset
 tcplLoadAeid(fld = "burst_assay", val = 1)
