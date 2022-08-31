@@ -15,7 +15,7 @@ database}
 }
 \value{
 A boolean of length 1, indicating the success of the processing, or 
-when 'wr' is FALSE, a list where the first element is a boolean indiciating 
+when 'wr' is FALSE, a list where the first element is a boolean indicating 
 the success of processing and the second element is a data.table containing 
 the processed data
 }
@@ -32,10 +32,10 @@ typically more convenient and suggested to use the \code{\link{tcplRun}}
 wrapper function.
 }
 \details{
-Level 4 multiple-concentration modeling takes the dose-response data for 
-chemical-assay pairs, and fits three models to the data: constant, hill, 
-and gain-loss. For more information about the models see 
-\code{\link{Models}}. When a chemical has more than one sample, the function 
+Level 4 multiple-concentration modeling takes the dose-response data for
+chemical-assay pairs, and fits three models to the data: constant, hill,
+and gain-loss. For more information about the models see
+\code{\link{Models}}. When a chemical has more than one sample, the function
 fits each sample separately.
 }
 \seealso{

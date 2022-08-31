@@ -10,10 +10,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="National Center for Computational Toxicology, US EPA" />
+<meta name="author" content="Center for Computational Toxicology and Exposure, US EPA" />
 
 
-<title>tcpl 2.0  Data Retrieval </title>
+<title>tcpl v3.0  Data Retrieval </title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -28,6 +28,230 @@ document.addEventListener('DOMContentLoaded', function(e) {
   }
 });
 </script>
+<script>$(document).ready(function(){
+    if (typeof $('[data-toggle="tooltip"]').tooltip === 'function') {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+    if ($('[data-toggle="popover"]').popover === 'function') {
+        $('[data-toggle="popover"]').popover();
+    }
+});
+</script>
+<style type="text/css">
+.lightable-minimal {
+border-collapse: separate;
+border-spacing: 16px 1px;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-minimal td {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal th {
+margin-left: 5px;
+margin-right: 5px;
+}
+.lightable-minimal thead tr:last-child th {
+border-bottom: 2px solid #00000050;
+empty-cells: hide;
+}
+.lightable-minimal tbody tr:first-child td {
+padding-top: 0.5em;
+}
+.lightable-minimal.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-minimal.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic {
+border-top: 0.16em solid #111111;
+border-bottom: 0.16em solid #111111;
+width: 100%;
+margin-bottom: 10px;
+margin: 10px 5px;
+}
+.lightable-classic tfoot tr td {
+border: 0;
+}
+.lightable-classic tfoot tr:first-child td {
+border-top: 0.14em solid #111111;
+}
+.lightable-classic caption {
+color: #222222;
+}
+.lightable-classic td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic thead tr:last-child th {
+border-bottom: 0.10em solid #111111;
+}
+.lightable-classic.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-classic-2 {
+border-top: 3px double #111111;
+border-bottom: 3px double #111111;
+width: 100%;
+margin-bottom: 10px;
+}
+.lightable-classic-2 tfoot tr td {
+border: 0;
+}
+.lightable-classic-2 tfoot tr:first-child td {
+border-top: 3px double #111111;
+}
+.lightable-classic-2 caption {
+color: #222222;
+}
+.lightable-classic-2 td {
+padding-left: 5px;
+padding-right: 5px;
+color: #222222;
+}
+.lightable-classic-2 th {
+padding-left: 5px;
+padding-right: 5px;
+font-weight: normal;
+color: #222222;
+}
+.lightable-classic-2 tbody tr:last-child td {
+border-bottom: 3px double #111111;
+}
+.lightable-classic-2 thead tr:last-child th {
+border-bottom: 1px solid #111111;
+}
+.lightable-classic-2.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-classic-2.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #EEE;
+border-collapse: collapse;
+margin-bottom: 10px;
+}
+.lightable-material tfoot tr td {
+border: 0;
+}
+.lightable-material tfoot tr:first-child td {
+border-top: 1px solid #EEE;
+}
+.lightable-material th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+}
+.lightable-material td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+border-top: 1px solid #eeeeee;
+}
+.lightable-material.lightable-hover tbody tr:hover {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody tr:nth-child(even) {
+background-color: #f5f5f5;
+}
+.lightable-material.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #ddd;
+}
+.lightable-material-dark {
+min-width: 100%;
+white-space: nowrap;
+table-layout: fixed;
+font-family: Roboto, sans-serif;
+border: 1px solid #FFFFFF12;
+border-collapse: collapse;
+margin-bottom: 10px;
+background-color: #363640;
+}
+.lightable-material-dark tfoot tr td {
+border: 0;
+}
+.lightable-material-dark tfoot tr:first-child td {
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark th {
+height: 56px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF60;
+}
+.lightable-material-dark td {
+height: 52px;
+padding-left: 16px;
+padding-right: 16px;
+color: #FFFFFF;
+border-top: 1px solid #FFFFFF12;
+}
+.lightable-material-dark.lightable-hover tbody tr:hover {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody tr:nth-child(even) {
+background-color: #FFFFFF12;
+}
+.lightable-material-dark.lightable-striped tbody td {
+border: 0;
+}
+.lightable-material-dark.lightable-striped thead tr:last-child th {
+border-bottom: 1px solid #FFFFFF12;
+}
+.lightable-paper {
+width: 100%;
+margin-bottom: 10px;
+color: #444;
+}
+.lightable-paper tfoot tr td {
+border: 0;
+}
+.lightable-paper tfoot tr:first-child td {
+border-top: 1px solid #00000020;
+}
+.lightable-paper thead tr:last-child th {
+color: #666;
+vertical-align: bottom;
+border-bottom: 1px solid #00000020;
+line-height: 1.15em;
+padding: 10px 5px;
+}
+.lightable-paper td {
+vertical-align: middle;
+border-bottom: 1px solid #00000010;
+line-height: 1.15em;
+padding: 7px 5px;
+}
+.lightable-paper.lightable-hover tbody tr:hover {
+background-color: #F9EEC1;
+}
+.lightable-paper.lightable-striped tbody tr:nth-child(even) {
+background-color: #00000008;
+}
+.lightable-paper.lightable-striped tbody td {
+border: 0;
+}
+</style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -141,8 +365,8 @@ a.sourceLine {
 
 <header>
 <div class="inner">
-<h1 class="title toc-ignore">tcpl 2.0 <br />Data Retrieval<br /></h1>
-<h3 class="author">National Center for Computational Toxicology, US
+<h1 class="title toc-ignore">tcpl v3.0 <br />Data Retrieval<br /></h1>
+<h3 class="author">Center for Computational Toxicology and Exposure, US
 EPA</h3>
 </div>
 </header>
@@ -151,10 +375,44 @@ EPA</h3>
 <div id="TOC" class="toc">
 <div class="inner">
 <ul>
-<li><a href="#data-retrieval">Data Retrieval</a>
+<li><a href="#r-packages">R Packages</a></li>
+<li><a href="#introduction">Introduction</a>
 <ul>
-<li><a href="#a.-using-tcpllite">A. Using TcplLite</a></li>
-<li><a href="#b.-using-tcpl">B. Using Tcpl</a></li>
+<li><a href="#overview-of-key-functions">Overview of Key
+Functions</a></li>
+<li><a href="#overview-of-data-nomenclature">Overview of Data
+Nomenclature</a>
+<ul>
+<li><a href="#assay-elements">Assay Elements</a></li>
+<li><a href="#data">Data</a></li>
+<li><a href="#chemical-information">Chemical Information</a></li>
+<li><a href="#methods">Methods</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#retrieving-level-0-data">Retrieving Level 0 Data</a>
+<ul>
+<li><a href="#load-sc0-data">Load SC0 Data</a></li>
+<li><a href="#load-mc0-data">Load MC0 Data</a></li>
+<li><a href="#review-mc-assay-quality">Review MC assay quality</a></li>
+</ul></li>
+<li><a href="#retrieving-processed-single-concentration-sc-data-and-methods">Retrieving
+Processed Single-Concentration (SC) Data and Methods</a>
+<ul>
+<li><a href="#load-sc2-data">Load SC2 Data</a></li>
+<li><a href="#load-sc-methods">Load SC Methods</a></li>
+</ul></li>
+<li><a href="#retrieving-processed-multi-concentration-mc-data-methods-and-plots">Retrieving
+Processed Multi-Concentration (MC) Data, Methods, and Plots</a>
+<ul>
+<li><a href="#load-mc5-data">Load MC5 Data</a></li>
+<li><a href="#load-mc-methods">Load MC Methods</a></li>
+<li><a href="#plot-mc-data">Plot MC Data</a></li>
+</ul></li>
+<li><a href="#additional-examples">Additional Examples</a>
+<ul>
+<li><a href="#load-data-for-a-specific-chemical">Load Data for a
+Specific Chemical</a></li>
+<li><a href="#plot-sample-subset">Plot Sample Subset</a></li>
 </ul></li>
 </ul>
 </div>
@@ -177,160 +435,1354 @@ $(document).ready(function() {
 
 });
 </script>
-<div id="data-retrieval" class="section level1">
-<h1>Data Retrieval</h1>
-<p>This vignette describes how the user can retrieve data from the csv
-files using tcplLite or from the ToxCast databases using tcpl. Listed
-below are case examples that extract summary information about the
-chemical, <em>Bisphenol A</em>, and the assay, <em>NVS_NR_hTRa</em>. The
-multiple concentration table for level 5 can be downloaded from the
-publicly available ToxCast data <a href="https://www.epa.gov/chemical-research/exploring-toxcast-data-downloadable-data" class="uri">https://www.epa.gov/chemical-research/exploring-toxcast-data-downloadable-data</a>.</p>
-<div id="a.-using-tcpllite" class="section level2">
-<h2>A. Using TcplLite</h2>
-<p>In this example, we will identify the positive responses for the
-chemical <em>Bisphenol A</em>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load mc tables from levels of interest</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mc4 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;mc&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">5</span>, <span class="at">type =</span> <span class="st">&quot;mc&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mc6 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">6</span>, <span class="at">type =</span> <span class="st">&quot;mc&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Find all sample IDs (spids) associated with Bisphenol A</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>chnm <span class="ot">&lt;-</span> <span class="st">&#39;Bisphenol A&#39;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ch <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="fu">system.file</span>(<span class="st">&quot;/csv/chemical.csv&quot;</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">package =</span> <span class="st">&quot;tcpl&quot;</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>chem <span class="ot">&lt;-</span> <span class="fu">tcplLoadChem</span>(<span class="st">&#39;chnm&#39;</span>, chnm)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>dat4spid <span class="ot">&lt;-</span> mc4[mc4<span class="sc">$</span>spid <span class="sc">%in%</span> chem<span class="sc">$</span>spid]</span></code></pre></div>
-<p>Now that we isolated all the sample IDs (spids) for the chemical of
-interest, we can start mapping data from the multiple-concentration
-tables: level 4(mc4), level 5(mc5), and level 6(mc6) from the local csv
-directory. Level 4 includes the spids, and level 5 specifies whether the
-chemical is active or inactive. Level 6 indicates flags reflecting the
-quality of the data or the analysis.</p>
-<p>Next, we match the the m5ids that correspond to the spids of
-interest. From those, we select the positive responses, with hit call =
-1.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dat5spid <span class="ot">&lt;-</span> mc5[mc5<span class="sc">$</span>m4id <span class="sc">%in%</span> dat4spid<span class="sc">$</span>m4id]</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dat5hit <span class="ot">&lt;-</span> dat5spid[hitc <span class="sc">==</span> <span class="dv">1</span>]</span></code></pre></div>
-<p>To identify the flags for the <em>Bisphenol A</em> samples, we match
-the flag columns in the mc6 table by the corresponding m5ids.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mc6_flags <span class="ot">&lt;-</span> mc6[ , .( <span class="at">flag =</span> <span class="fu">paste</span>(flag, <span class="at">collapse=</span><span class="st">&quot;;&quot;</span>)),</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                    by <span class="ot">=</span> m5id]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dat5dat6 <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="at">x =</span> mc6_flags,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> dat5hit,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">by =</span> <span class="st">&quot;m5id&quot;</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<style type="text/css">
+.scroll-100 {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.noticebox {
+  padding: 1em;
+  background: lightgray;
+  color: blue;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+</style>
+<div id="r-packages" class="section level1">
+<h1>R Packages</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primary Packages #</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tcpl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tcplfit2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Formatting Packages #</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting Packages #</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(colorspace)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Table Packages #</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmlTable)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div>
 </div>
-<div id="b.-using-tcpl" class="section level2">
-<h2>B. Using Tcpl</h2>
-<p>We illustrate here the necessary steps for extracting information
-about <em>Bisphenol A</em> using tcpl rather than tcplLite.</p>
-<p>First, we change the driver in tcpl settings to MySQL, and the
-database to invitrodb :</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplConf</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">user =</span> <span class="st">&#39;XXXXXXX&#39;</span>, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">pass =</span> <span class="st">&#39;XXXXXXX&#39;</span>, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">host =</span> <span class="st">&#39;XXXXXXX&#39;</span>, </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">db =</span> <span class="st">&#39;invitrodb&#39;</span>, </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">drvr =</span> <span class="st">&#39;MySQL&#39;</span>)</span></code></pre></div>
-<p>Next, we define the chemical of interest and load the related
-spids:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chnm <span class="ot">&lt;-</span> <span class="st">&#39;Bisphenol A&#39;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>chem <span class="ot">&lt;-</span> <span class="fu">tcplLoadChem</span>(<span class="st">&#39;chnm&#39;</span>, chnm)</span></code></pre></div>
-<p>Then, we load the data from different levels to summarize positive
-responses for this chemical.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(tcplLoadData</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                     (<span class="at">lvl =</span> <span class="dv">5</span>, <span class="at">fld =</span> <span class="st">&#39;spid&#39;</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">val =</span> chem<span class="sc">$</span>spid, <span class="at">type =</span> <span class="st">&#39;mc&#39;</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## For positives only, hit call (hitc) should equal 1</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> dat5[hitc <span class="sc">==</span> <span class="dv">1</span>] </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>dat6 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(tcplLoadData</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                     (<span class="at">lvl =</span> <span class="dv">6</span>, <span class="at">fld =</span> <span class="st">&#39;spid&#39;</span>, <span class="at">val =</span> chem<span class="sc">$</span>spid, </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">&#39;mc&#39;</span>))</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>mc6_mthds <span class="ot">&lt;-</span> dat6[ , .( <span class="at">mc6_mthd_id =</span> </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">paste</span>(mc6_mthd_id, <span class="at">collapse =</span> <span class="st">&quot;,&quot;</span>)), </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                   by <span class="ot">=</span> m4id]</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>mc6_flags <span class="ot">&lt;-</span> dat6[ , .( <span class="at">flag =</span> </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">paste</span>(flag, <span class="at">collapse =</span> <span class="st">&quot;;&quot;</span>)), </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                   by <span class="ot">=</span> m4id]</span></code></pre></div>
-<p>Then, we can generate all level 6 plots for positive responses for
-this chemical:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m4ids <span class="ot">&lt;-</span> dat5[ , m4id]</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="fu">file.path</span>(<span class="fu">getwd</span>(),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">paste</span>(<span class="st">&quot;mc6&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">paste</span>(chnm,<span class="at">collapse =</span> <span class="st">&quot;.&quot;</span>),</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">format</span>(<span class="fu">Sys.Date</span>(),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;%y%m%d.pdf&quot;</span>),</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">6</span>,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">10</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlotM4ID</span>(m4ids, <span class="at">lvl =</span> <span class="dv">6</span>)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span></code></pre></div>
-<p>In the following example, we will obtain summary information about
-the example assay NVS_NR_hTRa_Antagonist using tcpl:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## List the assay source IDs</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplLoadAsid</span>() </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Find the assay source (NVS)</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>nvs.assays <span class="ot">&lt;-</span> <span class="fu">tcplLoadAeid</span>(<span class="at">fld=</span><span class="st">&#39;asid&#39;</span>, <span class="at">val =</span> <span class="dv">5</span>) </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Find the assay name (hTRa)</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>aeids <span class="ot">&lt;-</span> nvs.assays[<span class="fu">grep</span>(<span class="st">&quot;hTRa&quot;</span>, aenm)]<span class="sc">$</span>aeid </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Load the mc5 to determine hit call and summary information</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(<span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">5</span>, <span class="at">type =</span> <span class="st">&#39;mc&#39;</span>, </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">fld =</span> <span class="st">&#39;aeid&#39;</span>, <span class="at">val =</span> aeids)) </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> dat5[hitc <span class="sc">==</span> <span class="dv">1</span>]</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Make the level 6 plots for the positive responses</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>assay <span class="ot">&lt;-</span> <span class="st">&#39;NVS_NR_hTRa_Antagonist&#39;</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>m4ids <span class="ot">&lt;-</span> dat5[ , m4id]</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="fu">file.path</span>(<span class="fu">getwd</span>(),</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">paste</span>(<span class="st">&quot;mc6&quot;</span>,</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">paste</span>(assay,<span class="at">collapse =</span> <span class="st">&quot;.&quot;</span>),</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">format</span>(<span class="fu">Sys.Date</span>(),</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;%y%m%d.pdf&quot;</span>),</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)),</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">6</span>,</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">10</span>,</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlotM4ID</span>(m4ids, <span class="at">lvl =</span> <span class="dv">6</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span></code></pre></div>
-<p>Moreover, we can extract the mc3 data used for plots:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spids <span class="ot">&lt;-</span> <span class="fu">unique</span>(dat5[,spid])</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="do">## logc = log10concentration, starting with micromolar</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">## units (x-axis), resp = normalized response value (y-axis)</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>mc3 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(tcplLoadData</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                    (<span class="at">lvl =</span> <span class="dv">3</span>, <span class="at">type =</span> <span class="st">&#39;mc&#39;</span>, <span class="at">fld =</span> <span class="st">&#39;spid&#39;</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">val =</span> spids))</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>mc3 <span class="ot">&lt;-</span> mc3[aeid <span class="sc">%in%</span> aeids]</span></code></pre></div>
-<p>Then, we can visualize the normalized mc3 data without tcpl
-curve-fitting:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="fu">file.path</span>(<span class="fu">getwd</span>(),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">paste</span>(<span class="st">&quot;mc3&quot;</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">paste</span>(assay,<span class="at">collapse =</span> <span class="st">&quot;.&quot;</span>),</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">format</span>(<span class="fu">Sys.Date</span>(),</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;%y%m%d.pdf&quot;</span>),</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)),</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="dv">6</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">10</span>,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(mc3, mc3<span class="sc">$</span>spid, <span class="cf">function</span> (x){</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(x, <span class="fu">aes</span>(<span class="at">x =</span> logc, <span class="at">y =</span> resp), tab) <span class="sc">+</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">group=</span>spid, <span class="at">color=</span>spid)) <span class="sc">+</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">0.5</span>)),</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;logc&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;resp&quot;</span>)</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">graphics.off</span>()</span></code></pre></div>
-<p>The <font face="CMTT10"> tcplLoadData</font> function can be used to
-load data from level 7. The added level allows for estimating the
-uncertainty in the fitted parameters, such as AC<sub>50</sub>.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This vignette describes how the user can retrieve data from the
+ToxCast database, known as invitrodb, using
+<font face="CMTT10">tcpl</font>. The MySQL version of the ToxCast
+database containing all the publicly available ToxCast data is available
+for download at: <a href="https://www.epa.gov/chemical-research/exploring-toxcast-data-downloadable-data" class="uri">https://www.epa.gov/chemical-research/exploring-toxcast-data-downloadable-data</a>.</p>
+<div class="noticebox">
+<p><strong>NOTE:</strong></p>
+<p>Users must be connected to the ToxCast database (invitrodb), or a
+replicate of the database, to utilize many of these functions and
+execute the examples in this vignette. Please see the introductory
+vignette in this package for more details.</p>
+</div>
+<div id="overview-of-key-functions" class="section level2">
+<h2>Overview of Key Functions</h2>
+<p>To support different data retrieval needs within
+<font face="CMTT10">tcpl</font>, there are a number of functions which
+query the database and return information to the local R session.</p>
+</div>
+<div id="overview-of-data-nomenclature" class="section level2">
+<h2>Overview of Data Nomenclature</h2>
+<p>Throughout this vignette we will use abbreviated designations for
+data retrieved from the database or to refer to processing steps within
+<font face="CMTT10">tcpl</font>. For data from single concentration
+assays we use ‘SC.’ ‘MC’ is used for assay data with multiple
+concentrations. A particular data or processing level is indicated by
+appending the level id/number to the end of the ‘SC’ or ‘MC’
+designation. For example, if we are discussing single concentration data
+from level 2 processing, then we will use the abbreviation ‘SC2.’</p>
+<div id="assay-elements" class="section level3">
+<h3>Assay Elements</h3>
+<p>The <font face="CMTT10">tcplLoadAsid</font>,
+<font face="CMTT10">tcplLoadAid</font>,
+<font face="CMTT10">tcplLoadAcid</font>, and
+<font face="CMTT10">tcplLoadAeid</font> functions load relevant assay
+ids and names for the respective assay elements based on the user
+specified parameters.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all assay source IDs</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplLoadAsid</span>() </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create table of all assay endpoint ids (aeids) per assay source</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>aeids <span class="ot">&lt;-</span> <span class="fu">tcplLoadAeid</span>(<span class="at">fld=</span><span class="st">&quot;asid&quot;</span>, <span class="co"># field to query on</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">val=</span><span class="dv">14</span>, <span class="co"># value for each field</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                              <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">add.fld =</span> <span class="fu">c</span>(<span class="st">&quot;aid&quot;</span>, <span class="st">&quot;anm&quot;</span>, <span class="st">&quot;acid&quot;</span>, <span class="st">&quot;acnm&quot;</span>)) <span class="co"># additional fields to return</span></span></code></pre></div>
+</div>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<p>The <font face="CMTT10">tcplQuery</font> function allows a user to
+provide an SQL query to load data from the MySQL database into the R
+session. In the following chunk we provide an example, but any valid SQL
+query can replace the one provided in our example.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load sample table using a MySQL query.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">tcplQuery</span>(<span class="st">&quot;SELECT * FROM sample;&quot;</span>)</span></code></pre></div>
+<p>The <font face="CMTT10">tcplLoadData</font> function can be used to
+load the data from the MySQL database into the R session. Further, the
+<font face="CMTT10">tcplPrepOtpt</font> function can be used in
+combination with <font face="CMTT10">tcplLoadData</font> to add useful
+chemical and assay annotation information, mapped to the retrieved
+data.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load single concentration data from level 1,</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and map only the chemical annotation information.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mc1_fmtd <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tcplLoadData</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lvl =</span> <span class="dv">2</span>, <span class="co"># data level</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fld =</span> <span class="st">&#39;acid&#39;</span>, <span class="co"># field to query on</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">val =</span> <span class="dv">49</span>, <span class="co"># value for each field</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&#39;mc&#39;</span> <span class="co"># data type</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ids =</span> <span class="st">&#39;spid&#39;</span> <span class="co"># additional annotation fields to add - just chemical info</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>               <span class="co"># - (Default): map assay and chemical annotation</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>               <span class="co"># - &#39;acid&#39; OR &#39;aeid&#39;: map only assay annotation</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>               <span class="co"># - &#39;spid&#39;: map only chemical annotation</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first 6 rows of &#39;sc1_fmtd&#39;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mc1_fmtd)</span></code></pre></div>
+<p>When loading data, the user must indicate the applicable fields and
+ids for the corresponding data level of interest. Loading level 0 (SC0
+and MC0), MC1, and MC2 data the assay component id (<span class="math inline">\(\mathit{acid}\)</span>) will always be used. As
+described in Table 1 of the tcpl Data Processing vignette, SC1 and MC3
+processing levels perform data normalization where assay component ids
+(<span class="math inline">\(\mathit{acid}\)</span>) are converted to
+assay endpoint ids (<span class="math inline">\(\mathit{aeid}\)</span>).
+Thus, the SC1 and MC3 data tables contain both <span class="math inline">\(\mathit{acid}\)</span> and (<span class="math inline">\(\mathit{aeid}\)</span>) ID’s. Data can be loaded
+using either id as long as it is properly specified. Loading SC2, MC4,
+and MC5 one should always use the assay endpoint id (<span class="math inline">\(\mathit{aeid}\)</span>). Selected id(s) are based
+on the primary key within each table containing data. Examples of
+loading data are detailed in later sections.</p>
+</div>
+<div id="chemical-information" class="section level3">
+<h3>Chemical Information</h3>
+<p>The <font face="CMTT10">tcplLoadChem</font> function returns chemical
+information for user specified parameters, e.g. the chemical name (chnm)
+and chemical id (chid). The <font face="CMTT10">tcplLoadClib</font>
+function provides more information about the ToxCast chemical library
+used for sample generation.</p>
+</div>
+<div id="methods" class="section level3">
+<h3>Methods</h3>
+<p>The <font face="CMTT10">tcplMthdList</font> function returns methods
+available for processing at a specified level (i.e. step in the
+<font face="CMTT10">tcpl</font> pipeline). The user defined function in
+the following code chunk utilizes the
+<font face="CMTT10">tcplMthdList</font> function to retrieve and output
+all available methods for both the SC and MC data levels.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to list all available methods function (SC &amp; MC).</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>method_list <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Single Concentration</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Level 1</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  sc1 <span class="ot">&lt;-</span> <span class="fu">tcplMthdList</span>(<span class="dv">1</span>, <span class="st">&#39;sc&#39;</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  sc1[, lvl <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;sc1&quot;</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(sc1, <span class="fu">c</span>(<span class="st">&quot;sc1_mthd&quot;</span>, <span class="st">&quot;sc1_mthd_id&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;mthd&quot;</span>, <span class="st">&quot;mthd_id&quot;</span>))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Level 2</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  sc2 <span class="ot">&lt;-</span> <span class="fu">tcplMthdList</span>(<span class="dv">2</span>, <span class="st">&#39;sc&#39;</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  sc2[, lvl <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;sc2&quot;</span>]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(sc2, <span class="fu">c</span>(<span class="st">&quot;sc2_mthd&quot;</span>, <span class="st">&quot;sc2_mthd_id&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;mthd&quot;</span>, <span class="st">&quot;mthd_id&quot;</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Multiple Concentration</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Level 2</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  mc2 <span class="ot">&lt;-</span> <span class="fu">tcplMthdList</span>(<span class="dv">2</span>, <span class="st">&#39;mc&#39;</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  mc2[, lvl <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;mc2&quot;</span>]</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc2, <span class="fu">c</span>(<span class="st">&quot;mc2_mthd&quot;</span>, <span class="st">&quot;mc2_mthd_id&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;mthd&quot;</span>, <span class="st">&quot;mthd_id&quot;</span>))</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Level 3</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  mc3 <span class="ot">&lt;-</span> <span class="fu">tcplMthdList</span>(<span class="dv">3</span>, <span class="st">&#39;mc&#39;</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  mc3[, lvl <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;mc3&quot;</span>]</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc3, <span class="fu">c</span>(<span class="st">&quot;mc3_mthd&quot;</span>, <span class="st">&quot;mc3_mthd_id&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;mthd&quot;</span>, <span class="st">&quot;mthd_id&quot;</span>))</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Level 4</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  mc4 <span class="ot">&lt;-</span> <span class="fu">tcplMthdList</span>(<span class="dv">4</span>, <span class="st">&#39;mc&#39;</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  mc4[, lvl <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;mc4&quot;</span>]</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc4, <span class="fu">c</span>(<span class="st">&quot;mc4_mthd&quot;</span>, <span class="st">&quot;mc4_mthd_id&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;mthd&quot;</span>, <span class="st">&quot;mthd_id&quot;</span>))</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Level 5</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  mc5 <span class="ot">&lt;-</span> <span class="fu">tcplMthdList</span>(<span class="dv">5</span>, <span class="st">&#39;mc&#39;</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  mc5[, lvl <span class="sc">:</span><span class="er">=</span> <span class="st">&quot;mc5&quot;</span>]</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc5, <span class="fu">c</span>(<span class="st">&quot;mc5_mthd&quot;</span>, <span class="st">&quot;mc5_mthd_id&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;mthd&quot;</span>, <span class="st">&quot;mthd_id&quot;</span>))</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compile the Output</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  mthd.list <span class="ot">&lt;-</span> <span class="fu">rbind</span>(sc1, sc2, mc2, mc3, mc4, mc5)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  mthd.list <span class="ot">&lt;-</span> mthd.list[, <span class="fu">c</span>(<span class="st">&quot;lvl&quot;</span>, <span class="st">&quot;mthd_id&quot;</span>, <span class="st">&quot;mthd&quot;</span>, <span class="st">&quot;desc&quot;</span>)]</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the Results</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mthd.list)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the &#39;method_list&#39; functions and store output.</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>amthds <span class="ot">&lt;-</span> <span class="fu">method_list</span>()</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the available methods list.</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>amthds</span></code></pre></div>
+<p>The <font face="CMTT10">tcplMthdLoad</font> function returns the
+method assignments for specified id(s). Later sections provide more
+detailed examples for utilizing the
+<font face="CMTT10">tcplMthdLoad</font> function for individuals
+ids.</p>
+</div>
+</div>
+</div>
+<div id="retrieving-level-0-data" class="section level1">
+<h1>Retrieving Level 0 Data</h1>
+<p>Prior to the pipeline processing provided in this package, all the
+data must go through pre-processing, i.e. raw data to database level 0
+data. Pre-processing the data should transform data from heterogeneous
+assays into a uniform format. This is executed using dataset specific R
+scripts. After pre-processing is complete and the formatted data matches
+the level 0 format, it can be loaded into the database using
+<font face="CMTT10">tcplWriteLvl0</font>, as described in the tcpl Data
+Processing vignette. The standard level 0 format is identical for both
+testing paradigms, SC or MC. Users can inspect the level 0 data and
+calculate assay quality metrics prior to running the processing
+pipeline.</p>
+<div id="load-sc0-data" class="section level2">
+<h2>Load SC0 Data</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Level 0 single concentration data for a single acid to R.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sc0 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">0</span>, <span class="co"># data level</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fld=</span><span class="st">&quot;acid&quot;</span>, <span class="co"># field to query on</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">val=</span><span class="dv">1</span>, <span class="co"># value for each field</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">&quot;sc&quot;</span>) <span class="co"># data type - single concentration</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, load data in and format with tcplPrepOtpt.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sc0 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(<span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">0</span>, <span class="at">fld=</span><span class="st">&quot;acid&quot;</span>, <span class="at">val=</span><span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;sc&quot;</span>))</span></code></pre></div>
+<p>Since we are not able to connect to the database directly in this
+vignette, we have provided a sample dataset in the package to illustrate
+what the results should look like.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the example data from the package.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sc_vignette,<span class="at">package =</span> <span class="st">&#39;tcpl&#39;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the single concentration level 0 data in the &#39;sc0&#39; object.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sc0 <span class="ot">&lt;-</span> sc_vignette[[<span class="st">&quot;sc0&quot;</span>]]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first 6 rows of the data.</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sc0) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># format output into a table</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># format the output rendering to allow horizontal scrolling</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reduce the size of the table text to improve readability</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="table" style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%;  font-size: 10px; margin-left: auto; margin-right: auto;">
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+spid
+</th>
+<th style="text-align:right;">
+chid
+</th>
+<th style="text-align:left;">
+casn
+</th>
+<th style="text-align:left;">
+chnm
+</th>
+<th style="text-align:left;">
+dsstox_substance_id
+</th>
+<th style="text-align:left;">
+code
+</th>
+<th style="text-align:right;">
+acid
+</th>
+<th style="text-align:left;">
+acnm
+</th>
+<th style="text-align:right;">
+s0id
+</th>
+<th style="text-align:left;">
+apid
+</th>
+<th style="text-align:right;">
+rowi
+</th>
+<th style="text-align:right;">
+coli
+</th>
+<th style="text-align:left;">
+wllt
+</th>
+<th style="text-align:right;">
+wllq
+</th>
+<th style="text-align:right;">
+conc
+</th>
+<th style="text-align:right;">
+rval
+</th>
+<th style="text-align:left;">
+srcf
+</th>
+<th style="text-align:left;">
+conc_unit
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+TP0000073D03
+</td>
+<td style="text-align:right;">
+34212
+</td>
+<td style="text-align:left;">
+118134-30-8
+</td>
+<td style="text-align:left;">
+Spiroxamine
+</td>
+<td style="text-align:left;">
+DTXSID1034212
+</td>
+<td style="text-align:left;">
+C118134308
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:left;">
+ATG_RXRb_TRANS
+</td>
+<td style="text-align:right;">
+9940119
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+45.8
+</td>
+<td style="text-align:right;">
+1.0599632
+</td>
+<td style="text-align:left;">
+CLIN11 PlateTP0000049.xls
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TP0000073G09
+</td>
+<td style="text-align:right;">
+20122
+</td>
+<td style="text-align:left;">
+86-50-0
+</td>
+<td style="text-align:left;">
+Azinphos-methyl
+</td>
+<td style="text-align:left;">
+DTXSID3020122
+</td>
+<td style="text-align:left;">
+C86500
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:left;">
+ATG_RXRb_TRANS
+</td>
+<td style="text-align:right;">
+9970455
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+<td style="text-align:right;">
+0.9581900
+</td>
+<td style="text-align:left;">
+CLIN11 PlateTP0000049.xls
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TP0000075H04
+</td>
+<td style="text-align:right;">
+21166
+</td>
+<td style="text-align:left;">
+51-03-6
+</td>
+<td style="text-align:left;">
+Piperonyl butoxide
+</td>
+<td style="text-align:left;">
+DTXSID1021166
+</td>
+<td style="text-align:left;">
+C51036
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:left;">
+ATG_RXRb_TRANS
+</td>
+<td style="text-align:right;">
+10045157
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+<td style="text-align:right;">
+0.9531718
+</td>
+<td style="text-align:left;">
+CLIN11 PlateTP0000050.xls
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TP0000077B04
+</td>
+<td style="text-align:right;">
+24102
+</td>
+<td style="text-align:left;">
+22224-92-6
+</td>
+<td style="text-align:left;">
+Fenamiphos
+</td>
+<td style="text-align:left;">
+DTXSID3024102
+</td>
+<td style="text-align:left;">
+C22224926
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:left;">
+ATG_RXRb_TRANS
+</td>
+<td style="text-align:right;">
+10062416
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+<td style="text-align:right;">
+1.1310499
+</td>
+<td style="text-align:left;">
+CLIN11 PlateTP0000051.xls
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TP0000077B09
+</td>
+<td style="text-align:right;">
+24195
+</td>
+<td style="text-align:left;">
+94-74-6
+</td>
+<td style="text-align:left;">
+2-(4-Chloro-2-methylphenoxy)acetic acid
+</td>
+<td style="text-align:left;">
+DTXSID4024195
+</td>
+<td style="text-align:left;">
+C94746
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:left;">
+ATG_RXRb_TRANS
+</td>
+<td style="text-align:right;">
+10066027
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+<td style="text-align:right;">
+0.8759538
+</td>
+<td style="text-align:left;">
+CLIN11 PlateTP0000051.xls
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TP0000077B10
+</td>
+<td style="text-align:right;">
+32398
+</td>
+<td style="text-align:left;">
+131341-86-1
+</td>
+<td style="text-align:left;">
+Fludioxonil
+</td>
+<td style="text-align:left;">
+DTXSID2032398
+</td>
+<td style="text-align:left;">
+C131341861
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:left;">
+ATG_RXRb_TRANS
+</td>
+<td style="text-align:right;">
+10066756
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+19.3
+</td>
+<td style="text-align:right;">
+12.7624120
+</td>
+<td style="text-align:left;">
+CLIN11 PlateTP0000051.xls
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="load-mc0-data" class="section level2">
+<h2>Load MC0 Data</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Level 0 multiple concentration data.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mc0 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">0</span>, <span class="co"># data level</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">fld=</span><span class="st">&quot;acid&quot;</span>, <span class="co"># field to query on</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">val=</span><span class="dv">1</span>, <span class="co"># value for each field</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                      <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">&quot;mc&quot;</span>) <span class="co"># data type - multiple concentrations</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>We again can use one of the provided datasets in this package to
+demonstrate what the above results should look like.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the example data from the package.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mc_vignette,<span class="at">package =</span> <span class="st">&#39;tcpl&#39;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the multiple concentration level 0 data in the &#39;mc0&#39; object.</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>mc0 <span class="ot">&lt;-</span> mc_vignette[[<span class="st">&quot;mc0&quot;</span>]]</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first 6 rows of the data.</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mc0) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># format output into a table</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># format the output rendering to allow horizontal scrolling</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reduce the size of the table text to improve readability</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="table" style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%;  font-size: 10px; margin-left: auto; margin-right: auto;">
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+spid
+</th>
+<th style="text-align:right;">
+chid
+</th>
+<th style="text-align:left;">
+casn
+</th>
+<th style="text-align:left;">
+chnm
+</th>
+<th style="text-align:left;">
+dsstox_substance_id
+</th>
+<th style="text-align:left;">
+code
+</th>
+<th style="text-align:right;">
+acid
+</th>
+<th style="text-align:left;">
+acnm
+</th>
+<th style="text-align:right;">
+m0id
+</th>
+<th style="text-align:left;">
+apid
+</th>
+<th style="text-align:right;">
+rowi
+</th>
+<th style="text-align:right;">
+coli
+</th>
+<th style="text-align:left;">
+wllt
+</th>
+<th style="text-align:right;">
+wllq
+</th>
+<th style="text-align:right;">
+conc
+</th>
+<th style="text-align:right;">
+rval
+</th>
+<th style="text-align:left;">
+srcf
+</th>
+<th style="text-align:left;">
+conc_unit
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+01504209
+</td>
+<td style="text-align:right;">
+379721
+</td>
+<td style="text-align:left;">
+2264-01-9
+</td>
+<td style="text-align:left;">
+1H,1H,6H,6H-Perfluorohexane-1,6-diol diacrylate
+</td>
+<td style="text-align:left;">
+DTXSID80379721
+</td>
+<td style="text-align:left;">
+C2264019
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:left;">
+ATG_GLI_CIS
+</td>
+<td style="text-align:right;">
+626391856
+</td>
+<td style="text-align:left;">
+TO-17-1CD
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.412
+</td>
+<td style="text-align:right;">
+1.0183150
+</td>
+<td style="text-align:left;">
+EPA-TO17-Part2-ATTAGENE-CIS-FACTORIAL-DATA-May-10-2019.xlsx
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+01504209
+</td>
+<td style="text-align:right;">
+379721
+</td>
+<td style="text-align:left;">
+2264-01-9
+</td>
+<td style="text-align:left;">
+1H,1H,6H,6H-Perfluorohexane-1,6-diol diacrylate
+</td>
+<td style="text-align:left;">
+DTXSID80379721
+</td>
+<td style="text-align:left;">
+C2264019
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:left;">
+ATG_GLI_CIS
+</td>
+<td style="text-align:right;">
+626391857
+</td>
+<td style="text-align:left;">
+TO-17-1CD
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+11.100
+</td>
+<td style="text-align:right;">
+0.9848485
+</td>
+<td style="text-align:left;">
+EPA-TO17-Part2-ATTAGENE-CIS-FACTORIAL-DATA-May-10-2019.xlsx
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+01504209
+</td>
+<td style="text-align:right;">
+379721
+</td>
+<td style="text-align:left;">
+2264-01-9
+</td>
+<td style="text-align:left;">
+1H,1H,6H,6H-Perfluorohexane-1,6-diol diacrylate
+</td>
+<td style="text-align:left;">
+DTXSID80379721
+</td>
+<td style="text-align:left;">
+C2264019
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:left;">
+ATG_GLI_CIS
+</td>
+<td style="text-align:right;">
+626391850
+</td>
+<td style="text-align:left;">
+TO-17-1CD
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+33.300
+</td>
+<td style="text-align:right;">
+1.0134680
+</td>
+<td style="text-align:left;">
+EPA-TO17-Part2-ATTAGENE-CIS-FACTORIAL-DATA-May-10-2019.xlsx
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+01504209
+</td>
+<td style="text-align:right;">
+379721
+</td>
+<td style="text-align:left;">
+2264-01-9
+</td>
+<td style="text-align:left;">
+1H,1H,6H,6H-Perfluorohexane-1,6-diol diacrylate
+</td>
+<td style="text-align:left;">
+DTXSID80379721
+</td>
+<td style="text-align:left;">
+C2264019
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:left;">
+ATG_GLI_CIS
+</td>
+<td style="text-align:right;">
+626391858
+</td>
+<td style="text-align:left;">
+TO-17-1CD
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.230
+</td>
+<td style="text-align:right;">
+0.9882155
+</td>
+<td style="text-align:left;">
+EPA-TO17-Part2-ATTAGENE-CIS-FACTORIAL-DATA-May-10-2019.xlsx
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+01504209
+</td>
+<td style="text-align:right;">
+379721
+</td>
+<td style="text-align:left;">
+2264-01-9
+</td>
+<td style="text-align:left;">
+1H,1H,6H,6H-Perfluorohexane-1,6-diol diacrylate
+</td>
+<td style="text-align:left;">
+DTXSID80379721
+</td>
+<td style="text-align:left;">
+C2264019
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:left;">
+ATG_GLI_CIS
+</td>
+<td style="text-align:right;">
+626391851
+</td>
+<td style="text-align:left;">
+TO-17-1CD
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.412
+</td>
+<td style="text-align:right;">
+1.0860806
+</td>
+<td style="text-align:left;">
+EPA-TO17-Part2-ATTAGENE-CIS-FACTORIAL-DATA-May-10-2019.xlsx
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+01504209
+</td>
+<td style="text-align:right;">
+379721
+</td>
+<td style="text-align:left;">
+2264-01-9
+</td>
+<td style="text-align:left;">
+1H,1H,6H,6H-Perfluorohexane-1,6-diol diacrylate
+</td>
+<td style="text-align:left;">
+DTXSID80379721
+</td>
+<td style="text-align:left;">
+C2264019
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:left;">
+ATG_GLI_CIS
+</td>
+<td style="text-align:right;">
+626391859
+</td>
+<td style="text-align:left;">
+TO-17-1CD
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:left;">
+t
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+11.100
+</td>
+<td style="text-align:right;">
+1.0858586
+</td>
+<td style="text-align:left;">
+EPA-TO17-Part2-ATTAGENE-CIS-FACTORIAL-DATA-May-10-2019.xlsx
+</td>
+<td style="text-align:left;">
+uM
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="review-mc-assay-quality" class="section level2">
+<h2>Review MC assay quality</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to review assay quality metrics using indexed Level 0 data.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>aq <span class="ot">&lt;-</span> <span class="cf">function</span>(ac){</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtain level 1 multiple concentration data for specified acids</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(<span class="fu">tcplLoadData</span>(1L, <span class="st">&quot;acid&quot;</span>, aeids<span class="sc">$</span>acid, <span class="at">type=</span><span class="st">&quot;mc&quot;</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># keep only observations with good well quality (wllq = 1)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> dat[wllq<span class="sc">==</span><span class="dv">1</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtain summary values for data and remove missing data (i.e. NA&#39;s)</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  agg <span class="ot">&lt;-</span> dat[ ,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>              <span class="fu">list</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                <span class="co"># median response values (rval) of neutral wells (wllt = n)</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">nmed =</span> <span class="fu">median</span>(rval[wllt<span class="sc">==</span><span class="st">&quot;n&quot;</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                <span class="co"># median absolute deviation (mad) of neutral wells (wllt = n)</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">nmad =</span> <span class="fu">mad</span>(rval[wllt<span class="sc">==</span><span class="st">&quot;n&quot;</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                <span class="co"># median response values of positive control wells (wllt = p)</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">pmed =</span> <span class="fu">median</span>(rval[wllt<span class="sc">==</span><span class="st">&quot;p&quot;</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                <span class="co"># median absolute deviation of positive control wells (wllt = p)</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">pmad =</span> <span class="fu">mad</span>(rval[wllt<span class="sc">==</span><span class="st">&quot;p&quot;</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                <span class="co"># median response values of negative control wells (wllt = m)</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">mmed =</span> <span class="fu">median</span>(rval[wllt<span class="sc">==</span><span class="st">&quot;m&quot;</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                <span class="co"># median absolute deviation of negative control wells (wllt = m)</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">mmad =</span> <span class="fu">mad</span>(rval[wllt<span class="sc">==</span><span class="st">&quot;m&quot;</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                ),</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>              <span class="co"># aggregate on assay component id, assay component name,</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>              <span class="co"># and assay plate id</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>              by <span class="ot">=</span> <span class="fu">list</span>(acid, acnm, apid)]</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Z prime factor: separation between positive and negative controls,</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># indicative of likelihood of false positives or negatives. </span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Between 0.5 - 1 are excellent,</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Between 0 and 0.5 may be acceptable,</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Less than 0 not good</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtain the z-prime factor for positive controls and neutral</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  agg[ , zprm.p <span class="sc">:</span><span class="er">=</span> <span class="dv">1</span> <span class="sc">-</span> ((<span class="dv">3</span> <span class="sc">*</span> (pmad <span class="sc">+</span> nmad)) <span class="sc">/</span> <span class="fu">abs</span>(pmed <span class="sc">-</span> nmed))]  </span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtain the z-prime factor for negative controls and neutral</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  agg[ , zprm.m <span class="sc">:</span><span class="er">=</span> <span class="dv">1</span> <span class="sc">-</span> ((<span class="dv">3</span> <span class="sc">*</span> (mmad <span class="sc">+</span> nmad)) <span class="sc">/</span> <span class="fu">abs</span>(mmed <span class="sc">-</span> nmed))]</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  agg[ , ssmd.p <span class="sc">:</span><span class="er">=</span> (pmed <span class="sc">-</span> nmed) <span class="sc">/</span> <span class="fu">sqrt</span>(pmad<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> nmad<span class="sc">^</span><span class="dv">2</span> )]</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  agg[ , ssmd.m <span class="sc">:</span><span class="er">=</span> (mmed <span class="sc">-</span> nmed) <span class="sc">/</span> <span class="fu">sqrt</span>(mmad<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> nmad<span class="sc">^</span><span class="dv">2</span> )]</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Coefficient of Variation (cv) of neutral control</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - Ideally should be under 25%</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  agg[ , cv     <span class="sc">:</span><span class="er">=</span> nmad <span class="sc">/</span> nmed] </span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>  agg[ , sn.p <span class="sc">:</span><span class="er">=</span>  (pmed <span class="sc">-</span> nmed) <span class="sc">/</span> nmad]</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>  agg[ , sn.m <span class="sc">:</span><span class="er">=</span>  (mmed <span class="sc">-</span> nmed) <span class="sc">/</span> nmad]</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  agg[ , sb.p <span class="sc">:</span><span class="er">=</span>  pmed <span class="sc">/</span> nmed]</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>  agg[ , sb.m <span class="sc">:</span><span class="er">=</span>  mmed <span class="sc">/</span> nmed]</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  agg[zprm.p<span class="sc">&lt;</span><span class="dv">0</span>, zprm.p <span class="sc">:</span><span class="er">=</span> <span class="dv">0</span>]</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  agg[zprm.m<span class="sc">&lt;</span><span class="dv">0</span>, zprm.m <span class="sc">:</span><span class="er">=</span> <span class="dv">0</span>]</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  acqu <span class="ot">&lt;-</span> agg[ , <span class="fu">list</span>( <span class="at">nmed   =</span> <span class="fu">signif</span>(<span class="fu">median</span>(nmed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>                       <span class="at">nmad   =</span> <span class="fu">signif</span>(<span class="fu">median</span>(nmad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pmed   =</span> <span class="fu">signif</span>(<span class="fu">median</span>(pmed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pmad   =</span> <span class="fu">signif</span>(<span class="fu">median</span>(pmad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mmed   =</span> <span class="fu">signif</span>(<span class="fu">median</span>(mmed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mmad   =</span> <span class="fu">signif</span>(<span class="fu">median</span>(mmad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>                       <span class="at">zprm.p =</span> <span class="fu">round</span>(<span class="fu">median</span>(zprm.p, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>                       <span class="at">zprm.m =</span> <span class="fu">round</span>(<span class="fu">median</span>(zprm.m, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>                       <span class="at">ssmd.p =</span> <span class="fu">round</span>(<span class="fu">median</span>(ssmd.p, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">0</span>),</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>                       <span class="at">ssmd.m =</span> <span class="fu">round</span>(<span class="fu">median</span>(ssmd.m, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">0</span>),</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>                       <span class="at">cv =</span> <span class="fu">round</span>(<span class="fu">median</span>(cv, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sn.p =</span> <span class="fu">round</span>(<span class="fu">median</span>(sn.p, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sn.m =</span> <span class="fu">round</span>(<span class="fu">median</span>(sn.m, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sb.p =</span> <span class="fu">round</span>(<span class="fu">median</span>(sb.p, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>),</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sb.m =</span> <span class="fu">round</span>(<span class="fu">median</span>(sb.m, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>)</span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>  ), by <span class="ot">=</span> <span class="fu">list</span>(acid, acnm)]</span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the Results.</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(acqu)</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>} <span class="co">#per acid </span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the &#39;aq&#39; function &amp; store the output. </span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>assayq <span class="ot">&lt;-</span> <span class="fu">aq</span>(ac)</span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first 6 rows of the assay quality results.</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(assayq)</span></code></pre></div>
+</div>
+</div>
+<div id="retrieving-processed-single-concentration-sc-data-and-methods" class="section level1">
+<h1>Retrieving Processed Single-Concentration (SC) Data and Methods</h1>
+<p>The goal of SC processing is to identify potentially active compounds
+from a large screen at a single concentration. After processing, users
+can inspect SC activity hit calls and the applied methods.</p>
+<div id="load-sc2-data" class="section level2">
+<h2>Load SC2 Data</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Level 2 single concentration data for a single aeid.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sc2 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">2</span>, <span class="co"># data level</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">fld=</span><span class="st">&quot;aeid&quot;</span>, <span class="co"># id field to query on</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">val=</span><span class="dv">3</span>, <span class="co"># value for the id field</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">&quot;sc&quot;</span>) <span class="co"># data type - single concentration</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, data for a set of aeids can be loaded with a vector of ids.</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>sc2 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">2</span>, <span class="at">fld=</span><span class="st">&quot;aeid&quot;</span>, <span class="at">val=</span>aeids<span class="sc">$</span>aeid, <span class="at">type =</span> <span class="st">&quot;sc&quot;</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="load-sc-methods" class="section level2">
+<h2>Load SC Methods</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to load methods for single concentration data processing</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># steps for given aeids.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sc_methods <span class="ot">&lt;-</span> <span class="cf">function</span>(aeids) {</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load the level 1 methods assigned for the single concentration aeid&#39;s</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  sc1_mthds <span class="ot">&lt;-</span> <span class="fu">tcplMthdLoad</span>(<span class="at">lvl=</span><span class="dv">1</span>, <span class="at">type =</span><span class="st">&quot;sc&quot;</span>, <span class="at">id=</span>aeids<span class="sc">$</span>aeid)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aggregate the method id&#39;s by aeid</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  sc1_mthds<span class="ot">&lt;-</span> <span class="fu">aggregate</span>(mthd_id <span class="sc">~</span> aeid, sc1_mthds, toString)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reset the names of the sc1_mthds object</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(sc1_mthds, <span class="st">&quot;mthd_id&quot;</span>, <span class="st">&quot;sc1_mthd_id&quot;</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># load the level 2 methods assigned for the single concentration aeid&#39;s</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  sc2_mthds <span class="ot">&lt;-</span> <span class="fu">tcplMthdLoad</span>(<span class="at">lvl=</span><span class="dv">2</span>, <span class="at">type =</span><span class="st">&quot;sc&quot;</span>, <span class="at">id=</span>aeids<span class="sc">$</span>aeid)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aggregate the method id&#39;s by aeid</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  sc2_mthds<span class="ot">&lt;-</span> <span class="fu">aggregate</span>(mthd_id <span class="sc">~</span> aeid, sc2_mthds, toString)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reset the names of the sc2_mthds object</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(sc2_mthds, <span class="st">&quot;mthd_id&quot;</span>, <span class="st">&quot;sc2_mthd_id&quot;</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compile the Output </span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  methods <span class="ot">&lt;-</span> <span class="fu">merge</span>( <span class="fu">merge</span>(aeids, sc1_mthds,  <span class="at">by =</span> <span class="st">&quot;aeid&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>                  sc2_mthds, <span class="at">by =</span> <span class="st">&quot;aeid&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the Results</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(methods)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the &#39;sc_methods&#39; function and store the output.</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>smthds <span class="ot">&lt;-</span> <span class="fu">sc_methods</span>(aeids)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the assigned sc methods.</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>smthds</span></code></pre></div>
+</div>
+</div>
+<div id="retrieving-processed-multi-concentration-mc-data-methods-and-plots" class="section level1">
+<h1>Retrieving Processed Multi-Concentration (MC) Data, Methods, and
+Plots</h1>
+<p>The goal of MC processing is to estimate the hitcall, potency,
+efficacy, and other curve-fitting parameters for sample-assay endpoint
+pairs. After processing, users can inspect the activity hitcalls, model
+parameters, concentration-response plots, and the applied methods for
+the multiple concentration data.</p>
+<div id="load-mc5-data" class="section level2">
+<h2>Load MC5 Data</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Level 5 MC data summary values for a set of aeids.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (</span><span class="al">NOTE</span><span class="co">: As before, the user can obtain data for individual aeids.)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">5</span>, <span class="co"># data level</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">fld=</span><span class="st">&quot;aeid&quot;</span>, <span class="co"># fields to query on</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">val=</span>aeids<span class="sc">$</span>aeid, <span class="co"># value for each field</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                               <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">&quot;mc&quot;</span>) <span class="co"># data type - MC</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># For tcpl v3.0.0 and future releases, to output mc5_param information with</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the default mc5 results then &#39;add.fld&#39; must be set to TRUE.</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># (</span><span class="al">NOTE</span><span class="co">: Default for add.fld is FALSE, unless otherwise specified.)</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">5</span>, <span class="co"># data level</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">fld=</span><span class="st">&quot;aeid&quot;</span>, <span class="co"># fields to query on</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">val=</span>aeids<span class="sc">$</span>aeid, <span class="co"># value for each field</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                               <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">&quot;mc&quot;</span>, <span class="co"># data type - multiple concentration</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">add.fld=</span><span class="cn">TRUE</span>) <span class="co"># return additional parameters from mc5_param </span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="load-mc-methods" class="section level2">
+<h2>Load MC Methods</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to load methods for MC data processing</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for select aeids.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mc_methods <span class="ot">&lt;-</span> <span class="cf">function</span>(aeids) {</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># acid</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load the methods assigned to level 2 for given acids</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  mc2_mthds <span class="ot">&lt;-</span> <span class="fu">tcplMthdLoad</span>(<span class="dv">2</span>,aeids<span class="sc">$</span>acid)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## aggregate the assigned methods by acid</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  mc2_mthds<span class="ot">&lt;-</span> <span class="fu">aggregate</span>(mthd_id <span class="sc">~</span> acid, mc2_mthds, toString)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## rename the columns for the &#39;mc2_mthds&#39; object</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc2_mthds, <span class="st">&quot;mthd_id&quot;</span>, <span class="st">&quot;mc2_mthd_id&quot;</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aeid</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load the methods assigned to level 3 for given aeids</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  mc3_mthds <span class="ot">&lt;-</span> <span class="fu">tcplMthdLoad</span>(<span class="dv">3</span>,aeids<span class="sc">$</span>aeid)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## aggregate the assigned methods by aeid</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  mc3_mthds<span class="ot">&lt;-</span> <span class="fu">aggregate</span>(mthd_id <span class="sc">~</span> aeid, mc3_mthds, toString)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">## rename the columns for the &#39;mc3_mthds&#39; object</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc3_mthds, <span class="st">&quot;mthd_id&quot;</span>, <span class="st">&quot;mc3_mthd_id&quot;</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load the methods assigned to level 4 for given aeids</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  mc4_mthds <span class="ot">&lt;-</span> <span class="fu">tcplMthdLoad</span>(<span class="dv">4</span>,aeids<span class="sc">$</span>aeid)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## aggregate the assigned methods by aeid</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  mc4_mthds<span class="ot">&lt;-</span> <span class="fu">aggregate</span>(mthd_id <span class="sc">~</span> aeid, mc4_mthds, toString) </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="do">## rename the columns for &#39;mc4_mthds&#39; object</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc4_mthds, <span class="st">&quot;mthd_id&quot;</span>, <span class="st">&quot;mc4_mthd_id&quot;</span>)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="do">## load the methods assigned to level 5 for given aeids</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  mc5_mthds <span class="ot">&lt;-</span> <span class="fu">tcplMthdLoad</span>(<span class="dv">5</span>,aeids<span class="sc">$</span>aeid)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="do">## aggregate the assigned methods by aeid</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  mc5_mthds<span class="ot">&lt;-</span> <span class="fu">aggregate</span>(mthd_id <span class="sc">~</span> aeid, mc5_mthds, toString)</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="do">## rename the columns for &#39;mc5_mthds&#39; object</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setnames</span>(mc5_mthds, <span class="st">&quot;mthd_id&quot;</span>, <span class="st">&quot;mc5_mthd_id&quot;</span>)</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compile the Results.</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="do">## merge the aeid information with the level 2 methods by acid</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  acid.methods <span class="ot">&lt;-</span> <span class="fu">merge</span>(aeids, mc2_mthds,<span class="at">by.x =</span> <span class="st">&quot;acid&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;acid&quot;</span>)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  <span class="do">## merge the level 3, 4, and 5 methods by aeid</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  mthd35 <span class="ot">&lt;-</span> <span class="fu">merge</span>(</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">merge</span>(mc3_mthds, mc4_mthds, <span class="at">by =</span> <span class="st">&quot;aeid&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    mc5_mthds, <span class="at">by =</span> <span class="st">&quot;aeid&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="do">## merge all methods information by aeid</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>  methods <span class="ot">&lt;-</span> <span class="fu">merge</span>(acid.methods, mthd35,<span class="at">by.x =</span> <span class="st">&quot;aeid&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;aeid&quot;</span>)</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Print the Results.</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(methods)</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return the Results.</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(methods)</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the &#39;methods&#39; function and store the output.</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>mmthds <span class="ot">&lt;-</span> <span class="fu">mc_methods</span>(aeids)</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the assigned mc methods.</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>mmthds</span></code></pre></div>
+</div>
+<div id="plot-mc-data" class="section level2">
+<h2>Plot MC Data</h2>
+<p>The <font face="CMTT10">tcplPlot</font> function is the generic
+plotting function that returns a plot for the given sample-assay
+endpoint combination(s), level, and parameters.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Level 4 plot for a single m4id.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">lvl =</span> <span class="dv">4</span>,  <span class="co"># data level</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">fld =</span> <span class="st">&quot;m4id&quot;</span>, <span class="co"># field to query on </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">val =</span> <span class="fu">c</span>(<span class="dv">18609966</span>), <span class="co"># value for each field</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                            <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">multi =</span> <span class="cn">FALSE</span>, <span class="co"># single plot per page - output 6 per page if TRUE</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">verbose =</span> <span class="cn">FALSE</span>, <span class="co"># output all details if TRUE</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">output =</span> <span class="st">&quot;console&quot;</span>) <span class="co"># output in R console</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Level 5 MC data for select aeids.</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">lvl =</span> <span class="dv">5</span>, <span class="co"># data level</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">fld =</span> <span class="st">&quot;aeid&quot;</span>, <span class="co"># field to query on</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">val =</span> <span class="dv">3157</span><span class="sc">:</span><span class="dv">3159</span>, <span class="co"># value for each field</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                          <span class="co"># values should match their corresponding &#39;fld&#39;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">by =</span> <span class="st">&quot;aeid&quot;</span>, <span class="co"># parameter to divide files</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">multi =</span> <span class="cn">TRUE</span>, <span class="co"># multiple plots per page - output 6 per page if TRUE</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="co"># output all details if TRUE</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">output =</span> <span class="st">&quot;pdf&quot;</span>, <span class="co"># output as pdf</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">fileprefix =</span> <span class="st">&quot;output/&quot;</span>) <span class="co"># prefix of the filename</span></span></code></pre></div>
+</div>
+</div>
+<div id="additional-examples" class="section level1">
+<h1>Additional Examples</h1>
+<p>Below are a few case examples for retrieving various bits of
+information from the database.</p>
+<div id="load-data-for-a-specific-chemical" class="section level2">
+<h2>Load Data for a Specific Chemical</h2>
+<p>In this example, we illustrate the necessary steps for extracting
+information about the compound <em>Bisphenol A</em> found within the
+database. The user will define the chemical of interest, isolate all
+associated sample ids (<span class="math inline">\(\mathit{spids}\)</span>), and then load all data
+for the given chemical.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Provide the chemical name and assign to &#39;chnm&#39;.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>chnm <span class="ot">&lt;-</span> <span class="st">&#39;Bisphenol A&#39;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the chemical data from the database.</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>chem <span class="ot">&lt;-</span> <span class="fu">tcplLoadChem</span>(<span class="at">field =</span> <span class="st">&#39;chnm&#39;</span>,<span class="at">val =</span> chnm)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load mc5 data from the database for the specified chemical.</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>BPA.mc5 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">5</span>, <span class="co"># data level </span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">fld =</span> <span class="st">&#39;spid&#39;</span>, <span class="co"># field to query on</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                        <span class="at">val =</span> chem[,spid], <span class="co"># value for each field (fld)</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">type =</span> <span class="st">&#39;mc&#39;</span>) <span class="co"># data type - MC</span></span></code></pre></div>
+</div>
+<div id="plot-sample-subset" class="section level2">
+<h2>Plot Sample Subset</h2>
+<p>In this example, we illustrate how to plot by endpoint for a sample
+subset, as opposed to plotting all samples tested within an endpoint.
+The user will load data for the select endpoints, isolate the samples of
+interest, and then plot by endpoint for the sample subset.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Level 5 multiple concentration data summary values for select aeids.</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplPrepOtpt</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tcplLoadData</span>(<span class="at">lvl=</span><span class="dv">5</span>, <span class="co"># data level</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">fld=</span><span class="st">&#39;aeid&#39;</span>, <span class="co"># id field to query on</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">val=</span><span class="fu">tcplLoadAeid</span>(<span class="at">fld=</span><span class="st">&quot;asid&quot;</span>,<span class="at">val =</span> <span class="dv">25</span>)<span class="sc">$</span>aeid, <span class="co"># value for each field</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">type=</span><span class="st">&#39;mc&#39;</span>, <span class="co"># data type - MC</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">add.fld=</span><span class="cn">TRUE</span>) <span class="co"># return additional parameters from mc5_param</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify sample subset.</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>spid.mc5 <span class="ot">&lt;-</span> mc5[spid <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;EPAPLT0018N08&quot;</span>, <span class="st">&quot;EPAPLT0023A16&quot;</span>, <span class="st">&quot;EPAPLT0020C11&quot;</span>,  </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;EPAPLT0018B13&quot;</span>,<span class="st">&quot;EPAPLT0018B14&quot;</span>,<span class="st">&quot;EPAPLT0018B15&quot;</span>),]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot by endpoint for sample subset.</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">lvl =</span> <span class="dv">5</span>, <span class="co"># data level</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">fld =</span> <span class="fu">c</span>(<span class="st">&quot;spid&quot;</span>,<span class="st">&quot;aeid&quot;</span>), <span class="co"># fields to query on</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">val =</span> <span class="fu">list</span>( <span class="co"># value for each field, must be same order as &#39;fld&#39;</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>           spid.mc5<span class="sc">$</span>spid, <span class="co"># sample id&#39;s</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>           spid.mc5<span class="sc">$</span>aeid  <span class="co"># assay endpoint id&#39;s</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>           ),</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">by =</span> <span class="st">&quot;aeid&quot;</span>, <span class="co"># parameter to divide files</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">multi =</span> <span class="cn">TRUE</span>, <span class="co"># multiple plots per page - output 6 per page if TRUE</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="co"># output all details if TRUE</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">output =</span> <span class="st">&quot;pdf&quot;</span>, <span class="co"># output as pdf</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">fileprefix =</span> <span class="st">&quot;output/upitt&quot;</span>) <span class="co"># prefix of the filename</span></span></code></pre></div>
 </div>
 </div>
     </section>

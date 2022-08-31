@@ -18,10 +18,10 @@ tcplSendQuery <- function(query, db = getOption("TCPL_DB"),
                           drvr = getOption("TCPL_DRVR"), tbl=NULL, delete=F) {
   
   #Check for valid inputs
-  if (length(query) != 1 | class(query) != "character") {
+  if (length(query) != 1 || !is(query,"character")) {
     stop("The input 'query' must be a character of length one.")
   }
-  if (length(db) != 1 | class(db) != "character") {
+  if (length(db) != 1 || !is(db,"character")) {
     stop("The input 'db' must be a character of length one.")
   }
   
@@ -41,6 +41,9 @@ tcplSendQuery <- function(query, db = getOption("TCPL_DB"),
                     host = getOption("TCPL_HOST"),
                     dbname = db,
                     bigint = "numeric")
+    additional_pars <- .Options[grepl("TCPL_(?!USER|HOST|DB|DRVR|HOST|PASS)",names(.Options),perl = TRUE)]
+    names(additional_pars) <- tolower(gsub("TCPL_","",names(additional_pars)))
+    db_pars <- append(db_pars,additional_pars)
     
   }
   

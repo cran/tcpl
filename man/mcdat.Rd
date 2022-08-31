@@ -20,13 +20,13 @@ A data frame with 14183 rows and 10 variables:
 }
 }
 \source{
-Toxcast database
+ToxCast database
 }
 \usage{
 mcdat
 }
 \description{
-The example dataset is used to illustrate how the user can pipeline multiple-concentration  
+The example dataset is used to illustrate how the user can pipeline multiple-concentration
 data from chemical screening using tcplLite.
 }
 \keyword{datasets}

@@ -1,9 +1,11 @@
-## ----eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE-------------
-#  
-#  library(htmlTable)
+## ---- echo = FALSE, message = FALSE, warning = FALSE--------------------------
+
+library(htmlTable)
 
 ## ----eval=TRUE, message=FALSE-------------------------------------------------
 library(data.table)
+library(plotly)
+library(tcplfit2)
 library(tcpl)
 ## Store the path for the tcpl directory for loading data
 pkg_dir <- system.file(package = "tcpl")
@@ -14,26 +16,21 @@ pkg_dir <- system.file(package = "tcpl")
 #    TCPL_DB:    C:/Users/user/R-3.4.4/library/tcpl/csv
 #    TCPL_USER:  NA
 #    TCPL_HOST:  NA
-#    TCPL_DRVR:  tcplLite
+#    TCPL_DRVR:  NA
 #  Default settings stored in TCPL.conf. See ?tcplConf for more information.
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  tcplConf(drvr = "MySQL",
+#  tcplConf(db   = "invitrodb",
 #           user = "username",
 #           pass = "password",
 #           host = "localhost",
-#           db   = "invitrodb")
-#  
-
-## ----eval = FALSE-------------------------------------------------------------
-#  tcplConf(drvr = "tcplLite", db = system.file("csv", package = "tcpl"), user = "", pass = "", host = "")
+#           drvr = "MySQL")
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("s0id ", "acid", "spid", "cpid", "apid", "rowi", "coli", "wllt", "wllq", "conc", "rval", "srcf")
+Field <- c("s0id ", "acid", "spid", "apid", "rowi", "coli", "wllt", "wllq", "conc", "rval", "srcf")
 Description <- c("Level 0 ID",
                  "Assay component ID",
                  "Sample ID",
-                 "Chemical plate ID",
                  "Assay plate ID",
                  "Assay plate row index",
                  "Assay plate column index",
@@ -47,13 +44,12 @@ Description <- c("Level 0 ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 5: Fields in sc0 table.",
+        caption="Table 1: Fields in sc0 table.",
         tfoot="&dagger;Information about the different well types is available in Appendix B.")
 
 
@@ -73,13 +69,12 @@ Description <- c("Level 1 ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 6: Fields in sc1 table."
+        caption="Table 2: Fields in sc1 table."
 )
 
 
@@ -95,13 +90,12 @@ Description <- c("Assay component endpoint ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 7: Fields in sc2_agg table."
+        caption="Table 3: Fields in sc2_agg table."
 )
 
 
@@ -112,7 +106,7 @@ Description <- c("Level 2 ID",
                  "Sample ID",
                  "Baseline median absolute deviation",
                  "Maximum median response value",
-                 "Hit-/activity-call, 1 if active, 0 if inactive",
+                 "Hit-/activity-call: 1 if active, 0 if inactive&dagger;",
                  "Efficacy cutoff value",
                  "Ignore, temporary index used for uploading purposes"
                  )
@@ -120,13 +114,34 @@ Description <- c("Level 2 ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 8: Fields in sc2 table."
+        caption="Table 4: Fields in sc2 table.",
+        tfoot = "&dagger; As sc data are not curve-fit, the hitcalling procedure performed at sc2 remains binary (hitc=1 or hitc=0)."
+)
+
+
+## ----warning = FALSE, echo = FALSE--------------------------------------------
+Field <- c("s2id", "chid_rep")
+
+Description <- c("Level 2 ID",
+                 "Representative sample designation for a tested chemical: 1 if representative sample, else 0"
+                 )
+
+output <- 
+  data.frame(Field, Description)
+
+htmlTable(output,
+        align = 'l',
+        align.header = 'l',
+        rnames = FALSE  ,
+        css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
+        caption="Table 5: Fields in sc2_chid.",
+        
+     
 )
 
 
@@ -142,13 +157,12 @@ Description <- c("Level 1 ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 9: Fields in mc1 table."
+        caption="Table 6: Fields in mc1 table."
 )
 
 
@@ -164,13 +178,12 @@ Description <- c("Level 2 ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 10: Fields in mc2 table."
+        caption="Table 7: Fields in mc2 table."
 )
 
 
@@ -191,13 +204,12 @@ Description <- c("Level 3 ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 11: Fields in mc3 table."
+        caption="Table 8: Fields in mc3 table."
 )
 
 
@@ -215,18 +227,20 @@ Description <- c(
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 12: Fields in mc4_agg table."
+        caption="Table 9: Fields in mc4_agg table."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("m4id", "aeid", "spid", "bmad", "resp_max", "resp_min", "max_mean", "max_mean_conc", "max_med", "max_med_conc", "logc_max", "logc_min", "cnst", "hill", "hcov", "gnls", "gcov", "cnst_er", "cnst_aic", "cnst_rmse", "cnst_prob", "hill_tp", "hill_tp_sd", "hill_ga", "hill_ga_sd")
+
+Field <- c("m4id", "aeid", "spid", "bmad", "resp_max", "resp_min", "max_mean", "max_mean_conc", "max_med", "max_med_conc", "logc_max", "logc_min", 
+           "nconc", "npts", "nrep", "nmed_gtbl", "tmpi")
+
 
 Description <- c("Level 4 ID",
                  "Assay endpoint ID",
@@ -240,177 +254,117 @@ Description <- c("Level 4 ID",
                  "Log concentration at *max_med*",
                  "Maximum log concentration tested",
                  "Minimum log concentration tested",
-                 "1 if the constant model converged, 0 if it failed to converge, N/A if series had less than four concentrations",
-                  "1 if the Hill model converged, 0 if it failed to converge, N/A if series had less than four concentrations or if *max_med* < *3bmad*",
-                "1 if the Hill model Hessian matrix could be inverted, else 0",
-      "1 if the gain-loss model converged, 0 if it failed to converge, N/A
-if series had less than four concentrations or if *max_med* < *3bmad*",
-                "1 if the gain-loss model Hessian matrix could be inverted, else 0",
-                "Scale term for the constant model",
-                "AIC for the constant model",
-                "RMSE for the constant model",
-                "Probability the constant model is the true model",
-                "Top asymptote for the Hill model",
-                "Standard deviation for *hill_tp*",
-                "AC~50~ for the Hill model",
-                 "Standard deviation for *hill_ga* "
+                 "Number of concentrations tested ",
+                 "Number of points in the concentration series",
+                 "Number of replicates in the concentration series",
+                 "Number of median values greater than *3bmad*",
+                 "Ignore, temporary index used for uploading purposes"
                  )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 13: Fields in mc4 table (Part 1)."
+        caption="Table 10: Fields in mc4 table."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("hill_gw", "hill_gw_sd", "hill_er", "hill_er_sd", "hill_aic", "hill_rmse", "hill_prob", "gnls_tp", "gnls_tp_sd", "gnls_ga", "gnls_ga_sd", "gnls_gw", "gnls_gw_sd", "gnls_la", "gnls_la_sd", "gnls_lw", "gnls_lw_sd", "gnls_er", "gnls_er_sd", "gnls_aic", "gnls_rmse", "gnls_prob", "nconc", "npts", "nrep", "nmed_gtbl", "tmpi")
+Field <- c("m4id", "aeid", "model", "model_param", "model_val")
 
-Description <- c("Hill coefficient",
-                 "Standard deviation for *hill_gw*",
-                 "Scale term for the Hill model",
-                 "Standard deviation for *hill_er*",
-                 "AIC for the Hill model",
-                 "RMSE for the Hill model",
-                 "Probability the Hill model is the true model",
-                 "Top asymptote for the gain-loss model",
-                 "Standard deviation for *gnls_tp*",
-                 "AC~50~ in the gain direction for the gain-loss model",
-                 "Standard deviation for *gnls_ga*",
-                 "Hill coefficient in the gain direction",
-                 "Standard deviation for *gnls_gw* ",
-                 "AC~50~ in the loss direction for the gain-loss model",
-                 "Standard deviation for *gnls_la*",
-                "Hill coefficient in the loss direction",
-                "Standard deviation for the *gnls_lw*",
-                 "Scale term for the gain-loss model",
-                 "Standard deviation for *gnls_er*",
-                 "AIC for the gain-loss model",
-                 "RMSE for the gain-loss model",
-                "Probability the gain-loss model is the true model",
-                "Number of concentrations tested ",
-                "Number of points in the concentration series",
-                "Number of replicates in the concentration series",
-                "Number of median values greater than *3bmad*",
-                "Ignore, temporary index used for uploading purposes"
-                 )
+Description <- c("Level 4 ID",
+                 "Assay endpoint ID",
+                 "Model that was fit",
+                 "Key for the parameter that was fit with the corresponding model",
+                 "Value for the associated key in the corresponding model"
+                )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 14: Fields in mc4 table (Part 2)."
+        caption="Table 11: Fields in mc4_param table."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("m5id", "m4id", "aeid", "modl", "hitc", "fitc", "coff", "actp", "modl_er", "modl_tp", "modl_ga", "modl_gw", "modl_la", "modl_lw", "modl_prob", "modl_rmse", "modl_acc", "modl_acb", "modl_ac10")
+
+Field <- c("m5id", "m4id", "aeid", "modl", "hitc", "fitc", "coff", "actp", "model_type")
+
 
 Description <- c("Level 5 ID",
                  "Level 4 ID",
                  "Assay endpoint ID",
-                 "Winning model: \"cnst\", \"hill\", or \"gnls\"",
-                 "Hit-/activity-call, 1 if active, 0 if inactive, -1 if cannot determine",
+                 "Winning model",
+                 "Hit-/activity-call, generally a continuous value from 0 to 1 if using *tcplFit2* fitting&dagger;" ,
                  "Fit category",
-                 "Effcacy cutoff value",
-
-                "Activity probability (1 - *const_prob*)",
-                "Scale term for the winning model",
-                "Top asymptote for the winning model",
-                "Gain AC~50~ for the winning model",
-              "Gain Hill coefficient for the winning model",
-              "Loss AC~50~ for the winning model",
-       "Loss Hill coefficient for the winning model",
-       "Probability for the winning model",
-       "RMSE for the winning model",
-       "Activity concentration at cutoff for the winning model",
-       "Activity concentration at baseline for the winning model",
-       "AC10 for the winning model"
+                 "Efficacy cutoff value",
+                "Activity probability (1 - *const_prob* not used with *tcplFit2*)",
+                "Model type placeholder for use when number of fitting methodologies increases"
                  )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 15: Fields in mc5 table."
+        caption="Table 12: Fields in mc5 table.",
+        tfoot = "&dagger; The continuous hitcalls produced resultant to *tcplFit2* curve-fitting are described in more detail in library(tcplFit2) and Sheffield et al. 2021 (https://doi.org/10.1093/bioinformatics/btab779)."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("m6id", "m5id", "m4id", "aeid", "m6_mthd_id", "flag", "fval", "fval_unit")
+Field <- c("m5id", "aeid", "hit_param", "hit_val")
 
-Description <- c("Level 6 ID",
-                 "Level 5 ID",
-                 "Level 4 ID",
+Description <- c("Level 5 ID",
                  "Assay endpoint ID",
-                 "Level 6 method ID",
-                 "Text output for the level 6 method",
-                 "Value from the flag method, if applicable",
-                 "Units for *fval* , if applicable" )
+                 "Key for the parameter that was fit with winning model",
+                 "Value for the associated key in the winning model"
+                 )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 16: Fields in mc6 table."
+        caption="Table 13: Fields in mc5_param table."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("m4id", "Aeid", "Aenm", "Asid", "Acid", "Hit_pct", "Total_hitc", "Modl_ga_min", "Modl_ga_max", "Modl_ga_med", "Modl_gw_med", "Modl_ga_delta", "Cnst_pct", "Hill_pct", "Gnls_pct")
+Field <- c("m5id", "chid_rep")
 
-Description <- c("Level 4 ID",
-                 "Assay endpoint ID",
-                 "Assay endpoint name",
-                 "Assay source ID",
-                 "Assay component ID",
-                 "Total percent of hit calls made after 1000 bootstraps",
-                 "Total number of hit calls made after 1000 bootstraps",
-                 "Low bound of the 95% confidence interval for the AC~50~",
-                 "Upper bound of the 95% confidence interval for the AC~50~",
-                 "Median AC~50~ after 1000 bootstraps",
-                 "Median gain Hill coefficient for 1000 bootstraps",
-                 "AC~50~ confidence interval width in log units",
-                 "Percent of 1000 bootstraps that the constant model was selected as the winning model", 
-                 "Percent of 1000 bootstraps that the Hill model was selected as the winning model",
-                 "Percent of 1000 bootstraps that the gain-loss was selected as the winning model")
+Description <- c("Level 5 ID",
+                 "Representative sample designation for a tested chemical: 1 if representative sample, else 0"
+                 )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 17: Fields in mc7 table."
-)
+        caption="Table 14: Fields in mc5_chid." )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("assay", "assay_component", "assay_component_endpoint", "assay_component_map", "assay_reagent**", "assay_reference**", "assay_source", "chemical", "chemical_library", "citations**", "gene", "intended target**", "mc5_fit_categories", "organism**", "sample", "technological_target**")
+Field <- c("assay", "assay_component", "assay_component_endpoint", "assay_component_map", "assay_reagent**", "assay_reference**", "assay_source", "chemical", "chemical_library", "citations**", "gene**", "intended_target**", "organism**", "sample")
 
 Description <- c("Assay-level annotation",
                  "Assay component-level annotation",
@@ -422,121 +376,153 @@ Description <- c("Assay-level annotation",
                  "List of chemicals and associated identifiers",
                  "Map of chemicals to different chemical libraries",
                  "List of citations",
-                 "Gene** identifers and descriptions",
+                 "Gene identifiers and descriptions",
                  "Intended assay target at the assay endpoint level",
-                 "The level 5 fit categories",
-                "Organism identifiers and descriptions",
-                "Sample ID information and chemical ID mapping",
-                "Technological assay target at the assay component level")
+                 "Organism identifiers and descriptions",
+                 "Sample ID information and chemical ID mapping")
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
-        caption="Table 18: List of annotation tables.",
+        caption="Table 15: List of annotation tables.",
         tfoot = "** indicates tables not currently used by the *tcpl* package",
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em '
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("aid", "asid", "assay_name", "assay_desc", "timepoint_hr", "assay_footprint")
+Field <- c("aid", "asid&dagger;", "assay_name&dagger;", "assay_desc", "timepoint_hr", 
+            "organism_id", "organism",'tissue',"cell_format",
+            'cell_free_component_source',
+            'cell_short_name', 
+            'cell_growth_mode',
+            "assay_footprint&dagger;", 
+            "assay_format_type" ,
+            "assay_format_type_sub" ,
+            "content_readout_type",  
+            "dilution_solvent" , 
+            "dilution_solvent_percent_max")
 
 Description <- c("Assay ID",
                  "Assay source ID",
                  "Assay name (abbreviated \"anm\" within the package)",
                  "Assay description",
                  "Treatment duration in hours",
-                 "Microtiter plate size&dagger;")
+                 "NCBI taxonomic identifier, available here <https://www.ncbi.nlm.nih.gov/taxonomy>",
+                "Organism of origin",
+                "Tissue of origin", "Description of cell format",
+                "Description of source for targeted cell-free components",
+                "Abbreviation of cell line",
+                "Cell growth modality", 
+                "Microtiter plate size",
+                "General description of assay format",
+                "Specific description of assay format" ,
+                "Description of well characteristics being measured", 
+                "Solvent used in sample dilution",
+                "Maximum percent of dilution solvent used, from 0 to 1.")
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
-        caption="Table 19: Fields in assay.",
-        tfoot = "&dagger; discussed further in the \"Register and Upload New Data\" section",
+        caption="Table 16: Fields in assay.",
+        tfoot = "&dagger; Required fields for registration",
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em '
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("acid", "aid", "assay_component_name", "assay_component_desc")
+Field <- c("acid", "aid&dagger;", "assay_component_name&dagger;", "assay_component_desc", "assay_component_target_desc", "parameter_readout_type","assay_design_type", "assay_design_type_sub", "biological_process_target", "detection_technology_type", "detection_technology_type_sub", "detection_technology", "key_assay_reagent_type", "key_assay_reagent", "technological_target_type", "technological_target_type_sub")
 
 Description <- c("Assay component ID",
                  "Assay ID",
                  "Assay component name (abbreviated \"acnm\" within the package)",
-                 "Assay component description"
+                 "Assay component description", 
+                 "Assay component target description. Generally includes information about mechanism of action with assay target, how disruption is detected, or significance of target disruption.",
+                 "Description of parameters measured", 
+                "General description of the biological or physical process is translated into a detectable signal by assay mechanism",
+                "Specific description of method through which a biological or physical process is translated into a detectable signal measured",
+                "General biological process being chemically disrupted",
+                "General description of assay platform or detection signals measured",
+                "Description of signals measured in assay platform",
+                "Specific description of assay platform used",
+                "Type of critical reactant being measured",
+                "Critical reactant measured",
+                "General description of technological target measured in assay platform",
+                "Specific description of technological target measured in assay platform"
                  )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 20: Fields in assay_component."
+        tfoot = "&dagger; Required fields for registration",
+        caption="Table 17: Fields in assay_component."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("asid", "assay_source_name", "assay_source_long_name", "assay_source_description")
+Field <- c("asid&dagger;", "assay_source_name&dagger;", "assay_source_long_name", "assay_source_desc")
 
 Description <- c("Assay source ID",
-                 "Assay source name (typically an abbreviation of the
-assay_source_long_name, abbreviated \"asnm\" within the package)",
-                 "The full assay source name", 
+                 "Assay source name (typically an abbreviation of the assay_source_long_name, abbreviated \"asnm\" within the package)",
+                 "Full assay source name", 
                  "Assay source description"
                  )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 21: Fields in assay_source."
+        tfoot = "&dagger; Required fields for registration",
+        caption="Table 18: Fields in assay_source."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("aeid", "acid", "assay_component_endpoint_name", "assay_component_endpoint_desc", "export_ready", "normalized_data_type", "burst_assay", "fit_all")
-
+Field <- c("aeid", "acid", "assay_component_endpoint_name", "assay_component_endpoint_desc", "assay_function_type", "normalized_data_type&dagger;", "burst_assay&dagger;", "key_positive_control", "signal_direction", "intended_target_type", "intended_target_type_sub", "intended_target_family", "intended_target_family_sub", "fit_all&dagger;", "cell_viability_assay")
+           
 Description <- c("Assay component endpoint ID",
                  "Assay component ID",
-                 "Assay component endpoint name (abbreviated \"aenm\" within the
-package)", 
+                 "Assay component endpoint name (abbreviated \"aenm\" within the package)", 
                  "Assay component endpoint description",
-"0 or 1, used to flag data as \"done\"",
-                 "The units of the normalized data&dagger;",
-                 "0 or 1, 1 indicates the assay results should be used in calculating the burst z-score",
-                 "0 or 1, 1 indicates all results should be fit, regardless of whether the *max_med* surpasses *3bmad*"
-                 )
+                 "Description of targeted mechanism and the purpose of the analyzed readout in relation to others from the same assay",
+                 "Normalization approach for which the data is displayed",
+                 "Indicator if endpoint is included in the burst distribution (1) or not (0); Burst phenomenon can describe confounding activity, such as cytotoxicity due to non-specific activation of many targets at certain concentrations", 
+                 "Tested chemical sample expected to produce activity; Used to assess assay validity",
+                 "Directionality of raw data signals from assay (gain or loss); Defines analysis direction",
+                "General group of intended targets measured",
+                "Specific subgroup of intended targets measured", 
+                "Family of intended target measured; Populated on ToxCast chemical activity plot within CompTox dashboard",
+                "Specific subfamily of intended target measured",
+                "Indicator if all results should be fit, regardless of whether max_med surpasses 3bmad cutoff (1) or not (0)",
+                "Indicator of the impact of cytotoxicity in confounding (1) or no cytotoxic impact (0)" )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 22: Fields in assay_component_endpoint.",
-        tfoot = "&dagger; discussed further in the \"Register and Upload New Data\" section"
+        caption="Table 19: Fields in assay_component_endpoint.",
+        tfoot = "&dagger; Required fields for registration"
 )
 
 
@@ -550,35 +536,34 @@ Description <- c("Assay component ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 23: Fields in assay_component_map table."
+        caption="Table 20: Fields in assay_component_map table."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("chid", "casn", "chnm")
+Field <- c("chid", "casn", "chnm", "dsstox_substance_id")
 
 Description <- c("Chemical ID&dagger;",
                  "CAS Registry Number",
-                 "Chemical name"
+                 "Chemical name",
+                 "Unique identifier from U.S. EPA Distributed Structure-Searchable Toxicity (DSSTox) Database"
                  )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 24: Fields in chemical table." ,
-        tfoot = "&dagger; this is the DSSTox GSID within the ToxCast data, but can be any integer and will be auto-generated (if not explicitly defined) for newly registered
+        caption="Table 21: Fields in chemical table." ,
+        tfoot = "&dagger; This is the DSSTox GSID within the ToxCast data, but can be any integer and will be auto-generated (if not explicitly defined) for newly registered
 chemicals"
 )
 
@@ -593,63 +578,35 @@ Description <- c("Chemical ID",
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 25: Fields in chemical_library table." 
+        caption="Table 22: Fields in chemical_library table." 
      
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("fitc", "parent_fitc", "name", "xloc", "yloc")
-
-Description <- c("Fit category",
-                 "Parent fit category",
-                 "Fit category name" ,
-                 "x-axis location for plotting purposes",
-                 "y-axis location for plotting purposes"
-                 )
-
-output <- 
-  data.frame(Field, Description)
-
-library(htmlTable)
-htmlTable(output,
-        align = 'l',
-        align.header = 'l',
-        rnames = FALSE  ,
-        css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 26: Fields in mc5_fit_categories." 
-     
-)
-
-
-## ----warning = FALSE, echo = FALSE--------------------------------------------
-Field <- c("spid", "chid", "stkc", "stkc_unit", "tested_conc_unit", 
-           "spid_legacy")
+Field <- c("spid", "chid", "stkc", "stkc_unit", "tested_conc_unit")
 
 Description <- c("Sample ID",
                  "Chemical ID",
                  "Stock concentration" ,
                  "Stock concentration unit",
-                 "The concentration unit for the concentration values in the data-containing tables",
-                 "A place-holder for previous sample ID strings"
+                 "The concentration unit for the concentration values in the data-containing tables"
                  )
 
 output <- 
   data.frame(Field, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 27: Fields in sample table." 
+        caption="Table 23: Fields in sample table." 
 )
 
 
@@ -664,9 +621,9 @@ Description <- c("Assay component source name",
                  "Assay plate row index, as an integer",
                  "Assay plate column index, as an integer",
                  "Well type",
-                 "1 if the well quality was good, else 0",
+                 "1 if the well quality was acceptable, else 0",
                  "Concentration in micromolar",
-                 "Raw assay component value/readout from vendor",
+                 "Raw assay component value or readout from vendor",
                  "Filename of the source file containing the data"
                  )
 `N/A` <- c("No", "No", "Yes", "Yes","Yes","Yes", "No", "No", "No&dagger;", "Yes&ddagger;", "No")
@@ -674,25 +631,21 @@ Description <- c("Assay component source name",
 output <- 
   data.frame(Field, Description, `N/A`)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
         
-          caption="Table 28: Required felds in level 0 pre-processing." ,
-          tfoot = "The N/A column indicates whether the field can be N/A in the pre-processed data.
- &dagger;Concentration can be N/A for control values only tested at a single
-concentration. Concentration cannot be N/A for any test compound (well
-type of \"t\") data.
- &ddagger;If the raw value is N/A, well type has to be 0."
+          caption="Table 24: Required fields in level 0 pre-processing." ,
+          tfoot = "The N/A column indicates whether the field can be N/A in the pre-processed data. 
+ &dagger; In past versions of *tcpl*, there were some exceptions where concentrations could be N/A. For *tcpl_v3*, conc values must be numeric for processing since N/A values will result in processing error.  
+ &ddagger;If the raw value is N/A, well quality must be 0."
 )
 
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
-`Well Type` <- c("t", "c", "p", "n", "m", 
-           "o", "b", "v")
+`Well Type` <- c("t", "c", "p", "n", "m",  "o", "b", "v")
 
 Description <- c("Test compound",
                  "Gain-of-signal control in multiple concentrations",
@@ -708,13 +661,12 @@ Description <- c("Test compound",
 output <- 
   data.frame(`Well Type`, Description)
 
-library(htmlTable)
 htmlTable(output,
         align = 'l',
         align.header = 'l',
         rnames = FALSE  ,
         css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
-        caption="Table 29: Well types" 
+        caption="Table 25: Well types" 
 )
 
 
