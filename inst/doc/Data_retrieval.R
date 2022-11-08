@@ -28,9 +28,9 @@ library(kableExtra)
 #  samples <- tcplQuery("SELECT * FROM sample;")
 
 ## ----tcplPrepOtpt, eval=FALSE-------------------------------------------------
-#  # Load single concentration data from level 1,
+#  # Load multi concentration data from level 2,
 #  # and map only the chemical annotation information.
-#  mc1_fmtd <- tcplPrepOtpt(
+#  mc2_fmtd <- tcplPrepOtpt(
 #    tcplLoadData(
 #      lvl = 2, # data level
 #      fld = 'acid', # field to query on
@@ -43,8 +43,8 @@ library(kableExtra)
 #                 # - 'acid' OR 'aeid': map only assay annotation
 #                 # - 'spid': map only chemical annotation
 #  )
-#  # Print the first 6 rows of 'sc1_fmtd'
-#  head(mc1_fmtd)
+#  # Print the first 6 rows of 'mc2_fmtd'
+#  head(mc2_fmtd)
 
 ## ----mthd_list, eval = FALSE--------------------------------------------------
 #  # Create a function to list all available methods function (SC & MC).

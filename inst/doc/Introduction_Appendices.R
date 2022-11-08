@@ -35,7 +35,7 @@ Description <- c("Level 0 ID",
                  "Assay plate row index",
                  "Assay plate column index",
                  "Well type&dagger;",
-                 "1 if the well quality was good, else 0&ddagger;",
+                 "1 if the well quality was good, else 0;",
                  "Concentration is micromolar",
                  "Raw assay component value/readout from vendor",
                  "Filename of the source file containing the data"
