@@ -100,6 +100,21 @@ tcplWriteLvl0 <- function(dat, type) {
     stop("No concentration values for some test compounds.")
   }
   
+  ## Check for acid
+  if (dat[, any(is.na(acid))]) {
+    stop("No ACID supplied for some samples.  Ensure all samples have an ACID then rerun.")
+  }
+
+  ## Check for 0 concentration values
+  if (dat[,any(conc == 0)]) {
+    stop("Cannot process a concentration value of 0. Confirm source document lists 0 as concentration value and rerun with dummy value of .01")
+  }
+  
+  ## Check wllt has been set for all samples
+  if (dat[, any(is.na(wllt))]) {
+    stop("No `wllt` specified for some samples. Confirm all samples have a `wllt` specified then rerun.")
+  }
+  
   ## Likely unnecessary step to correct some unexplained string lookup 
   ## behavior, ie. dat[spid == "DMSO"] returns only 5 rows, but 
   ## dat[wllt == "n"] returns 10 rows AND dat[wllt == "n", unique(spid)] only 
@@ -109,6 +124,13 @@ tcplWriteLvl0 <- function(dat, type) {
   ## Subset to level 0 fields
   outcols <- c("acid", "spid", "apid", "rowi", "coli", "wllt", "wllq", "conc",
                "rval", "srcf")
+  # check to see if new QC columns are included
+  newcols <- c("clowder_uid","git_hash")
+  if(any(newcols %in% names(dat))){
+    outcols <- c(outcols,newcols[newcols %in% names(dat)])
+  }
+  
+  # reject unknown columns
   if (any(!names(dat) %in% outcols)) {
     not_used <- names(dat)[!names(dat) %in% outcols]
     warning(paste(not_used, collapse = ","), " not inserted to databse.")

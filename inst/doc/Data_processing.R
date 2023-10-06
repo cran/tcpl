@@ -197,9 +197,7 @@ htmlTable(output,
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 ## Create the sc BMAD calculation Table ##
 # Specify column 1 in the table - Methods.
-Methods <- c(
-  1,2
-)
+Method <- c(1,2)
 # Specify column 2 in the table - Description.
 Description <- c(
   "Median absolute deviation (MAD) of all treatment wells across the assay component (acid).",
@@ -222,7 +220,7 @@ Details <- c(
 )
 # Create the output table.
 output <- 
-  data.frame(Methods,Description,Observations,ID,Details)
+  data.frame(Method,Description,Observations,ID,Details)
 # Out put the table in an 'html' format.
 htmlTable(output,
         align = 'l',
@@ -1040,6 +1038,78 @@ fullPlot <- linePlot + geom_point(
 
 ## Display the Compiled Plot ##
 fullPlot
+
+## ----lvl-6-flag-table, warning = FALSE, echo = FALSE--------------------------
+# First column - Level 6 Method ID
+Method <- c(5:11, 13:15, 17:20)
+
+# Second column - Level 6 Flag Names
+FlagNames <- c("modl.directionality.fail", "singlept.hit.high", "singlept.hit.mid",
+               "multipoint.neg", "bmd.high", "noise", "border", "low.nrep", 
+               "low.nconc", "gnls.lowconc", "efficacy.50", "ac50.lowconc", 
+               "viability.gnls", "no.med.gt.3bmad")
+# Third column - Level 6 Flag Descriptions
+FlagDescription <- c("Flag series if model directionality is questionable, i.e. if the winning model
+                     direction was opposite, more responses $(resp)$ would have exceeded the cutoff 
+                     $(coff)$. If loss was winning directionality $(top < 0)$,
+                     flag if $count(resp < -1 * coff) < 2 * count(resp > coff)$. 
+                     If gain was winning directionality
+                     $(top > 0)$, flag if $count(resp > coff) < 2 * count(resp < -1 * coff)$.",
+                     "Flag single-point hit that's only at the highest conc tested, where series is 
+                     an active hit call $(hitc >= 0.9)$ with the median response observed above 
+                     baseline occurring only at the highest tested concentration tested.",
+                     "Flag single-point hit that's not at the highest conc tested, where series is 
+                     an active hit call $(hitc >= 0.9)$ with the median response observed above 
+                     baseline occurring only at one concentration and not the highest concentration
+                     tested.", 
+                     "Flag multi-point miss, where series is an inactive hit call $(hitc < 0.9)$ 
+                     with multiple median responses observed above baseline.",
+                     "Flag series if modeled benchmark dose $(BMD)$ is greater than AC~50~ 
+                     (concentration at 50% maximal response). This is indicates high 
+                     variability in baseline response in excess of more than half of the maximal 
+                     response.", 
+                     "Flag series as noisy if the quality of fit as calculated by the root mean 
+                     square error $(rmse)$ for the series is greater than the cutoff $(coff)$; 
+                     $rmse > coff$",
+                     "Flag series if borderline activity is suspected based on modeled top 
+                     parameter $(top)$ relative to cutoff $(coff)$; $|top| <= 1.2 * coff$ or 
+                     $|top|>= 0.8 * coff$.",
+                     "Flag series if the average number of replicates per concentration is less than
+                     2; $nrep < 2$.",
+                     "Flag series if 4 concentrations or less were tested; $nconc <= 4$.",
+                     "Flag series where winning model is gain-loss $(gnls)$ and the gain AC~50~ is less 
+                     than the minimum tested concentration, and the loss AC~50~ is less than the mean 
+                     tested concentration.",
+                     "Flag low efficacy hits if series has an active hit call $(hitc >= 0.9)$ and 
+                     efficacy values (e.g. top and maximum median response) less than 50%; 
+                     intended for biochemical assays. If $hitc >= 0.9$ and $coff >= 5$, then flag when 
+                     $top < 50$ or $max\\_med < 50$. If $hitc >= 0.9$ and $coff < 5$, then flag when 
+                     $top < \\log_{2}(1.5)$ or $max\\_med < \\log_{2}(1.5)$.",
+                     "Flag series with an active hit call $(hitc >= 0.9)$ if AC~50~ (concentration 
+                     at 50% maximal response) is less than the lowest concentration tested; if 
+                     $hitc >= 0.9$ and $AC_{50} < 10^{\\log_c(min)}$, then flag.", 
+                     "Flag series with an active hit call $(hitc >= 0.9)$ if denoted as cell 
+                     viability assay with winning model is gain-loss $(gnls)$; if $hitc >= 0.9$, 
+                     $modl = gnls$ and $cell\\_viability\\_assay = 1$, then flag.",
+                     "Flag series where no median response values are greater than baseline as 
+                     defined by 3 times the baseline median absolute deviation $(bmad)$;
+                     $nmed\\_gtbl = 0$, where $nmed\\_gtbl$ is the number of medians greater than 
+                     $3 * bmad$.")
+
+# Consolidate all columns into a table.
+output <- data.frame(Method, FlagNames, FlagDescription)
+
+# Export/print the table into an html rendered table.
+htmlTable(output,
+          align = 'l',
+          align.header = 'l',
+          header = c("Method", "Name", "Description"),
+          rnames = FALSE,
+          css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ',
+          
+          caption = "Table 10: Level 6 Methods - Cautionary Flags" #,
+          #tfoot = "Level 6 flag descriptions are pulled from ##SOURCE## <SOURCE>."
+)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  ## Methods Assignment ##

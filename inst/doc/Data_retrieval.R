@@ -46,6 +46,21 @@ library(kableExtra)
 #  # Print the first 6 rows of 'mc2_fmtd'
 #  head(mc2_fmtd)
 
+## ----annotation_query_ex, eval = FALSE----------------------------------------
+#  #load libraries and connections
+#  library(RMySQL)
+#  con <- dbConnect(drv = RMySQL::MySQL(), user="user", pass="pass", db="InvitroDB", host="host")
+#  #query database using RMySQL:
+#  #use source table to identify which ids are needed in subsequent queries.
+#  tcplLoadAsid()
+#  source <- tcplLoadAeid(fld="asid", val=1, add.fld = c("aid", "anm", "acid", "acnm"))
+#  #select annotation and subset by ids or name
+#  assay <- dbGetQuery(con, "SELECT * FROM invitrodb.assay where aid=1;")
+#  component <- dbGetQuery(con, "SELECT * FROM invitrodb.assay_component;")
+#  component <- subset(component, acid %in% source$acid)
+#  endpoint <- dbGetQuery(con, "SELECT * FROM invitrodb.assay_component_endpoint;")
+#  endpoint <- endpoint[grepl("ATG", endpoint$assay_component_endpoint_name),]
+
 ## ----mthd_list, eval = FALSE--------------------------------------------------
 #  # Create a function to list all available methods function (SC & MC).
 #  method_list <- function() {
@@ -337,26 +352,60 @@ head(mc0) %>%
 #  # Print the assigned mc methods.
 #  mmthds
 
-## ----mc_plots, eval = FALSE---------------------------------------------------
+## ----mc_plot_pdf_aeid, eval = FALSE-------------------------------------------
+#  # Plot Level 5 MC data for aeids 3157-3159 and outputs plots separate pdfs by aeid.
+#  tcplPlot(lvl = 5, # data level
+#           fld = "aeid", # field to query on
+#           val = 3157:3159, # values must be listed for each corresponding 'fld'
+#           by = "aeid", # parameter to divide files
+#           multi = TRUE, # multiple plots per page - output 4 per page
+#           verbose = TRUE, # output all details if TRUE
+#           output = "pdf") # output as pdf
+#  
+#  # Loading required mc_vignette data for example below
+#  data(mc_vignette, package = 'tcpl')
+#  mc5 <- mc_vignette[["mc5"]]
+#  
+#  # Plot Level 5 MC data from the mc_vignette R data object for a single aeid 80 and
+#  # spids "TP0001652B01", 01504209", "TP0001652D01", "TP0001652A01", and "1210314466"
+#  tcplPlot(lvl = 5, # data level
+#           fld = c("aeid", "spid"), # field to query on
+#           val = list(mc5$aeid, mc5$spid), # values must be listed for each corresponding 'fld'
+#           by = "aeid", # parameter to divide files
+#           multi = TRUE, # multiple plots per page - output 4 per page
+#           verbose = TRUE, # output all details
+#           output = "pdf", # output as pdf
+#           fileprefix = "output_pdf") # prefix of the filename
+
+## ----mc_plot_jpg, eval = FALSE------------------------------------------------
+#  # Plot a verbose plot of Level 5 MC data for single aeid 80 and spid 01504209 and
+#  # output as jpg.
+#  tcplPlot(lvl = 5, # data level
+#           fld = c('aeid','spid'), # field to query on
+#           val = list(80,'01504209'), # values must be listed for each corresponding 'fld'
+#           # values should match their corresponding 'fld'
+#           multi = FALSE, # single plot per page
+#           verbose = TRUE, # output all details
+#           output = "jpg", # output as jpg
+#           fileprefix = "output_jpg")
+
+## ----mc_plot_console, eval = FALSE--------------------------------------------
 #  # Create Level 4 plot for a single m4id.
 #  tcplPlot(lvl = 4,  # data level
 #           fld = "m4id", # field to query on
-#           val = c(18609966), # value for each field
-#                              # values should match their corresponding 'fld'
-#           multi = FALSE, # single plot per page - output 6 per page if TRUE
-#           verbose = FALSE, # output all details if TRUE
+#           val = 482273, # values must be listed for each corresponding 'fld'
+#           multi = FALSE, # single plot
+#           verbose = FALSE, # do not output all details
 #           output = "console") # output in R console
 #  
-#  # Plot Level 5 MC data for select aeids.
+#  # Plot of Level 5 MC data for single aeid (80) and spid (01504209)
+#  # and output to console.
 #  tcplPlot(lvl = 5, # data level
-#           fld = "aeid", # field to query on
-#           val = 3157:3159, # value for each field
-#                            # values should match their corresponding 'fld'
-#           by = "aeid", # parameter to divide files
-#           multi = TRUE, # multiple plots per page - output 6 per page if TRUE
-#           verbose = TRUE, # output all details if TRUE
-#           output = "pdf", # output as pdf
-#           fileprefix = "output/") # prefix of the filename
+#           fld = c('aeid','spid'), # field to query on
+#           val = list(80, '01504209'), # values must be listed for each corresponding 'fld'
+#           multi = FALSE, # single plot
+#           verbose = FALSE, # do not output all details
+#           output = "console") # output in R console
 
 ## ----BPA, eval = FALSE--------------------------------------------------------
 #  # Provide the chemical name and assign to 'chnm'.

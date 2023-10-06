@@ -25,23 +25,80 @@
 #' by the function/method name. 
 #' 
 #' @section Available Methods:
+#' The methods are broken down into four categories based on the type of cutoff they assign. 
+#' Different methods are used to define cutoffs for "bmad" (baseline median absolute value), "pc" 
+#' (percent of control), "pc or bmad", "log" (\eqn{\log_{2}}{log2} or \eqn{\log_{10}}{log10}), and 
+#' "other" (uncategorized methods).
 #' 
-#' More information about the level 2 single-concentration processing is 
-#' available in the package vignette, "Pipeline_Overview."
+#' All methods are applied by aeid.
+#'
+#' Although there are method exceptions (notably within the “other” category), only highest 
+#' calculated cutoff value based on assigned methods will be selected for hitcalling. Therefore, 
+#' only the largest cutoff method per method type should be assigned.
 #' 
-#' \describe{
-#'   \item{bmad3}{Add a cutoff value of 3*bmad.}
-#'   \item{pc20}{Add a cutoff value of 20.}
-#'   \item{log2_1.2}{Add a cutoff value of log2(1.2).}
-#'   \item{log10_1.2}{Add a cutoff value of log10(1.2).}
-#'   \item{bmad5}{Add a cutoff value of 5*bmad.}
-#'   \item{bmad6}{Add a cutoff value of 6*bmad.}
-#'   \item{bmad10}{Add a cutoff value of 10*bmad.}
-#'   \item{pc30orbmad3}{Add a cutoff value of either 30 or 3*bmad, whichever
-#'   is less.}
-#'   \item{ow_bmad_nwells}{Overwrite method to calculate bmad based on nwells for aeid.}
-#'   \item{bmad2}{Add a cutoff value of 2*bmad.}
-#'   \item{bmad1}{Add a cutoff value of 1*bmad.}
+#' More information about the level 2 single-concentration processing is available in the package 
+#' vignette, "Data_processing."
+#' 
+#' \subsection{BMAD Methods}{
+#'  \describe{
+#'   \item{bmad1}{Add a cutoff value of 1 multiplied by baseline median absolute deviation (bmad). 
+#'   By default, bmad is calculated using test compound wells (wllt = t) for the endpoint.}
+#'   \item{bmad1.5}{Add a cutoff value of 1.5 multiplied by the baseline median absolute deviation 
+#'   (bmad). By default, bmad is calculated using test compound wells (wllt = t) for the endpoint.}
+#'   \item{bmad2}{Add a cutoff value of 2 multiplied by the baseline median absolute deviation 
+#'   (bmad). By default, bmad is calculated using test compound wells (wllt = t) for the endpoint.}
+#'   \item{bmad3}{Add a cutoff value of 3 multiplied by the baseline median absolute deviation 
+#'   (bmad). By default, bmad is calculated using test compound wells (wllt = t) for the endpoint.}
+#'   \item{bmad5}{Add a cutoff value of 5 multiplied the baseline median absolute deviation (bmad). 
+#'   By default, bmad is calculated using test compound wells (wllt = t) for the endpoint.}
+#'   \item{bmad6}{Add a cutoff value of 6 multiplied by the baseline median absolute deviation 
+#'   (bmad). By default, bmad is calculated using test compound wells (wllt = t) for the endpoint.}
+#'   \item{bmad10}{Add a cutoff value of 10 multiplied by the baseline median absolute deviation 
+#'   (bmad). By default, bmad is calculated using test compound wells (wllt = t) for the endpoint.}
+#'  }
+#'}
+#'
+#' \subsection{Percent of Control Methods}{
+#'  \describe{
+#'   \item{pc0.88}{Add a cutoff value of 0.88. Typically for percent of control data.}
+#'   \item{pc20}{Add a cutoff value of 20. Typically for percent of control data.}
+#'   \item{pc25}{Add a cutoff value of 25. Typically for percent of control data.}
+#'   \item{pc30}{Add a cutoff value of 30. Typically for percent of control data.}
+#'  }
+#' }
+#' 
+#' \subsection{Percent of Control or BMAD Methods}{
+#'  \describe{
+#'   \item{pc30orbmad3}{Add a cutoff value of either 30 or 3 multiplied by the baseline median 
+#'   absolute deviation (bmad), whichever is less. By default, bmad is calculated using test 
+#'   compound wells (wllt = t) for the endpoint.}
+#'  }
+#' }
+#' 
+#' \subsection{Log Methods}{
+#' Log Base 2
+#'  \describe{
+#'   \item{log2_0.76}{Add a cutoff value of 0.76 for log2-transformed data. This was a custom 
+#'   threshold value set for endpoint id 1690 (formerly aeid 1691).}
+#'   \item{log2_1.2}{Add a cutoff value of \eqn{log_{2}{1.2}}{log2(1.2)}. Typically for fold change 
+#'   data.}
+#'   \item{log2_1.5}{Add a cutoff value of \eqn{log_{2}{1.5}}{log2(1.5)}. Typically for fold change 
+#'   data.}
+#'  }
+#' Log Base 10
+#'  \describe{
+#'   \item{log10_1.2}{Add a cutoff value of \eqn{log_{10}{1.2}}{log10(1.2)}. Typically for fold 
+#'   change data.}
+#'  }
+#' }
+#' 
+#' \subsection{Other Methods}{
+#'  \describe{
+#'   \item{ow_bmad_nwells}{Overwrite the default baseline median absolute value (bmad) with a bmad 
+#'   calculated using neutral control wells (wllt = n).}
+#'   \item{ow_bidirectional_false}{Overwrite the max_med and max_tmp values, which were calculated 
+#'   using absolute value, to a calculation not using absolute value for non-bidirectional data.}
+#'  }
 #' }
 #' 
 #' @note
@@ -133,8 +190,17 @@ sc2_mthds <- function() {
       
       e1 <- bquote(dat[ , bmad := mad(resp[wllt == "n"], na.rm = TRUE)])
       list(e1)
+      
     },
-     bmad2 = function() {
+    
+    ow_bidirectional_false = function() {
+      
+      e1 <- bquote(dat[ , c("max_med","max_tmp") := list(max(tmp), tmp[which.max(tmp)]), by = spid])
+      list(e1)
+      
+    },
+    
+    bmad2 = function() {
       
       e1 <- bquote(coff <- c(coff, dat[ , unique(bmad)*2]))
       list(e1)

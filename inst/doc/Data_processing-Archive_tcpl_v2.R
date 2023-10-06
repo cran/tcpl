@@ -105,6 +105,8 @@ tcplRegister(what = "acsn",
              flds = list(acid = 1, acsn = "TCPL-MC-Demo"))
 
 ## ----eval = TRUE, message = FALSE---------------------------------------------
+## Cannot process a concentration value of 0; use .01 as a dummy value
+mcdat$conc[mcdat$conc == 0] <- .01
 tcplWriteLvl0(dat = mcdat, type = "mc")
 
 

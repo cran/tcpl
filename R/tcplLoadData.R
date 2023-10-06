@@ -75,68 +75,164 @@
 #'
 #' @import data.table
 #' @importFrom tidyr pivot_wider
+#' @importFrom utils data
 #' @export
 
-tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NULL) {
+tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = TRUE) {
   #variable binding
   model <- model_param <- model_val <- NULL
-  hit_param <- hit_val <- NULL
+  hit_param <- hit_val <- sc_vignette <- mc_vignette <- NULL
   
   if (length(lvl) > 1 | length(type) > 1) {
     stop("'lvl' & 'type' must be of length 1.")
   }
-
+  
   tbls <- NULL
+  
+  drvr <- getOption("TCPL_DRVR")
+  if (drvr == "example"){
+    if (type == "sc"){
+      data("sc_vignette", envir = environment())
+      if (lvl == 0L) {
+        sc0 <- sc_vignette[["sc0"]]
+        sc0 <- sc0[,c("s0id","spid","acid","apid","rowi","coli","wllt","wllq","conc","rval","srcf")]
+        return(sc0)
+      }
+      else if (lvl == 1L) {
+        sc1 <- sc_vignette[["sc1"]]
+        sc1 <- sc1[,c("s0id","s1id","spid","acid","aeid","apid","rowi","coli","wllt","logc","resp")]
+        return(sc1)
+      }
+      
+      else if (lvl == 2L) {
+        sc2 <- sc_vignette[["sc2"]]
+        sc2 <- sc2[,c("s2id", "spid", "aeid", "bmad", "max_med", "hitc", "coff")]
+        return(sc2)
+        }
+      else if (lvl == "agg") {
+        sc1 <- sc_vignette[["sc1"]]
+        sc2 <- sc_vignette[["sc2"]]
+        agg <- sc1[sc2, on = c("spid","aeid")]
+        agg <- agg[,c("aeid","s2id","s1id","s0id","logc","resp")]
+        return(agg)
+      }
+      else stop("example tables for sc0, sc1, sc2, agg available.")
+    }
+    
+    if (type == "mc" ) {
+      data("mc_vignette", envir = environment())
+      if (lvl == 0L) {
+        mc0 <- mc_vignette[["mc0"]]
+        mc0 <- mc0[,c("m0id","spid","acid","apid","rowi","coli","wllt","wllq","conc","rval","srcf")]
+        return(mc0)
+      }
+      else if (lvl == 1L) {
+        mc1 <- mc_vignette[["mc1"]]
+        mc1 <- mc1[,c("m0id","m1id","spid","acid","apid","rowi","coli","wllt", "wllq","conc","rval","cndx","repi","srcf")]
+        return(mc1)
+      }
+      else if (lvl == 2L) {
+        mc2 <- mc_vignette[["mc2"]]
+        mc2 <- mc2[,c("m0id","m1id","m2id","spid","acid","apid","rowi","coli","wllt","conc","cval","cndx","repi")]
+        return(mc2)
+      } 
+      else if (lvl == 3L) {
+        mc3 <- mc_vignette[["mc3"]]
+        mc3 <- mc3[,c("m0id","m1id","m2id","m3id","spid","aeid","logc","resp","cndx","wllt","apid","rowi","coli","repi")]
+        return(mc3)
+      } 
+      else if (lvl == 4L) {
+        mc4 <- mc_vignette[["mc4"]]
+        if (!add.fld) {
+          mc4 <- mc4[,c("m4id","aeid","spid","bmad","resp_max","resp_min","max_mean","max_mean_conc","max_med","max_med_conc",
+                        "logc_max","logc_min","nconc","npts","nrep","nmed_gtbl")]
+        } else {
+          mc4 <- mc4[,!c("chid","casn","chnm","dsstox_substance_id","code","aenm","resp_unit","conc_unit")]
+          setcolorder(mc4, c("m4id", "aeid", "spid"))
+        }
+        return(mc4)
+      }
+      else if (lvl == 5L) {
+        mc5 <- mc_vignette[["mc5"]]
+        if (!add.fld){
+          mc5 <- mc5[,c("m5id","m4id","aeid","spid","bmad","resp_max","resp_min","max_mean","max_mean_conc","max_med",
+                        "max_med_conc","logc_max","logc_min","nconc","npts","nrep","nmed_gtbl","hitc","modl","fitc","coff")]
+        } else {
+          mc5 <- mc5[,!c("chid","casn","chnm","dsstox_substance_id","code","aenm","resp_unit","conc_unit","tp","ga","q","la","ac50_loss")]
+          setcolorder(mc5, c("m5id", "m4id","aeid", "spid"))
+        }
+        return(mc5)
+      }
+      else if (lvl == "agg") {
+        mc3 <- mc_vignette[["mc3"]]
+        mc4 <- mc_vignette[["mc4"]]
+        agg <- mc3[mc4, on = c("spid","aeid")]
+        agg <- agg[, c("aeid", "m4id", "m3id", "m2id", "m1id", "m0id", "spid", "logc", "resp")]
+        return(agg)
 
-  if (lvl == 0L && type == "mc") {
-    tbls <- c("mc0")
-
-    qformat <-
-      "
-      SELECT
-        m0id,
-        spid,
-        acid,
-        apid,
-        rowi,
-        coli,
-        wllt,
-        wllq,
-        conc,
-        rval,
-        srcf
-      FROM
-        mc0
-      "
+      }
+      else stop("example tables for mc0, mc1, mc2, mc3, mc4, mc5, agg available.")
+    }
+    
+    else stop("Invalid 'lvl' and 'type' combination.")
   }
-
-  if (lvl == 0L && type == "sc") {
-    tbls <- c("sc0")
-
-    qformat <-
-      "
-      SELECT
-        s0id,
-        spid,
-        acid,
-        apid,
-        rowi,
-        coli,
-        wllt,
-        wllq,
-        conc,
-        rval,
-        srcf
-      FROM
-        sc0
-      "
-  }
-
-  if (lvl == 1L && type == "mc") {
-    tbls <- c("mc0", "mc1")
-
-    qformat <-
-      "
+  
+  if (drvr != "example"){
+    
+    if (lvl == 0L && type == "mc") {
+      tbls <- c("mc0")
+      cols <- c(
+        "m0id",
+        "spid",
+        "acid",
+        "apid",
+        "rowi",
+        "coli",
+        "wllt",
+        "wllq",
+        "conc",
+        "rval",
+        "srcf"
+      )
+      
+      if (check_tcpl_db_schema()) {
+        cols <- c(cols, "clowder_uid", "git_hash")
+      }
+      
+      col_str <- paste0(cols, collapse = ",")
+      qformat <- paste0("SELECT ", col_str, " FROM mc0 ")
+    }
+    
+    if (lvl == 0L && type == "sc") {
+      tbls <- c("sc0")
+      
+      cols <- c(
+        "s0id",
+        "spid",
+        "acid",
+        "apid",
+        "rowi",
+        "coli",
+        "wllt",
+        "wllq",
+        "conc",
+        "rval",
+        "srcf"
+      )
+      
+      if (check_tcpl_db_schema()) {
+        cols <- c(cols, "clowder_uid", "git_hash")
+      }
+      
+      col_str <- paste0(cols, collapse = ",")
+      qformat <- paste0("SELECT ", col_str, " FROM sc0 ")
+    }
+    
+    if (lvl == 1L && type == "mc") {
+      tbls <- c("mc0", "mc1")
+      
+      qformat <-
+        "
       SELECT
         mc1.m0id,
         m1id,
@@ -158,13 +254,13 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       WHERE
         mc0.m0id = mc1.m0id
       "
-  }
-
-  if (lvl == 1L && type == "sc") {
-    tbls <- c("sc0", "sc1")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == 1L && type == "sc") {
+      tbls <- c("sc0", "sc1")
+      
+      qformat <-
+        "
       SELECT
         sc1.s0id,
         s1id,
@@ -183,13 +279,13 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       WHERE
         sc0.s0id = sc1.s0id
       "
-  }
-
-  if (lvl == 2L && type == "mc") {
-    tbls <- c("mc0", "mc1", "mc2")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == 2L && type == "mc") {
+      tbls <- c("mc0", "mc1", "mc2")
+      
+      qformat <-
+        "
       SELECT
         mc2.m0id,
         mc2.m1id,
@@ -213,13 +309,13 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
         AND
         mc1.m0id = mc2.m0id
       "
-  }
-
-  if (lvl == 2L && type == "sc") {
-    tbls <- c("sc2")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == 2L && type == "sc") {
+      tbls <- c("sc2")
+      
+      qformat <-
+        "
       SELECT
         s2id,
         spid,
@@ -231,13 +327,13 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       FROM
         sc2
       "
-  }
-
-  if (lvl == "agg" && type == "sc") {
-    tbls <- c("sc1", "sc2_agg")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == "agg" && type == "sc") {
+      tbls <- c("sc1", "sc2_agg")
+      
+      qformat <-
+        "
       SELECT
         sc2_agg.aeid,
         sc2_agg.s2id,
@@ -251,13 +347,13 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       WHERE
         sc1.s1id = sc2_agg.s1id
       "
-  }
-
-  if (lvl == 3L && type == "mc") {
-    tbls <- c("mc0", "mc1", "mc3")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == 3L && type == "mc") {
+      tbls <- c("mc0", "mc1", "mc3")
+      
+      qformat <-
+        "
       SELECT
         mc3.m0id,
         mc3.m1id,
@@ -282,13 +378,13 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
         AND
         mc1.m0id = mc3.m0id
       "
-  }
-
-  if (lvl == "agg" && type == "mc") {
-    tbls <- c("mc3", "mc4_agg", "mc4")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == "agg" && type == "mc") {
+      tbls <- c("mc3", "mc4_agg", "mc4")
+      
+      qformat <-
+        "
       SELECT
         mc4_agg.aeid,
         mc4_agg.m4id,
@@ -308,12 +404,12 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
         AND
         mc4.m4id = mc4_agg.m4id
       "
-  }
-  if (lvl == 4L && type == "mc" && check_tcpl_db_schema()) {
-    tbls <- c("mc4")
-    if (is.null(add.fld)) {
-      qformat <-
-        "
+    }
+    if (lvl == 4L && type == "mc" && check_tcpl_db_schema()) {
+      tbls <- c("mc4")
+      if (!add.fld) {
+        qformat <-
+          "
       SELECT
         m4id,
         aeid,
@@ -334,11 +430,10 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
         FROM
         mc4
         "
-    }
-    else {
-      tbls <- c("mc4","mc4_param")
-      qformat <-
-        "
+      } else {
+        tbls <- c("mc4", "mc4_param")
+        qformat <-
+          "
       SELECT
         mc4.m4id,
         mc4.aeid,
@@ -365,13 +460,12 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       WHERE
         mc4.m4id = mc4_param.m4id 
         "
-
-    }
-  } else if (lvl == 4L && type == "mc") {
-    tbls <- c("mc4")
-
-    qformat <-
-      "
+      }
+    } else if (lvl == 4L && type == "mc") {
+      tbls <- c("mc4")
+      
+      qformat <-
+        "
       SELECT
         m4id,
         aeid,
@@ -427,14 +521,14 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       FROM
         mc4
       "
-  }
-
-  if (lvl == 5L && type == "mc" && check_tcpl_db_schema()) {
-    if (is.null(add.fld)) {
-      tbls <- c("mc4", "mc5")
-      
-      qformat <-
-        "
+    }
+    
+    if (lvl == 5L && type == "mc" && check_tcpl_db_schema()) {
+      if (!add.fld) {
+        tbls <- c("mc4", "mc5")
+        
+        qformat <-
+          "
       SELECT
         m5id,
         mc5.m4id,
@@ -463,11 +557,10 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       WHERE
         mc4.m4id = mc5.m4id
       "
-    }
-    else {
-      tbls <- c("mc4","mc5","mc5_param")
-      qformat <-
-        "
+      } else {
+        tbls <- c("mc4", "mc5", "mc5_param")
+        qformat <-
+          "
       SELECT
         mc5.m5id,
         mc5.m4id,
@@ -501,13 +594,12 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       AND
         mc5.m5id = mc5_param.m5id
         "
+      }
+    } else if (lvl == 5L && type == "mc") {
+      tbls <- c("mc4", "mc5")
       
-    }
-  } else if (lvl == 5L && type == "mc") {
-    tbls <- c("mc4", "mc5")
-
-    qformat <-
-      "
+      qformat <-
+        "
       SELECT
         m5id,
         mc5.m4id,
@@ -583,13 +675,13 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
       WHERE
         mc4.m4id = mc5.m4id
       "
-  }
-
-  if (lvl == 6L && type == "mc") {
-    tbls <- c("mc4", "mc6")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == 6L && type == "mc") {
+      tbls <- c("mc4", "mc6")
+      
+      qformat <-
+        "
       SELECT
         mc6.aeid,
         m6id,
@@ -597,22 +689,20 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
         m5id,
         spid,
         mc6_mthd_id,
-        flag,
-        fval,
-        fval_unit
+        flag
       FROM
         mc4,
         mc6
       WHERE
         mc6.m4id = mc4.m4id
       "
-  }
-
-  if (lvl == 7L && type == "mc") {
-    tbls <- c("mc7")
-
-    qformat <-
-      "
+    }
+    
+    if (lvl == 7L && type == "mc") {
+      tbls <- c("mc7")
+      
+      qformat <-
+        "
     SELECT
     mc7.*
     FROM
@@ -621,41 +711,49 @@ tcplLoadData <- function(lvl, fld = NULL, val = NULL, type = "mc", add.fld = NUL
     WHERE
       mc7.m4id = mc4.m4id
     "
+    }
+    
+    if (is.null(tbls)) stop("Invalid 'lvl' and 'type' combination.")
+    
+    if (!is.null(fld)) {
+      if (is.null(val)) stop("'val' cannot be NULL check that a valid value was provided for the specified field")
+      
+      fld <- .prepField(fld = fld, tbl = tbls, db = getOption("TCPL_DB"))
+      
+      if(add.fld) wtest <- FALSE
+      wtest <- lvl %in% c(0) | (lvl == 2 & type == "sc")
+      if(lvl == 4){
+        if (!check_tcpl_db_schema() || !add.fld) wtest <- TRUE
+      }
+      
+      qformat <- paste(qformat, if (wtest) "WHERE" else "AND")
+      
+      qformat <- paste0(
+        qformat,
+        "  ",
+        paste(fld, "IN (%s)", collapse = " AND ")
+      )
+      qformat <- paste0(qformat, ";")
+      
+      if (!is.list(val)) val <- list(val)
+      val <- lapply(val, function(x) paste0("\"", x, "\"", collapse = ","))
+      
+      qstring <- do.call(sprintf, args = c(qformat, val))
+    } else {
+      qstring <- qformat
+    }
+    
+    dat <- suppressWarnings(tcplQuery(query = qstring, db = getOption("TCPL_DB"), tbl = tbls))
+    
+    # pivot table so 1 id per return and only return added fields
+    if(add.fld & check_tcpl_db_schema()){
+      if(lvl == 4L)    dat <- as.data.table(tidyr::pivot_wider(dat, names_from = c(model,model_param), values_from = model_val))
+      if(lvl == 5L)    dat <- as.data.table(tidyr::pivot_wider(dat, names_from = c(hit_param), values_from = hit_val))
+    }
+    
+    dat[]
   }
-
-  if (is.null(tbls)) stop("Invalid 'lvl' and 'type' combination.")
-
-  if (!is.null(fld)) {
-    fld <- .prepField(fld = fld, tbl = tbls, db = getOption("TCPL_DB"))
-
-    wtest <- lvl %in% c(0, 4) | (lvl == 2 & type == "sc")
-    if(!is.null(add.fld)) wtest <- FALSE
-    qformat <- paste(qformat, if (wtest) "WHERE" else "AND")
-
-    qformat <- paste0(
-      qformat,
-      "  ",
-      paste(fld, "IN (%s)", collapse = " AND ")
-    )
-    qformat <- paste0(qformat, ";")
-
-    if (!is.list(val)) val <- list(val)
-    val <- lapply(val, function(x) paste0("\"", x, "\"", collapse = ","))
-
-    qstring <- do.call(sprintf, args = c(qformat, val))
-  } else {
-    qstring <- qformat
-  }
-
-  dat <- suppressWarnings(tcplQuery(query = qstring, db = getOption("TCPL_DB"), tbl = tbls))
   
-  # pivot table so 1 id per return and only return added fields
-  if(!is.null(add.fld)){
-    if(lvl == 4L)    dat <- as.data.table(tidyr::pivot_wider(dat, names_from = c(model,model_param), values_from = model_val))
-    if(lvl == 5L)    dat <- as.data.table(tidyr::pivot_wider(dat, names_from = c(hit_param), values_from = hit_val))
-  }
-
-  dat[]
 }
 
 #-------------------------------------------------------------------------------
