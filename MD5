@@ -1,7 +1,7 @@
-59f732de9f73a69be32e1a45c3e338ab *DESCRIPTION
+12981127d11e32abe19be6a4446b83fd *DESCRIPTION
 d98db6d8d9e05930ffcb6e4bf0030b73 *LICENSE
 28ec0ab0d64b049ecadcdb089e461681 *NAMESPACE
-42e9d8ca00844198edd9005fc86b4f3e *NEWS.md
+d96ff4c76a41a3d8ec92aa4ada4e98c0 *NEWS.md
 2f426b1112e1b787ac03edcdecbe4f9c *R/Models.R
 96c2b1f9e0f074c21434e96edb719065 *R/assay_funcs.R
 147a9e8d7f0d05ed0f290a4d53d53d20 *R/attachFormals.R
@@ -112,7 +112,7 @@ cb7663c80feea289c894f3e35d40aafd *R/tcplWriteLvl0.R
 273513f5a618bde06f9d586b8142d4cb *R/tcpldbStats.R
 4cd4ae819c956821b2557bed246cb614 *R/v3_schema_functions.R
 f51ac06670685a1814b4087c1b138a77 *README.md
-36c38f362f7005c1c802970a590dacab *build/vignette.rds
+5aa304a6c27b1d3d69249c67fefabbbc *build/vignette.rds
 d742b1a2662d048ff8119385ceb5308a *data/invitrodb_dd.rda
 31574ccf01ef03fee970143624ab1ff8 *data/load_data_columns.rda
 a1b39e0294474331002fab880484e969 *data/mc_test.rda
@@ -126,7 +126,7 @@ d3bd73176def67980da77022d420ac77 *data/scdat.rda
 834e3d5efcad9cd73eb8c2439d655103 *inst/TCPL.config
 3f4d30a43d4364d66fc8a9ce5da2c170 *inst/doc/Introduction_Appendices.R
 4314ecb913e2bdf6b846113e9922d97c *inst/doc/Introduction_Appendices.Rmd
-c071c0b92ec2f498f3abd8bd40746676 *inst/doc/Introduction_Appendices.html
+21d04142e4a4c256f916b22c72344e00 *inst/doc/Introduction_Appendices.html
 259155968cc6273f3b87725e7eff01ce *man/MC2_Methods.Rd
 8918d640c273160d6876f9568c5ba4f4 *man/MC3_Methods.Rd
 5f1a284238ae0af0b94c41e9a3f7dc8f *man/MC4_Methods.Rd
@@ -219,7 +219,7 @@ e0dd40a2b5e74138599daf3d3a61e13f *man/tcpldbStats.Rd
 c05f87d12c029cf903a19c332017ed85 *man/test_api.Rd
 686f23dc17c9106fe453e64a8eb7c1cc *man/write_lvl_4.Rd
 ffd9de440042a5550b8e3b6c9c57f861 *tests/testthat.R
-f0488c78fe91bf6d99b5c6b63dfc95eb *tests/testthat/_snaps/tcplDefine.md
+c635aa3b4ad290fdcf5e83e0e57b5fab *tests/testthat/_snaps/tcplDefine.md
 88dff6a16907f322446254920ee816f7 *tests/testthat/ctx/api-ccte.epa.gov/bioactivity/assay.json
 cdc6bc1cb4ec05d3e1952695ca640971 *tests/testthat/ctx/api-ccte.epa.gov/bioactivity/data/search/by-aeid/0.json
 2fc72c5ef4849d8218140fc2363f1505 *tests/testthat/ctx/api-ccte.epa.gov/bioactivity/data/search/by-aeid/1390.json
