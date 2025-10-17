@@ -2,11 +2,13 @@ params <-
 list(my_css = "css/rmdformats.css")
 
 ## ----setup, include = FALSE---------------------------------------------------
+# if you need to regenerate jsons, set to include = TRUE before devtools::build_vignette. Consider just running the specific codes you need
 library(httptest)
 start_vignette("api")
 
 ## ----echo=FALSE, include=FALSE, eval=FALSE------------------------------------
-#  # devtools::load_all() #use this instead of lbrary(tcpl) when dev versions are installed locally
+# #set to eval=TRUE and comment out lbrary(tcpl) when dev versions are installed locally
+# devtools::load_all()
 
 ## ----message = FALSE, warning = FALSE,  class.source="fold-hide"--------------
 # Primary Packages #
@@ -29,27 +31,27 @@ library(htmlTable)
 library(kableExtra)
 
 ## ----eval=FALSE, message=FALSE------------------------------------------------
-#  library(data.table) # recommended for interacting with `tcpl` data frame-like objects
-#  library(tcpl)
+# library(data.table) # recommended for interacting with `tcpl` data frame-like objects
+# library(tcpl)
 
 ## ----setup-api, eval=FALSE----------------------------------------------------
-#  tcplConf(pass = "API key provided by emailing CTX API support at ccte_api@epa.gov",
-#           drvr = "API")
+# tcplConf(pass = "API key provided by emailing CTX API support at ccte_api@epa.gov",
+#          drvr = "API")
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  tcpl (v3.1.0) loaded with the following settings:
-#    TCPL_DB:    NA
-#    TCPL_USER:  NA
-#    TCPL_HOST:  https://api-ccte.epa.gov/bioactivity
-#    TCPL_DRVR:  API
-#  Default settings stored in tcpl config file. See ?tcplConf for more information.
+# tcpl (v3.1.0) loaded with the following settings:
+#   TCPL_DB:    NA
+#   TCPL_USER:  NA
+#   TCPL_HOST:  https://api-ccte.epa.gov/bioactivity
+#   TCPL_DRVR:  API
+# Default settings stored in tcpl config file. See ?tcplConf for more information.
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  tcplConf(db   = "invitrodb",
-#           user = "username",
-#           pass = "password",
-#           host = "localhost",
-#           drvr = "MySQL")
+# tcplConf(db   = "invitrodb",
+#          user = "username",
+#          pass = "password",
+#          host = "localhost",
+#          drvr = "MySQL")
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("s0id ", "acid", "spid", "apid", "rowi", "coli", "wllt", "wllq", "conc", "rval", "srcf")
@@ -513,26 +515,26 @@ kable(output)%>%
   kable_styling("striped")
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  tcplLoadAsid()
-#  tcplRegister(what = "asid", flds = list(asid = 1, asnm = "Tox21"))
+# tcplLoadAsid()
+# tcplRegister(what = "asid", flds = list(asid = 1, asnm = "Tox21"))
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  tcplLoadAid(what = "asid", val = 1)
-#  tcplRegister(what = "aid", flds = list(asid = 1, anm = "TOX21_ERa_BLA_Agonist", assay_footprint = "1536 well"))
+# tcplLoadAid(what = "asid", val = 1)
+# tcplRegister(what = "aid", flds = list(asid = 1, anm = "TOX21_ERa_BLA_Agonist", assay_footprint = "1536 well"))
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  tcplLoadAcid(what = "asid", val = 1, add.fld = c("aid", "anm"))
-#  tcplRegister(what = "acid", flds = list(aid = 1, acnm = "TOX21_ERa_BLA_Agonist_ratio"))
+# tcplLoadAcid(what = "asid", val = 1, add.fld = c("aid", "anm"))
+# tcplRegister(what = "acid", flds = list(aid = 1, acnm = "TOX21_ERa_BLA_Agonist_ratio"))
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  tcplRegister(what = "acsn", flds = list(acid = 1, acsn = "TCPL-mc-Demo"))
+# tcplRegister(what = "acsn", flds = list(acid = 1, acsn = "TCPL-mc-Demo"))
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  tcplLoadAeid(fld = "asid", val = 1, add.fld = c("aid", "anm", "acid", "acnm"))
-#  tcplRegister(what = "aeid", flds = list(acid = 1, aenm = "TOX21_ERa_BLA_Agonist_ratio", normalized_data_type = "percent_activity", export_ready = 1, burst_assay = 0))
+# tcplLoadAeid(fld = "asid", val = 1, add.fld = c("aid", "anm", "acid", "acnm"))
+# tcplRegister(what = "aeid", flds = list(acid = 1, aenm = "TOX21_ERa_BLA_Agonist_ratio", normalized_data_type = "percent_activity", export_ready = 1, burst_assay = 0))
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  tcplUpdate(what = "acid", flds = list(aid = 1, acnm = "TOX21_ERa_BLA_Agonist_ratio"))
+# tcplUpdate(what = "acid", flds = list(aid = 1, acnm = "TOX21_ERa_BLA_Agonist_ratio"))
 
 ## ----echo=FALSE---------------------------------------------------------------
 chdat <- data.table(
@@ -548,20 +550,20 @@ kable(chdat)%>%
   kable_styling("striped")
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  # Obtain chemicals already registered in the database.
-#  cmap <- tcplLoadChem()
-#  # Find chemicals in 'chdat' that are not registered yet.
-#  chdat.register <- chdat[!(chdat$code %in% cmap$code)]
-#  # Register the chemicals not yet in the database.
-#  tcplRegister(what = "chid", flds = chdat.register[,unique(.SD), .SDcols = c("casn", "chnm", "dsstox_substance_id", "code", "chid")])
+# # Obtain chemicals already registered in the database.
+# cmap <- tcplLoadChem()
+# # Find chemicals in 'chdat' that are not registered yet.
+# chdat.register <- chdat[!(chdat$code %in% cmap$code)]
+# # Register the chemicals not yet in the database.
+# tcplRegister(what = "chid", flds = chdat.register[,unique(.SD), .SDcols = c("casn", "chnm", "dsstox_substance_id", "code", "chid")])
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  tcplRegister(what = "spid",
-#               flds = merge(chdat[ , list(spid, casn)],
-#                            chdat.register[ , list(casn, chid)], by = "casn")[ , list(spid, chid)])
+# tcplRegister(what = "spid",
+#              flds = merge(chdat[ , list(spid, casn)],
+#                           chdat.register[ , list(casn, chid)], by = "casn")[ , list(spid, chid)])
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  tcplLoadChemList(field = "chid", val = 1:2)
+# tcplLoadChemList(field = "chid", val = 1:2)
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("'acsn' or 'acid'", "spid", "apid", "rowi", "coli", "wllt", "wllq", "conc", "rval", "srcf")
@@ -600,13 +602,13 @@ kable(output)%>%
   kable_styling("striped")
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  # Write/load the Level 0 into the database.
-#  tcplWriteLvl0(dat = mcdat, type = "mc")
+# # Write/load the Level 0 into the database.
+# tcplWriteLvl0(dat = mcdat, type = "mc")
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  # Load the level 0 data from the database to R
-#  tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "mc")
-#  tcplPrepOtpt(tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "mc"))
+# # Load the level 0 data from the database to R
+# tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "mc")
+# tcplPrepOtpt(tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "mc"))
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 Type <- c('SC', 'SC', 'mc', 'mc', 'mc', 'mc', 'mc', 'mc')
@@ -619,29 +621,29 @@ kable(output)%>%
   kable_styling("striped")
 
 ## ----eval= FALSE--------------------------------------------------------------
-#  ## Methods Assignment ##
-#  # For illustrative purposes, assign level 2 mc methods to ACIDs 97, 98, and 99.
-#  # First check for available methods.
-#  mthds <- tcplMthdList(lvl = 2, type = "mc")
-#  mthds[1:2]
-#  # Assign some methods to ACID 97, 98, and 99.
-#  tcplMthdAssign(lvl = 2,
-#                 id = 97:99,
-#                 mthd_id = c(3, 4, 2),
-#                 ordr = 1:3,
-#                 type = "mc")
-#  # Check the assigned methods for ACID 97, 98, and 99 in the database.
-#  tcplMthdLoad(lvl = 2, id = 97:99, type = "mc")
-#  
-#  # Methods can be cleared one at a time for the given ID(s)
-#  tcplMthdClear(lvl = 2, id = 99, mthd_id = 2, type = "mc")
-#  # Check the assigned methods for the single ID updated, namely ACID 99.
-#  tcplMthdLoad(lvl = 2, id = 99, type = "mc")
-#  
-#  # Clear assigned methods for the given ID(s)
-#  tcplMthdClear(lvl = 2, id = 97:98, type = "mc")
-#  # Check the assigned methods for the all updated ID(s), namely ACID 97 and 98.
-#  tcplMthdLoad(lvl = 2, id = 97:98, type = "mc")
+# ## Methods Assignment ##
+# # For illustrative purposes, assign level 2 mc methods to ACIDs 97, 98, and 99.
+# # First check for available methods.
+# mthds <- tcplMthdList(lvl = 2, type = "mc")
+# mthds[1:2]
+# # Assign some methods to ACID 97, 98, and 99.
+# tcplMthdAssign(lvl = 2,
+#                id = 97:99,
+#                mthd_id = c(3, 4, 2),
+#                ordr = 1:3,
+#                type = "mc")
+# # Check the assigned methods for ACID 97, 98, and 99 in the database.
+# tcplMthdLoad(lvl = 2, id = 97:99, type = "mc")
+# 
+# # Methods can be cleared one at a time for the given ID(s)
+# tcplMthdClear(lvl = 2, id = 99, mthd_id = 2, type = "mc")
+# # Check the assigned methods for the single ID updated, namely ACID 99.
+# tcplMthdLoad(lvl = 2, id = 99, type = "mc")
+# 
+# # Clear assigned methods for the given ID(s)
+# tcplMthdClear(lvl = 2, id = 97:98, type = "mc")
+# # Check the assigned methods for the all updated ID(s), namely ACID 97 and 98.
+# tcplMthdLoad(lvl = 2, id = 97:98, type = "mc")
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 Normalization <- c('', 'Fold Change', '%Control')
@@ -675,27 +677,27 @@ kable(output)%>%
   kable_styling("striped")
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  # Load the 'aeid' values for acid 2
-#  tcplLoadAeid(fld = "acid", val = 2)
-#  
-#  # Assign the Level 1 methods to aeid 1 and 2
-#  tcplMthdAssign(lvl = 1,  # processing level
-#                 id = 1:2, # assay endpoint ID's to assign methods
-#                 mthd_id = c(1, 11, 13), # method(s) to be assigned
-#                 ordr = 1:3, # order the method(s) should be applied
-#                 type = "sc") # the data/processing type
+# # Load the 'aeid' values for acid 2
+# tcplLoadAeid(fld = "acid", val = 2)
+# 
+# # Assign the Level 1 methods to aeid 1 and 2
+# tcplMthdAssign(lvl = 1,  # processing level
+#                id = 1:2, # assay endpoint ID's to assign methods
+#                mthd_id = c(1, 11, 13), # method(s) to be assigned
+#                ordr = 1:3, # order the method(s) should be applied
+#                type = "sc") # the data/processing type
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  # Assign an additional method to invert data for AEID 2 only
-#  tcplMthdAssign(lvl = 1, # processing level
-#                 id = 2, # assay endpoint ID's to assign methods
-#                 mthd_id = 16, # method(s) to be assigned
-#                 ordr = 4, # order the method(s) should be applied
-#                 type = "sc") # the data/processing type
+# # Assign an additional method to invert data for AEID 2 only
+# tcplMthdAssign(lvl = 1, # processing level
+#                id = 2, # assay endpoint ID's to assign methods
+#                mthd_id = 16, # method(s) to be assigned
+#                ordr = 4, # order the method(s) should be applied
+#                type = "sc") # the data/processing type
 
 ## ----echo=FALSE, eval = FALSE-------------------------------------------------
-#  # Run Level 1 processing for acid 1
-#  tcplRun(id = 1, slvl = 1, elvl = 1, type = "sc")
+# # Run Level 1 processing for acid 1
+# tcplRun(id = 1, slvl = 1, elvl = 1, type = "sc")
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 ## Create the sc BMAD calculation Table ##
@@ -723,14 +725,14 @@ kable(output)%>%
   kable_styling("striped")
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  # Assign a cutoff value of log2(1.2)
-#  tcplMthdAssign(lvl = 2, # processing level
-#                 id = 1,  # assay endpoint ID's to assign methods
-#                 mthd_id = 3, # method(s) to be assigned
-#                 type = "sc") # the data/processing type
-#  
-#  # Run Level 2 processing for acid 1
-#  tcplRun(id = 1, slvl = 2, elvl = 2, type = "sc")
+# # Assign a cutoff value of log2(1.2)
+# tcplMthdAssign(lvl = 2, # processing level
+#                id = 1,  # assay endpoint ID's to assign methods
+#                mthd_id = 3, # method(s) to be assigned
+#                type = "sc") # the data/processing type
+# 
+# # Run Level 2 processing for acid 1
+# tcplRun(id = 1, slvl = 2, elvl = 2, type = "sc")
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 Method <- c(25,27)
@@ -767,50 +769,50 @@ kable(output)%>%
   kable_styling("striped")
 
 ## ----echo=FALSE, eval = FALSE, message = FALSE--------------------------------
-#  # Run Level 1 processing for acid 1
-#  tcplRun(id = 1, slvl = 1, elvl = 1, type = "mc")
-#  
-#  ## Evaluate mc1 Indexing ##
-#  # Load the level 1 data from the database.
-#  m1dat <- tcplLoadData(lvl = 1,
-#                        fld = "acid",
-#                        val = 1,
-#                        type = "mc")
-#  # Prepare the data into a readable format.
-#  m1dat <- tcplPrepOtpt(m1dat)
-#  # Sort the data based on the concentration and replicate inidices.
-#  setkeyv(m1dat, c("repi", "cndx"))
-#  # Display the 'cndx' and 'repi' values.
-#  m1dat[chnm == "Bisphenol A", list(chnm, conc, cndx, repi)]
+# # Run Level 1 processing for acid 1
+# tcplRun(id = 1, slvl = 1, elvl = 1, type = "mc")
+# 
+# ## Evaluate mc1 Indexing ##
+# # Load the level 1 data from the database.
+# m1dat <- tcplLoadData(lvl = 1,
+#                       fld = "acid",
+#                       val = 1,
+#                       type = "mc")
+# # Prepare the data into a readable format.
+# m1dat <- tcplPrepOtpt(m1dat)
+# # Sort the data based on the concentration and replicate inidices.
+# setkeyv(m1dat, c("repi", "cndx"))
+# # Display the 'cndx' and 'repi' values.
+# m1dat[chnm == "Bisphenol A", list(chnm, conc, cndx, repi)]
 
 ## ----eval = FALSE, warning = FALSE, message = FALSE, fig.width = 30, fig.height= 20----
-#  tcplPlotPlate(dat = m1dat, apid = "4009721")
+# tcplPlotPlate(dat = m1dat, apid = "4009721")
 
 ## ----eval = FALSE, message = FALSE--------------------------------------------
-#  # Assign the level 2 transformation method 'none' to ACID 1.
-#  tcplMthdAssign(lvl = 2, # processing level
-#                 id = 1, # assay component ID's to assign methods
-#                 mthd_id = 1, # method(s) to be assigned
-#                 ordr = 1, # order of the method(s) should be assigned
-#                 type = "mc") # the data/processing type
-#  
-#  # Run Level 2 processing for acid 1
-#  tcplRun(id = 1, slvl = 2, elvl = 2, type = "mc")
+# # Assign the level 2 transformation method 'none' to ACID 1.
+# tcplMthdAssign(lvl = 2, # processing level
+#                id = 1, # assay component ID's to assign methods
+#                mthd_id = 1, # method(s) to be assigned
+#                ordr = 1, # order of the method(s) should be assigned
+#                type = "mc") # the data/processing type
+# 
+# # Run Level 2 processing for acid 1
+# tcplRun(id = 1, slvl = 2, elvl = 2, type = "mc")
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  # Look at the assay endpoints for acid 1
-#  tcplLoadAeid(fld = "acid", val = 1)
-#  
-#  ## Methods Assignment
-#  # Assign the baseline calculation and normalization methods to aeids 1 and 2.
-#  tcplMthdAssign(lvl = 3, # processing level
-#                 id = 1:2, # assay endpoint ID to assign methods
-#                 mthd_id = c(17, 9, 7), # method(s) to be assigned
-#                 ordr = 1:3, # order the method(s) should be applied
-#                 type = "mc") # the data/processing type
-#  
-#  ## Run Level 3 processing for acid 1
-#  tcplRun(id = 1, slvl = 3, elvl = 3, type = "mc")
+# # Look at the assay endpoints for acid 1
+# tcplLoadAeid(fld = "acid", val = 1)
+# 
+# ## Methods Assignment
+# # Assign the baseline calculation and normalization methods to aeids 1 and 2.
+# tcplMthdAssign(lvl = 3, # processing level
+#                id = 1:2, # assay endpoint ID to assign methods
+#                mthd_id = c(17, 9, 7), # method(s) to be assigned
+#                ordr = 1:3, # order the method(s) should be applied
+#                type = "mc") # the data/processing type
+# 
+# ## Run Level 3 processing for acid 1
+# tcplRun(id = 1, slvl = 3, elvl = 3, type = "mc")
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 # First column with the method assignment index.
@@ -852,14 +854,14 @@ htmlTable(output,
           css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ' )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  ## Evaluate the mc3 Data ##
-#  # Load the mc3 data from the database
-#  mc3 <- tcplLoadData(lvl = 3,
-#                      type = 'mc',
-#                      fld = 'aeid',
-#                      val = 80)
-#  # Prepare the data into a readable format
-#  mc3 <- tcplPrepOtpt(mc3)
+# ## Evaluate the mc3 Data ##
+# # Load the mc3 data from the database
+# mc3 <- tcplLoadData(lvl = 3,
+#                     type = 'mc',
+#                     fld = 'aeid',
+#                     val = 80)
+# # Prepare the data into a readable format
+# mc3 <- tcplPrepOtpt(mc3)
 
 ## ----class.source="fold-hide", fig.align='center',message=FALSE,message=FALSE,fig.dim=c(8,10),eval = TRUE----
 # Load the example data from the `tcpl` package.
@@ -1141,31 +1143,31 @@ fits %>%
   ylab("Response")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  ## Methods Assignment Option 1 ##
-#  # Assign the mc4 processing methods to aeid 80
-#  tcplMthdAssign(
-#      lvl = 4, # processing level
-#      id = 80, # assay endpoint ID(s) to assign method(s)
-#      mthd_id = c(1), # method(s) to be assigned
-#      ordr = 1, # order the method(s) should be applied
-#      type = "mc") # the data/processing type
-#  
-#  ## Methods Assignment Option 2 ##
-#  # Obtain the 'aeid' Values for all endpoints containing "ATG" string, where "ATG" is the abbreviated assay source name of Attagene
-#  atg.aeid <- tcplGetAeid(name = "ATG")
-#  # Assign the mc4 processing methods for subset of aeids
-#  tcplMthdAssign( lvl = 4,
-#      id = atg.aeid[, aeid],
-#      mthd_id = c(1),  ordr = 1, type = "mc")
+# ## Methods Assignment Option 1 ##
+# # Assign the mc4 processing methods to aeid 80
+# tcplMthdAssign(
+#     lvl = 4, # processing level
+#     id = 80, # assay endpoint ID(s) to assign method(s)
+#     mthd_id = c(1), # method(s) to be assigned
+#     ordr = 1, # order the method(s) should be applied
+#     type = "mc") # the data/processing type
+# 
+# ## Methods Assignment Option 2 ##
+# # Obtain the 'aeid' Values for all endpoints containing "ATG" string, where "ATG" is the abbreviated assay source name of Attagene
+# atg.aeid <- tcplGetAeid(name = "ATG")
+# # Assign the mc4 processing methods for subset of aeids
+# tcplMthdAssign( lvl = 4,
+#     id = atg.aeid[, aeid],
+#     mthd_id = c(1),  ordr = 1, type = "mc")
 
 ## ----echo=FALSE, eval=FALSE---------------------------------------------------
-#  # mc4 Processing for subset of aeids
-#  tcplRun( id = atg.aeid[, aeid], slvl = 4L, elvl = 4L, type = 'mc' )
-#  
-#  # Load the mc4 data
-#  mc4 <- tcplLoadData(lvl = 4, type = 'mc', fld = 'aeid', val = 80,  add.fld = TRUE)
-#  # Prepare the data into a readable format
-#  mc4 <- tcplPrepOtpt(mc4)
+# # mc4 Processing for subset of aeids
+# tcplRun( id = atg.aeid[, aeid], slvl = 4L, elvl = 4L, type = 'mc' )
+# 
+# # Load the mc4 data
+# mc4 <- tcplLoadData(lvl = 4, type = 'mc', fld = 'aeid', val = 80,  add.fld = TRUE)
+# # Prepare the data into a readable format
+# mc4 <- tcplPrepOtpt(mc4)
 
 ## ----class.source="fold-hide", fig.align='center',fig.dim=c(8,5.5), warnings=FALSE, message=FALSE----
 # Load the example data from the `tcpl` package.
@@ -1293,25 +1295,25 @@ htmlTable(output,
           css.cell =  ' padding-bottom: 5px;  vertical-align:top; padding-right: 10px;min-width: 5em ')
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  # Assign the Level 5 Processing Methods to aeid 80
-#  tcplMthdAssign(
-#    lvl = 5, # processing level
-#    id = 80, # assay endpoint ID(s) to assign method(s)
-#    mthd_id = c(1, 3, 5), # method(s) to be assigned
-#    ordr = 1:3, # order the method(s) should be assigned
-#    type = "mc") # the data/processing type
-#  
-#  # Level 5 processing for aeid 80
-#  tcplRun(
-#    id = atg.aeid[, aeid], # assay endpoint ID to pipeline
-#    slvl = 5L, # level to start pipelining on
-#    elvl = 5L, # level to end pipelining on
-#    type = 'mc') # endpoint processing type - 'mc' = "multiple concentrations"
-#  
-#  # Load Level 5 data for aeid 80
-#  mc5 <- tcplLoadData(lvl = 5, type = 'mc', fld = 'aeid',val = 80, add.fld = TRUE)
-#  # Prepare the data into a readable format.
-#  mc5 <- tcplPrepOtpt(mc5)
+# # Assign the Level 5 Processing Methods to aeid 80
+# tcplMthdAssign(
+#   lvl = 5, # processing level
+#   id = 80, # assay endpoint ID(s) to assign method(s)
+#   mthd_id = c(1, 3, 5), # method(s) to be assigned
+#   ordr = 1:3, # order the method(s) should be assigned
+#   type = "mc") # the data/processing type
+# 
+# # Level 5 processing for aeid 80
+# tcplRun(
+#   id = atg.aeid[, aeid], # assay endpoint ID to pipeline
+#   slvl = 5L, # level to start pipelining on
+#   elvl = 5L, # level to end pipelining on
+#   type = 'mc') # endpoint processing type - 'mc' = "multiple concentrations"
+# 
+# # Load Level 5 data for aeid 80
+# mc5 <- tcplLoadData(lvl = 5, type = 'mc', fld = 'aeid',val = 80, add.fld = TRUE)
+# # Prepare the data into a readable format.
+# mc5 <- tcplPrepOtpt(mc5)
 
 ## -----------------------------------------------------------------------------
 # Allocate the level 5 data in `mc_vignette` to the `mc5` object.
@@ -1426,33 +1428,33 @@ fullPlot <- linePlot + geom_point(data = mc5_points,
 fullPlot
 
 ## ----eval=FALSE, class.source = "scroll-300"----------------------------------
-#  ## Methods Assignment ##
-#  tcplMthdAssign(lvl = 1, id = 1:2, mthd_id = c(1, 11, 13), ordr = 1:3, type = "sc")
-#  tcplMthdAssign(lvl = 2, id = 1, mthd_id = 3, type = "sc")
-#  ## SC Levels 0-2 Processing by acid ##
-#  tcplRun(id = 1, type = "sc", slvl = 0, elvl = 2)
+# ## Methods Assignment ##
+# tcplMthdAssign(lvl = 1, id = 1:2, mthd_id = c(1, 11, 13), ordr = 1:3, type = "sc")
+# tcplMthdAssign(lvl = 2, id = 1, mthd_id = 3, type = "sc")
+# ## SC Levels 0-2 Processing by acid ##
+# tcplRun(id = 1, type = "sc", slvl = 0, elvl = 2)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  ## Methods Assignment ##
-#  # No mc1 methods needed
-#  tcplMthdAssign(lvl = 2, id = 1, mthd_id = c(3,4,2), ordr = 1:3, type = "mc")
-#  tcplMthdAssign(lvl = 3, id = 2, mthd_id = 1, ordr = 1, type = "mc")
-#  tcplMthdAssign(lvl = 4, id = 2, mthd_id = 1, ordr = 1:2, type = "mc")
-#  tcplMthdAssign(lvl = 5, id = 2, mthd_id = c(1,3,5), ordr = 1:3, type = "mc")
-#  tcplMthdAssign(lvl = 5, id = 2, mthd_id = c(1,3,5), ordr = 1:3, type = "mc")
-#  
-#  ## Assign the Number of Processing Cores to utilize ##
-#  mycores <- 1 # If users do NOT want to leverage parallel computing.
-#  # Users that want to leverage parallel computing set to > 1, but less than the total number of cores
-#  # (i.e. need at least 1 core open for overhead). If not provided, this will be assumed.
-#  # "parallel::detectCores()" can be run to understand the maximum allowed number of cores.
-#  
-#  ## Option A: MC Levels 0-5 Processing by acid ##
-#  tcplRun(id = 80, type = "mc",  slvl = 0L,   elvl = 5L,  mc.cores = 20)
-#  
-#  ##Option B: MC Levels 0-3 Processing by acid, followed by Levels 4-6 by aeid ##
-#  tcplRun(id = list$acid, type = "mc", slvl = 0L, elvl = 3L)
-#  tcplRun(id = list$aeid, type = "mc", slvl = 4L, elvl = 5L)
+# ## Methods Assignment ##
+# # No mc1 methods needed
+# tcplMthdAssign(lvl = 2, id = 1, mthd_id = c(3,4,2), ordr = 1:3, type = "mc")
+# tcplMthdAssign(lvl = 3, id = 2, mthd_id = 1, ordr = 1, type = "mc")
+# tcplMthdAssign(lvl = 4, id = 2, mthd_id = 1, ordr = 1:2, type = "mc")
+# tcplMthdAssign(lvl = 5, id = 2, mthd_id = c(1,3,5), ordr = 1:3, type = "mc")
+# tcplMthdAssign(lvl = 5, id = 2, mthd_id = c(1,3,5), ordr = 1:3, type = "mc")
+# 
+# ## Assign the Number of Processing Cores to utilize ##
+# mycores <- 1 # If users do NOT want to leverage parallel computing.
+# # Users that want to leverage parallel computing set to > 1, but less than the total number of cores
+# # (i.e. need at least 1 core open for overhead). If not provided, this will be assumed.
+# # "parallel::detectCores()" can be run to understand the maximum allowed number of cores.
+# 
+# ## Option A: MC Levels 0-5 Processing by acid ##
+# tcplRun(id = 80, type = "mc",  slvl = 0L,   elvl = 5L,  mc.cores = 20)
+# 
+# ##Option B: MC Levels 0-3 Processing by acid, followed by Levels 4-6 by aeid ##
+# tcplRun(id = list$acid, type = "mc", slvl = 0L, elvl = 3L)
+# tcplRun(id = list$aeid, type = "mc", slvl = 4L, elvl = 5L)
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 Activity_Concentration_uM <- c("AC5", "AC10", "AC20", "AC50", "ACB", "ACC", "AC1SD")
@@ -1537,18 +1539,18 @@ htmlTable(output,
 
 
 ## ----varmat_use, eval = FALSE-------------------------------------------------
-#  # create matrices with all chemicals and assays; the entire database
-#  varmat <- tcplVarMat()
-#  # create matrices using a subset of chemicals and/or aeids
-#  aeids <- c(80)
-#  dtxsid <- c("DTXSID80379721", "DTXSID10379991", "DTXSID7021106", "DTXSID1026081")
-#  varmat <- tcplVarMat(aeid = aeids, dsstox_substance_id = dtxsid)
-#  # create extra matrices by adding vars
-#  varmat <- tcplVarMat(aeid = aeids, add.vars = c("m4id", "resp_max", "max_med"))
+# # create matrices with all chemicals and assays; the entire database
+# varmat <- tcplVarMat()
+# # create matrices using a subset of chemicals and/or aeids
+# aeids <- c(80)
+# dtxsid <- c("DTXSID80379721", "DTXSID10379991", "DTXSID7021106", "DTXSID1026081")
+# varmat <- tcplVarMat(aeid = aeids, dsstox_substance_id = dtxsid)
+# # create extra matrices by adding vars
+# varmat <- tcplVarMat(aeid = aeids, add.vars = c("m4id", "resp_max", "max_med"))
 
 ## ----varmat_save, eval = FALSE------------------------------------------------
-#  library(writexl)
-#  write_xlsx(varmat, path = "varmat_output.xlsx")
+# library(writexl)
+# write_xlsx(varmat, path = "varmat_output.xlsx")
 
 ## ----aed_table, warning = FALSE, echo = FALSE---------------------------------
 Parameter <- c("Library(httk)", "httk::calc_mc_oral_equiv()", "httk models used", "httk and QSPRs", "Potency metrics used for httk::calc_mc_oral_equiv()", "Filters on m4id")
@@ -1580,7 +1582,7 @@ htmlTable(output,
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
 Field <- c("dtxsid", "chnm", "spid", "qc_level", "pass_or_caution", "t0", "t4", 
-"call", "annotation", "flags", "average_mass", "log10_vapor_pressure_OPERA_pred", "logKow_octanol_water_OPERA_pred")
+"stability_call", "annotation", "flags", "average_mass", "log10_vapor_pressure_OPERA_pred", "logKow_octanol_water_OPERA_pred")
 
 Description <- c("Unique identifier from U.S. EPA Distributed Structure-Searchable Toxicity (DSSTox) Database", 
                  "Chemical name", "Sample ID or ToxCast bioactivity data, connected by bottle lineage", "Level of analytical QC: substance or sample", 
@@ -1636,261 +1638,261 @@ htmlTable(output,
 
 
 ## ----tcplLoad, eval = FALSE---------------------------------------------------
-#  # List all assay source IDs
-#  tcplLoadAsid()
-#  # Create table of all assay endpoint ids (aeids) per assay source
-#  aeids <- tcplLoadAeid(fld = "asid", # field to query on
-#                        val = 14, # value for each field
-#                        add.fld = c("aid", "anm", "acid", "acnm")) # additional fields to return
+# # List all assay source IDs
+# tcplLoadAsid()
+# # Create table of all assay endpoint ids (aeids) per assay source
+# aeids <- tcplLoadAeid(fld = "asid", # field to query on
+#                       val = 14, # value for each field
+#                       add.fld = c("aid", "anm", "acid", "acnm")) # additional fields to return
 
 ## ----annotation_query_ex, eval = FALSE----------------------------------------
-#  # Select annotation and subset by ids or name, ex.
-#  assay <- tcplQuery("SELECT * FROM invitrodb.assay where aid=1;")
-#  component <- tcplQuery("SELECT * FROM invitrodb.assay_component;")
-#  component <- subset(component, acid %in% source$acid)
-#  endpoint <- tcplQuery("SELECT * FROM invitrodb.assay_component_endpoint;")
-#  endpoint <- endpoint[grepl("ATG", endpoint$assay_component_endpoint_name),]
-#  
-#  # Or select all annotations by joining multiple tables
-#  annotations <- tcplQuery("SELECT * FROM invitrodb.assay
-#                    INNER JOIN invitrodb.assay_source on assay.asid=assay_source.asid
-#                    INNER JOIN invitrodb.assay_component on  assay_component.aid=assay.aid
-#                    INNER JOIN invitrodb.assay_component_endpoint on assay_component_endpoint.acid=assay_component.acid;")
+# # Select annotation and subset by ids or name, ex.
+# assay <- tcplQuery("SELECT * FROM invitrodb.assay where aid=1;")
+# component <- tcplQuery("SELECT * FROM invitrodb.assay_component;")
+# component <- subset(component, acid %in% source$acid)
+# endpoint <- tcplQuery("SELECT * FROM invitrodb.assay_component_endpoint;")
+# endpoint <- endpoint[grepl("ATG", endpoint$assay_component_endpoint_name),]
+# 
+# # Or select all annotations by joining multiple tables
+# annotations <- tcplQuery("SELECT * FROM invitrodb.assay
+#                   INNER JOIN invitrodb.assay_source on assay.asid=assay_source.asid
+#                   INNER JOIN invitrodb.assay_component on  assay_component.aid=assay.aid
+#                   INNER JOIN invitrodb.assay_component_endpoint on assay_component_endpoint.acid=assay_component.acid;")
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  tcplLoadChem()
-#  tcplLoadChemList(field = "chid", val = 1:2)
+# tcplLoadChem()
+# tcplLoadChemList(field = "chid", val = 1:2)
 
 ## ----mthd_list, fig.align='center',message=FALSE, eval=FALSE------------------
-#  # Create a function to list all available methods function (SC & mc).
-#  method_list <- function() {
-#    # Single Concentration
-#    ## Level 1
-#    sc1 <- tcplMthdList(1, 'sc')
-#    sc1[, lvl := "sc1"]
-#    setnames(sc1, c("sc1_mthd", "sc1_mthd_id"), c("mthd", "mthd_id"))
-#    ## Level 2
-#    sc2 <- tcplMthdList(2, 'sc')
-#    sc2[, lvl := "sc2"]
-#    setnames(sc2, c("sc2_mthd", "sc2_mthd_id"), c("mthd", "mthd_id"))
-#  
-#    # Multiple Concentration
-#    ## Level 2
-#    mc2 <- tcplMthdList(2, 'mc')
-#    mc2[, lvl := "mc2"]
-#    setnames(mc2, c("mc2_mthd", "mc2_mthd_id"), c("mthd", "mthd_id"))
-#    ## Level 3
-#    mc3 <- tcplMthdList(3, 'mc')
-#    mc3[, lvl := "mc3"]
-#    setnames(mc3, c("mc3_mthd", "mc3_mthd_id"), c("mthd", "mthd_id"))
-#    ## Level 4
-#    mc4 <- tcplMthdList(4, 'mc')
-#    mc4[, lvl := "mc4"]
-#    setnames(mc4, c("mc4_mthd", "mc4_mthd_id"), c("mthd", "mthd_id"))
-#    ## Level 5
-#    mc5 <- tcplMthdList(5, 'mc')
-#    mc5[, lvl := "mc5"]
-#    setnames(mc5, c("mc5_mthd", "mc5_mthd_id"), c("mthd", "mthd_id"))
-#    # Compile the Output
-#    mthd.list <- rbind(sc1, sc2, mc2, mc3, mc4, mc5)
-#    mthd.list <- mthd.list[, c("lvl", "mthd_id", "mthd", "desc")]
-#    # Return the Results
-#    return(mthd.list)
-#  }
-#  
-#  # Run the 'method_list' functions and store output.
-#  amthds <- method_list()
-#  # Print the available methods list.
-#  amthds
+# # Create a function to list all available methods function (SC & mc).
+# method_list <- function() {
+#   # Single Concentration
+#   ## Level 1
+#   sc1 <- tcplMthdList(1, 'sc')
+#   sc1[, lvl := "sc1"]
+#   setnames(sc1, c("sc1_mthd", "sc1_mthd_id"), c("mthd", "mthd_id"))
+#   ## Level 2
+#   sc2 <- tcplMthdList(2, 'sc')
+#   sc2[, lvl := "sc2"]
+#   setnames(sc2, c("sc2_mthd", "sc2_mthd_id"), c("mthd", "mthd_id"))
+# 
+#   # Multiple Concentration
+#   ## Level 2
+#   mc2 <- tcplMthdList(2, 'mc')
+#   mc2[, lvl := "mc2"]
+#   setnames(mc2, c("mc2_mthd", "mc2_mthd_id"), c("mthd", "mthd_id"))
+#   ## Level 3
+#   mc3 <- tcplMthdList(3, 'mc')
+#   mc3[, lvl := "mc3"]
+#   setnames(mc3, c("mc3_mthd", "mc3_mthd_id"), c("mthd", "mthd_id"))
+#   ## Level 4
+#   mc4 <- tcplMthdList(4, 'mc')
+#   mc4[, lvl := "mc4"]
+#   setnames(mc4, c("mc4_mthd", "mc4_mthd_id"), c("mthd", "mthd_id"))
+#   ## Level 5
+#   mc5 <- tcplMthdList(5, 'mc')
+#   mc5[, lvl := "mc5"]
+#   setnames(mc5, c("mc5_mthd", "mc5_mthd_id"), c("mthd", "mthd_id"))
+#   # Compile the Output
+#   mthd.list <- rbind(sc1, sc2, mc2, mc3, mc4, mc5)
+#   mthd.list <- mthd.list[, c("lvl", "mthd_id", "mthd", "desc")]
+#   # Return the Results
+#   return(mthd.list)
+# }
+# 
+# # Run the 'method_list' functions and store output.
+# amthds <- method_list()
+# # Print the available methods list.
+# amthds
 
 ## ----tcplquery, eval = FALSE--------------------------------------------------
-#  # Load sample table using a MySQL query.
-#  samples <- tcplQuery("SELECT * FROM sample;")
+# # Load sample table using a MySQL query.
+# samples <- tcplQuery("SELECT * FROM sample;")
 
 ## ----sc0, eval = FALSE--------------------------------------------------------
-#  # Load Level 0 single concentration (SC0) data for a single acid to R.
-#  sc0 <- tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "sc") # data type - single concentration
-#  # Alternatively, load data in and format with tcplPrepOtpt.
-#  sc0 <- tcplPrepOtpt(tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "sc"))
+# # Load Level 0 single concentration (SC0) data for a single acid to R.
+# sc0 <- tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "sc") # data type - single concentration
+# # Alternatively, load data in and format with tcplPrepOtpt.
+# sc0 <- tcplPrepOtpt(tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "sc"))
 
 ## ----mc0, eval = FALSE--------------------------------------------------------
-#  # Load Level 0 multiple concentration (mc0) data.
-#  mc0 <- tcplPrepOtpt(tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "mc"))
+# # Load Level 0 multiple concentration (mc0) data.
+# mc0 <- tcplPrepOtpt(tcplLoadData(lvl = 0, fld = "acid", val = 1, type = "mc"))
 
 ## ----mc0_aq, fig.align='center',  message=FALSE, eval=FALSE-------------------
-#  # Create a function to review assay quality metrics using indexed Level 0 data
-#  
-#  aq <- function(ac){
-#    # obtain level 1 multiple concentration data for specified acids
-#    dat <- tcplPrepOtpt(tcplLoadData(1L, "acid", aeids$acid, type = "mc"))
-#  
-#    # keep only observations with good well quality (wllq = 1)
-#    dat <- dat[wllq == 1]
-#  
-#    # obtain summary values for data and remove missing data (i.e. NA's)
-#    agg <- dat[ ,
-#                list(
-#                  # median response values (rval) of neutral wells (wllt = n)
-#                  nmed = median(rval[wllt == "n"], na.rm = TRUE),
-#                  # median absolute deviation (mad) of neutral wells (wllt = n)
-#                  nmad = mad(rval[wllt == "n"], na.rm = TRUE),
-#                  # median response values of positive control wells (wllt = p)
-#                  pmed = median(rval[wllt == "p"], na.rm = TRUE),
-#                  # median absolute deviation of positive control wells (wllt = p)
-#                  pmad = mad(rval[wllt == "p"], na.rm = TRUE),
-#                  # median response values of negative control wells (wllt = m)
-#                  mmed = median(rval[wllt == "m"], na.rm = TRUE),
-#                  # median absolute deviation of negative control wells (wllt = m)
-#                  mmad = mad(rval[wllt == "m"], na.rm = TRUE)
-#                  ),
-#                # aggregate on assay component id, assay component name,
-#                # and assay plate id
-#                by = list(acid, acnm, apid)]
-#  
-#    # Z prime (Z') factor: separation between positive and negative controls,
-#    # indicative of likelihood of false positives or negatives.
-#    # - Between 0.5 - 1 are excellent,
-#    # - Between 0 and 0.5 may be acceptable,
-#    # - Less than 0 not good
-#    # obtain the Z' for positive controls and neutral
-#    agg[ , zprm.p := 1 - ((3 * (pmad + nmad)) / abs(pmed - nmed))]
-#    # obtain the Z' factor for negative controls and neutral
-#    agg[ , zprm.m := 1 - ((3 * (mmad + nmad)) / abs(mmed - nmed))]
-#  
-#    agg[ , ssmd.p := (pmed - nmed) / sqrt(pmad^2 + nmad^2)]
-#    agg[ , ssmd.m := (mmed - nmed) / sqrt(mmad^2 + nmad^2)]
-#  
-#    # Coefficient of Variation (cv) of neutral control
-#    # - Ideally should be under 25%
-#    agg[ , cv     := nmad / nmed]
-#  
-#    agg[ , sn.p :=  (pmed - nmed) / nmad]
-#    agg[ , sn.m :=  (mmed - nmed) / nmad]
-#    agg[ , sb.p :=  pmed / nmed]
-#    agg[ , sb.m :=  mmed / nmed]
-#  
-#    agg[zprm.p<0, zprm.p := 0]
-#    agg[zprm.m<0, zprm.m := 0]
-#  
-#    acqu <- agg[ , list( nmed   = signif(median(nmed, na.rm = TRUE)),
-#                         nmad   = signif(median(nmad, na.rm = TRUE)),
-#                         pmed   = signif(median(pmed, na.rm = TRUE)),
-#                         pmad   = signif(median(pmad, na.rm = TRUE)),
-#                         mmed   = signif(median(mmed, na.rm = TRUE)),
-#                         mmad   = signif(median(mmad, na.rm = TRUE)),
-#                         zprm.p = round(median(zprm.p, na.rm = TRUE), 2),
-#                         zprm.m = round(median(zprm.m, na.rm = TRUE), 2),
-#                         ssmd.p = round(median(ssmd.p, na.rm = TRUE), 0),
-#                         ssmd.m = round(median(ssmd.m, na.rm = TRUE), 0),
-#                         cv = round(median(cv, na.rm = TRUE), 2),
-#                         sn.p = round(median(sn.p, na.rm = TRUE), 2),
-#                         sn.m = round(median(sn.m, na.rm = TRUE), 2),
-#                         sb.p = round(median(sb.p, na.rm = TRUE), 2),
-#                         sb.m = round(median(sb.m, na.rm = TRUE), 2)
-#    ), by = list(acid, acnm)]
-#    # Return the Results.
-#    return(acqu)
-#  } #per acid
-#  
-#  # Run the 'aq' function & store the output.
-#  assayq <- aq(ac)
+# # Create a function to review assay quality metrics using indexed Level 0 data
+# 
+# aq <- function(ac){
+#   # obtain level 1 multiple concentration data for specified acids
+#   dat <- tcplPrepOtpt(tcplLoadData(1L, "acid", aeids$acid, type = "mc"))
+# 
+#   # keep only observations with good well quality (wllq = 1)
+#   dat <- dat[wllq == 1]
+# 
+#   # obtain summary values for data and remove missing data (i.e. NA's)
+#   agg <- dat[ ,
+#               list(
+#                 # median response values (rval) of neutral wells (wllt = n)
+#                 nmed = median(rval[wllt == "n"], na.rm = TRUE),
+#                 # median absolute deviation (mad) of neutral wells (wllt = n)
+#                 nmad = mad(rval[wllt == "n"], na.rm = TRUE),
+#                 # median response values of positive control wells (wllt = p)
+#                 pmed = median(rval[wllt == "p"], na.rm = TRUE),
+#                 # median absolute deviation of positive control wells (wllt = p)
+#                 pmad = mad(rval[wllt == "p"], na.rm = TRUE),
+#                 # median response values of negative control wells (wllt = m)
+#                 mmed = median(rval[wllt == "m"], na.rm = TRUE),
+#                 # median absolute deviation of negative control wells (wllt = m)
+#                 mmad = mad(rval[wllt == "m"], na.rm = TRUE)
+#                 ),
+#               # aggregate on assay component id, assay component name,
+#               # and assay plate id
+#               by = list(acid, acnm, apid)]
+# 
+#   # Z prime (Z') factor: separation between positive and negative controls,
+#   # indicative of likelihood of false positives or negatives.
+#   # - Between 0.5 - 1 are excellent,
+#   # - Between 0 and 0.5 may be acceptable,
+#   # - Less than 0 not good
+#   # obtain the Z' for positive controls and neutral
+#   agg[ , zprm.p := 1 - ((3 * (pmad + nmad)) / abs(pmed - nmed))]
+#   # obtain the Z' factor for negative controls and neutral
+#   agg[ , zprm.m := 1 - ((3 * (mmad + nmad)) / abs(mmed - nmed))]
+# 
+#   agg[ , ssmd.p := (pmed - nmed) / sqrt(pmad^2 + nmad^2)]
+#   agg[ , ssmd.m := (mmed - nmed) / sqrt(mmad^2 + nmad^2)]
+# 
+#   # Coefficient of Variation (cv) of neutral control
+#   # - Ideally should be under 25%
+#   agg[ , cv     := nmad / nmed]
+# 
+#   agg[ , sn.p :=  (pmed - nmed) / nmad]
+#   agg[ , sn.m :=  (mmed - nmed) / nmad]
+#   agg[ , sb.p :=  pmed / nmed]
+#   agg[ , sb.m :=  mmed / nmed]
+# 
+#   agg[zprm.p<0, zprm.p := 0]
+#   agg[zprm.m<0, zprm.m := 0]
+# 
+#   acqu <- agg[ , list( nmed   = signif(median(nmed, na.rm = TRUE)),
+#                        nmad   = signif(median(nmad, na.rm = TRUE)),
+#                        pmed   = signif(median(pmed, na.rm = TRUE)),
+#                        pmad   = signif(median(pmad, na.rm = TRUE)),
+#                        mmed   = signif(median(mmed, na.rm = TRUE)),
+#                        mmad   = signif(median(mmad, na.rm = TRUE)),
+#                        zprm.p = round(median(zprm.p, na.rm = TRUE), 2),
+#                        zprm.m = round(median(zprm.m, na.rm = TRUE), 2),
+#                        ssmd.p = round(median(ssmd.p, na.rm = TRUE), 0),
+#                        ssmd.m = round(median(ssmd.m, na.rm = TRUE), 0),
+#                        cv = round(median(cv, na.rm = TRUE), 2),
+#                        sn.p = round(median(sn.p, na.rm = TRUE), 2),
+#                        sn.m = round(median(sn.m, na.rm = TRUE), 2),
+#                        sb.p = round(median(sb.p, na.rm = TRUE), 2),
+#                        sb.m = round(median(sb.m, na.rm = TRUE), 2)
+#   ), by = list(acid, acnm)]
+#   # Return the Results.
+#   return(acqu)
+# } #per acid
+# 
+# # Run the 'aq' function & store the output.
+# assayq <- aq(ac)
 
 ## ----sc2, eval = FALSE--------------------------------------------------------
-#  # Load sc2 data for a single aeid
-#  sc2 <- tcplPrepOtpt(tcplLoadData(lvl = 2, fld = "aeid", val = 3, type = "sc"))
-#  # Alternatively, sc2 data for a set of aeids can be loaded with a vector of ids
-#  sc2 <- tcplPrepOtpt(tcplLoadData(lvl = 2, fld = "aeid", val = aeids$aeid, type = "sc"))
+# # Load sc2 data for a single aeid
+# sc2 <- tcplPrepOtpt(tcplLoadData(lvl = 2, fld = "aeid", val = 3, type = "sc"))
+# # Alternatively, sc2 data for a set of aeids can be loaded with a vector of ids
+# sc2 <- tcplPrepOtpt(tcplLoadData(lvl = 2, fld = "aeid", val = aeids$aeid, type = "sc"))
 
 ## ----sc2_mthd, fig.align='center',message=FALSE, eval=FALSE-------------------
-#  # Create a function to load methods for sc data processing for select aeids
-#  sc_methods <- function(aeids) {
-#    # load the level 1 methods assigned for the single concentration aeid's
-#    sc1_mthds <- tcplMthdLoad(lvl = 1, type = "sc", id = aeids$aeid)
-#    # aggregate the method id's by aeid
-#    sc1_mthds<- aggregate(mthd_id ~ aeid, sc1_mthds, toString)
-#    # reset the names of the sc1_mthds object
-#    setnames(sc1_mthds, "mthd_id", "sc1_mthd_id")
-#  
-#    # load the level 2 methods assigned for the single concentration aeid's
-#    sc2_mthds <- tcplMthdLoad(lvl = 2, type = "sc", id = aeids$aeid)
-#    # aggregate the method id's by aeid
-#    sc2_mthds<- aggregate(mthd_id ~ aeid, sc2_mthds, toString)
-#    # reset the names of the sc2_mthds object
-#    setnames(sc2_mthds, "mthd_id", "sc2_mthd_id")
-#  
-#    # Compile the Output
-#    methods <- merge( merge(aeids, sc1_mthds,  by = "aeid", all = TRUE),
-#                    sc2_mthds, by = "aeid", all = TRUE )
-#    # Return the Results
-#    return(methods)
-#  }
-#  
-#  # Run the 'sc_methods' function and store the output.
-#  smthds <- sc_methods(aeids)
+# # Create a function to load methods for sc data processing for select aeids
+# sc_methods <- function(aeids) {
+#   # load the level 1 methods assigned for the single concentration aeid's
+#   sc1_mthds <- tcplMthdLoad(lvl = 1, type = "sc", id = aeids$aeid)
+#   # aggregate the method id's by aeid
+#   sc1_mthds<- aggregate(mthd_id ~ aeid, sc1_mthds, toString)
+#   # reset the names of the sc1_mthds object
+#   setnames(sc1_mthds, "mthd_id", "sc1_mthd_id")
+# 
+#   # load the level 2 methods assigned for the single concentration aeid's
+#   sc2_mthds <- tcplMthdLoad(lvl = 2, type = "sc", id = aeids$aeid)
+#   # aggregate the method id's by aeid
+#   sc2_mthds<- aggregate(mthd_id ~ aeid, sc2_mthds, toString)
+#   # reset the names of the sc2_mthds object
+#   setnames(sc2_mthds, "mthd_id", "sc2_mthd_id")
+# 
+#   # Compile the Output
+#   methods <- merge( merge(aeids, sc1_mthds,  by = "aeid", all = TRUE),
+#                   sc2_mthds, by = "aeid", all = TRUE )
+#   # Return the Results
+#   return(methods)
+# }
+# 
+# # Run the 'sc_methods' function and store the output.
+# smthds <- sc_methods(aeids)
 
 ## ----mc5_data, eval = FALSE---------------------------------------------------
-#  # Load mc5 data for a set of aeids
-#  # Note: to output mc5_param information with the mc5 results, 'add.fld' is set to TRUE by default.
-#  mc5 <- tcplPrepOtpt(tcplLoadData(lvl = 5, fld = "aeid", val = aeids$aeid, type = "mc"))
+# # Load mc5 data for a set of aeids
+# # Note: to output mc5_param information with the mc5 results, 'add.fld' is set to TRUE by default.
+# mc5 <- tcplPrepOtpt(tcplLoadData(lvl = 5, fld = "aeid", val = aeids$aeid, type = "mc"))
 
 ## ----mc5_methods, fig.align='center',message=FALSE, eval=FALSE----------------
-#  # Create a function to load methods for mc data processing for select aeids
-#  mc_methods <- function(aeids) {
-#    # acid
-#    ## load the methods assigned to level 2 for given acids
-#    mc2_mthds <- tcplMthdLoad(2, aeids$acid)
-#    ## aggregate the assigned methods by acid
-#    mc2_mthds<- aggregate(mthd_id ~ acid, mc2_mthds, toString)
-#    ## rename the columns for the 'mc2_mthds' object
-#    setnames(mc2_mthds, "mthd_id", "mc2_mthd_id")
-#  
-#    # aeid
-#    ## load the methods assigned to level 3 for given aeids
-#    mc3_mthds <- tcplMthdLoad(3, aeids$aeid)
-#    ## aggregate the assigned methods by aeid
-#    mc3_mthds<- aggregate(mthd_id ~ aeid, mc3_mthds, toString)
-#    ## rename the columns for the 'mc3_mthds' object
-#    setnames(mc3_mthds, "mthd_id", "mc3_mthd_id")
-#    ## load the methods assigned to level 4 for given aeids
-#    mc4_mthds <- tcplMthdLoad(4, aeids$aeid)
-#    ## aggregate the assigned methods by aeid
-#    mc4_mthds<- aggregate(mthd_id ~ aeid, mc4_mthds, toString)
-#    ## rename the columns for 'mc4_mthds' object
-#    setnames(mc4_mthds, "mthd_id", "mc4_mthd_id")
-#    ## load the methods assigned to level 5 for given aeids
-#    mc5_mthds <- tcplMthdLoad(5, aeids$aeid)
-#    ## aggregate the assigned methods by aeid
-#    mc5_mthds<- aggregate(mthd_id ~ aeid, mc5_mthds, toString)
-#    ## rename the columns for 'mc5_mthds' object
-#    setnames(mc5_mthds, "mthd_id", "mc5_mthd_id")
-#  
-#    # Compile the Results.
-#    ## merge the aeid information with the level 2 methods by acid
-#    acid.methods <- merge(aeids, mc2_mthds, by.x = "acid", by.y = "acid")
-#    ## merge the level 3, 4, and 5 methods by aeid
-#    mthd35 <- merge(
-#      merge(mc3_mthds, mc4_mthds, by = "aeid", all = TRUE),
-#        mc5_mthds, by = "aeid", all = TRUE)
-#    ## merge all methods information by aeid
-#    methods <- merge(acid.methods, mthd35, by.x = "aeid", by.y = "aeid")
-#    # Print the Results.
-#    print(methods)
-#    # Return the Results.
-#    return(methods)
-#  }
-#  
-#  # Run the 'methods' function and store the output.
-#  mmthds <- mc_methods(aeids)
+# # Create a function to load methods for mc data processing for select aeids
+# mc_methods <- function(aeids) {
+#   # acid
+#   ## load the methods assigned to level 2 for given acids
+#   mc2_mthds <- tcplMthdLoad(2, aeids$acid)
+#   ## aggregate the assigned methods by acid
+#   mc2_mthds<- aggregate(mthd_id ~ acid, mc2_mthds, toString)
+#   ## rename the columns for the 'mc2_mthds' object
+#   setnames(mc2_mthds, "mthd_id", "mc2_mthd_id")
+# 
+#   # aeid
+#   ## load the methods assigned to level 3 for given aeids
+#   mc3_mthds <- tcplMthdLoad(3, aeids$aeid)
+#   ## aggregate the assigned methods by aeid
+#   mc3_mthds<- aggregate(mthd_id ~ aeid, mc3_mthds, toString)
+#   ## rename the columns for the 'mc3_mthds' object
+#   setnames(mc3_mthds, "mthd_id", "mc3_mthd_id")
+#   ## load the methods assigned to level 4 for given aeids
+#   mc4_mthds <- tcplMthdLoad(4, aeids$aeid)
+#   ## aggregate the assigned methods by aeid
+#   mc4_mthds<- aggregate(mthd_id ~ aeid, mc4_mthds, toString)
+#   ## rename the columns for 'mc4_mthds' object
+#   setnames(mc4_mthds, "mthd_id", "mc4_mthd_id")
+#   ## load the methods assigned to level 5 for given aeids
+#   mc5_mthds <- tcplMthdLoad(5, aeids$aeid)
+#   ## aggregate the assigned methods by aeid
+#   mc5_mthds<- aggregate(mthd_id ~ aeid, mc5_mthds, toString)
+#   ## rename the columns for 'mc5_mthds' object
+#   setnames(mc5_mthds, "mthd_id", "mc5_mthd_id")
+# 
+#   # Compile the Results.
+#   ## merge the aeid information with the level 2 methods by acid
+#   acid.methods <- merge(aeids, mc2_mthds, by.x = "acid", by.y = "acid")
+#   ## merge the level 3, 4, and 5 methods by aeid
+#   mthd35 <- merge(
+#     merge(mc3_mthds, mc4_mthds, by = "aeid", all = TRUE),
+#       mc5_mthds, by = "aeid", all = TRUE)
+#   ## merge all methods information by aeid
+#   methods <- merge(acid.methods, mthd35, by.x = "aeid", by.y = "aeid")
+#   # Print the Results.
+#   print(methods)
+#   # Return the Results.
+#   return(methods)
+# }
+# 
+# # Run the 'methods' function and store the output.
+# mmthds <- mc_methods(aeids)
 
 ## ----tcplQueryAPI, eval = FALSE-----------------------------------------------
-#  # Request and load all assays+annotations for specified asid
-#  data <- tcplQueryAPI(resource = "data", # resource to query from API, either 'data' or 'assay'
-#                       fld = "aeid", val = 891, # field and val to query on
-#                       return_fld = c("spid", "chnm", "hitcall")) # specify the return fields, leave NULL for all fields
+# # Request and load all assays+annotations for specified asid
+# data <- tcplQueryAPI(resource = "data", # resource to query from API, either 'data' or 'assay'
+#                      fld = "aeid", val = 891, # field and val to query on
+#                      return_fld = c("spid", "chnm", "hitcall")) # specify the return fields, leave NULL for all fields
 
 ## ----annotation_query_api_ex, eval = FALSE------------------------------------
-#  # Load all assays and their annotations
-#  assays <- tcplQueryAPI(resource = "assay")
+# # Load all assays and their annotations
+# assays <- tcplQueryAPI(resource = "assay")
 
 ## ----data_by_aeid-------------------------------------------------------------
 # Load mc5 data by aeid
@@ -1906,31 +1908,31 @@ knitr::kable(head(mc5))%>%
  kableExtra::scroll_box(width = "100%")
 
 ## ----data_by_id, eval=FALSE---------------------------------------------------
-#  ## Load mc5 data by spid
-#  mc5 <- tcplLoadData(lvl=5, fld = "spid", val = "TP0000904H05", type = "mc", add.fld = FALSE)
-#  
-#  ## Load mc5 data by m4id
-#  mc5 <- tcplLoadData(lvl=5, fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
-#  
-#  ## Load mc data by dtxsid
-#  mc5 <- tcplLoadData(lvl=5, fld = "dtxsid", val = "DTXSID30944145", type = "mc", add.fld = FALSE)
+# ## Load mc5 data by spid
+# mc5 <- tcplLoadData(lvl=5, fld = "spid", val = "TP0000904H05", type = "mc", add.fld = FALSE)
+# 
+# ## Load mc5 data by m4id
+# mc5 <- tcplLoadData(lvl=5, fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
+# 
+# ## Load mc data by dtxsid
+# mc5 <- tcplLoadData(lvl=5, fld = "dtxsid", val = "DTXSID30944145", type = "mc", add.fld = FALSE)
 
 ## ----data_level_3, eval=FALSE-------------------------------------------------
-#  ## Load mc3. This returns m4id, spid, conc, aeid, logc, resp
-#  mc3 <- tcplLoadData(lvl = 3, fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
-#  
-#  ## Load mc4. This returns m4id, spid, bmad, resp_max, resp_min, max_mean,	max_mean_conc,	
-#  # max_med,	max_med_conc,	logc_max,	logc_min,	nconc,	npts,	nrep,	nmed_gtbl
-#  mc4 <- tcplLoadData(lvl = 4, fld = "m4id", val= 1842443, type = "mc", add.fld = FALSE)
-#  
-#  ## Load mc6. This returns mc5 parameters plus flags
-#  mc6 <- tcplLoadData(lvl = 6, fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
-#  
-#  ## Load mc4 agg. This returns mc3 and mc4 parameters
-#  agg <- tcplLoadData(lvl = "agg", fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
-#  
-#  ## Load data with add.fld = TRUE to return all available processed data fields
-#  all_fields <- tcplLoadData(lvl = 3,  fld = "m4id", val = 1842443, type = "mc", add.fld = TRUE)
+# ## Load mc3. This returns m4id, spid, conc, aeid, logc, resp
+# mc3 <- tcplLoadData(lvl = 3, fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
+# 
+# ## Load mc4. This returns m4id, spid, bmad, resp_max, resp_min, max_mean,	max_mean_conc,	
+# # max_med,	max_med_conc,	logc_max,	logc_min,	nconc,	npts,	nrep,	nmed_gtbl
+# mc4 <- tcplLoadData(lvl = 4, fld = "m4id", val= 1842443, type = "mc", add.fld = FALSE)
+# 
+# ## Load mc6. This returns mc5 parameters plus flags
+# mc6 <- tcplLoadData(lvl = 6, fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
+# 
+# ## Load mc4 agg. This returns mc3 and mc4 parameters
+# agg <- tcplLoadData(lvl = "agg", fld = "m4id", val = 1842443, type = "mc", add.fld = FALSE)
+# 
+# ## Load data with add.fld = TRUE to return all available processed data fields
+# all_fields <- tcplLoadData(lvl = 3,  fld = "m4id", val = 1842443, type = "mc", add.fld = TRUE)
 
 ## ----load_aeid----------------------------------------------------------------
 # Load aeid and aenm for given acid
@@ -1952,35 +1954,50 @@ acids <- tcplLoadAcid(fld = c("organism", "tissue"),
                       add.fld = c("aeid", "aid", "asid", "signal_direction")) 
 
 ## ----load_aid, eval=FALSE-----------------------------------------------------
-#  # Load aid and anm for given aeid
-#  aid <- tcplLoadAid(fld = "aeid", val = 663)
-#  
-#  # Subset all aids by using multiple fields -- val must be same length in list form!
-#  aids <- tcplLoadAid(fld = c("organism", "tissue"),
-#                        val = list("rat", "liver"),
-#                        add.fld = c("aeid", "acid", "asid", "signal_direction"))
+# # Load aid and anm for given aeid
+# aid <- tcplLoadAid(fld = "aeid", val = 663)
+# 
+# # Subset all aids by using multiple fields -- val must be same length in list form!
+# aids <- tcplLoadAid(fld = c("organism", "tissue"),
+#                       val = list("rat", "liver"),
+#                       add.fld = c("aeid", "acid", "asid", "signal_direction"))
 
 ## ----load_asid, eval=FALSE----------------------------------------------------
-#  # Load asid and asnm for given aeid
-#  asid <- tcplLoadAsid(fld = "aeid", val = 663)
-#  
-#  # Subset all asids by using multiple fields -- val must be same length in list form!
-#  asids <- tcplLoadAsid(fld = c("organism", "tissue"),
-#                        val = list("rat", "liver"),
-#                        add.fld = c("aeid", "acid", "asid", "signal_direction"))
+# # Load asid and asnm for given aeid
+# asid <- tcplLoadAsid(fld = "aeid", val = 663)
+# 
+# # Subset all asids by using multiple fields -- val must be same length in list form!
+# asids <- tcplLoadAsid(fld = c("organism", "tissue"),
+#                       val = list("rat", "liver"),
+#                       add.fld = c("aeid", "acid", "asid", "signal_direction"))
 
 ## ----load_unit----------------------------------------------------------------
 # Load resp_unit for given aeid
 unit <- tcplLoadUnit(aeid = c(663, 891))
 
-## ----load_conc_unit-----------------------------------------------------------
-# Load conc_unit for given spid
-conc_unit <- tcplLoadConcUnit(spid = "TP0000904H05")
+## ----load_conc_unit, eval=FALSE-----------------------------------------------
+# # Load conc_unit for given spid
+# conc_unit <- tcplLoadConcUnit(spid = "TP0000904H05")
+
+## ----echo=FALSE---------------------------------------------------------------
+conc_unit <- data.frame(
+  spid = "TP0000904H05",
+  conc_unit = c("uM")
+)
 print(conc_unit)
 
-## ----load_chem----------------------------------------------------------------
-# Load chem_info for given spid
-chem_info <- tcplLoadChem(field = "spid", val = "TP0000904H05")
+## ----load_chem, eval=FALSE----------------------------------------------------
+# # Load chem_info for given spid
+# chem_info <- tcplLoadChem(field = "spid", val = "TP0000904H05")
+
+## ----echo=FALSE---------------------------------------------------------------
+chem_info <- data.frame(
+  spid = "TP0000904H05",
+  chid = 45232,
+  casn = "51-24-1",
+  dsstox_substance_id = "DTXSID2045232",
+  code = "C51241"
+)
 print(chem_info)
 
 ## ----warning = FALSE, echo = FALSE--------------------------------------------
@@ -2012,209 +2029,209 @@ knitr::kable(output) |> kable_styling("striped")  |>
   kableExtra::scroll_box(width="100%", height="400px")
 
 ## ----mc_plot_pdf_aeid, eval = FALSE-------------------------------------------
-#  # Plot mc data for aeids 3157-3159 and outputs plots separate pdfs by aeid.
-#  tcplPlot(type = "mc",     # not required; "mc" is default
-#           fld = "aeid",    # field to query on
-#           val = 3157:3159, # values should match their corresponding 'fld'
-#           by = "aeid",     # parameter to divide files
-#           multi = TRUE,    # multiple plots per page - output 4 per page
-#           output = "pdf")  # output as pdf
-#  
-#  # Load required mc_vignette data for example below
-#  data(mc_vignette, package = 'tcpl')
-#  mc5 <- mc_vignette[["mc5"]]
-#  
-#  # Plot mc data from the mc_vignette R data object for a single aeid 80 and
-#  # spids "TP0001652B01", "01504209", "TP0001652D01", "TP0001652A01", and "1210314466"
-#  tcplPlot(fld = c("aeid", "spid"),        # field to query on
-#           val = list(mc5$aeid, mc5$spid), # values must be listed for each corresponding 'fld'
-#           by = "aeid", multi = TRUE, flags = TRUE,  yrange = c(-0.5, 1.5),
-#           output = "pdf", fileprefix = "output_pdf")
+# # Plot mc data for aeids 3157-3159 and outputs plots separate pdfs by aeid.
+# tcplPlot(type = "mc",     # not required; "mc" is default
+#          fld = "aeid",    # field to query on
+#          val = 3157:3159, # values should match their corresponding 'fld'
+#          by = "aeid",     # parameter to divide files
+#          multi = TRUE,    # multiple plots per page - output 4 per page
+#          output = "pdf")  # output as pdf
+# 
+# # Load required mc_vignette data for example below
+# data(mc_vignette, package = 'tcpl')
+# mc5 <- mc_vignette[["mc5"]]
+# 
+# # Plot mc data from the mc_vignette R data object for a single aeid 80 and
+# # spids "TP0001652B01", "01504209", "TP0001652D01", "TP0001652A01", and "1210314466"
+# tcplPlot(fld = c("aeid", "spid"),        # field to query on
+#          val = list(mc5$aeid, mc5$spid), # values must be listed for each corresponding 'fld'
+#          by = "aeid", multi = TRUE, flags = TRUE,  yrange = c(-0.5, 1.5),
+#          output = "pdf", fileprefix = "output_pdf")
 
 ## ----mc_plot_jpg, eval = FALSE------------------------------------------------
-#  # Plot a verbose plot of mc data for single aeid 80 and spid 01504209 and
-#  # output as jpg.
-#  tcplPlot(type = "mc", fld = c('aeid','spid'), val = list(80,'01504209'), multi = FALSE,
-#           flags = TRUE, output = "jpg", fileprefix = "output_jpg")
+# # Plot a verbose plot of mc data for single aeid 80 and spid 01504209 and
+# # output as jpg.
+# tcplPlot(type = "mc", fld = c('aeid','spid'), val = list(80,'01504209'), multi = FALSE,
+#          flags = TRUE, output = "jpg", fileprefix = "output_jpg")
 
 ## ----mc_plot_console, eval = FALSE--------------------------------------------
-#  # Create MC plot for a single m4id from 'mc_vignette' data
-#  tcplPlot(type = "mc", fld = "m4id", val = 482273,
-#           multi = FALSE, verbose = FALSE, output = "console")
-#  
-#  # Plot of MC data for single aeid (80) and spid (01504209) and output to console
-#  tcplPlot(type = "mc", fld = c('aeid','spid'), val = list(80, '01504209'),
-#           multi = FALSE, verbose = FALSE, output = "console")
+# # Create MC plot for a single m4id from 'mc_vignette' data
+# tcplPlot(type = "mc", fld = "m4id", val = 482273,
+#          multi = FALSE, verbose = FALSE, output = "console")
+# 
+# # Plot of MC data for single aeid (80) and spid (01504209) and output to console
+# tcplPlot(type = "mc", fld = c('aeid','spid'), val = list(80, '01504209'),
+#          multi = FALSE, verbose = FALSE, output = "console")
 
 ## ----sc_plot_pdf_aeid, eval = FALSE-------------------------------------------
-#  # Plot SC data for aeid 704 and outputs plots separate pdfs by aeid
-#  tcplPlot(type = "sc", fld = "aeid", val = 704, multi = TRUE,
-#           output = "pdf", fileprefix = "sc_output")
+# # Plot SC data for aeid 704 and outputs plots separate pdfs by aeid
+# tcplPlot(type = "sc", fld = "aeid", val = 704, multi = TRUE,
+#          output = "pdf", fileprefix = "sc_output")
 
 ## ----plot_compare, eval = FALSE-----------------------------------------------
-#  spids <- c("EPAPLT0108M13", "EPAPLT0108H01", "EPAPLT0108C17", "EPAPLT0106J20")
-#  # default parameters used here: type = "mc", verbose = TRUE
-#  tcplPlot(fld = c("spid", "aeid"),         # field(s) to query on
-#           val = list(spids, c(3074,3076)),         # values must be listed for each corresponding `fld`
-#           compare = "spid",
-#           output = "pdf", multi = TRUE, flags = TRUE,
-#           yuniform = TRUE, fileprefix = "plot_compare")
+# spids <- c("EPAPLT0108M13", "EPAPLT0108H01", "EPAPLT0108C17", "EPAPLT0106J20")
+# # default parameters used here: type = "mc", verbose = TRUE
+# tcplPlot(fld = c("spid", "aeid"),         # field(s) to query on
+#          val = list(spids, c(3074,3076)),         # values must be listed for each corresponding `fld`
+#          compare = "spid",
+#          output = "pdf", multi = TRUE, flags = TRUE,
+#          yuniform = TRUE, fileprefix = "plot_compare")
 
 ## ----sc_plot_compare, eval = FALSE--------------------------------------------
-#  spids <- c("MLS", "DMSO", "Tox21_400088", "Tox21_200265", "Tox21_200001", "Tox21_200266")
-#  # Plot comparison across two different endpoints with same samples
-#  tcplPlot(type = "sc", fld = c("spid","aeid"), val = list(spids, c(3017,3018)),
-#            compare = "spid", output = "pdf", multi = TRUE, fileprefix = "sc_plot_compare")
+# spids <- c("MLS", "DMSO", "Tox21_400088", "Tox21_200265", "Tox21_200001", "Tox21_200266")
+# # Plot comparison across two different endpoints with same samples
+# tcplPlot(type = "sc", fld = c("spid","aeid"), val = list(spids, c(3017,3018)),
+#           compare = "spid", output = "pdf", multi = TRUE, fileprefix = "sc_plot_compare")
 
 ## ----medium_plot_compare, eval = FALSE----------------------------------------
-#  # default parameters used here: type = "mc", verbose = TRUE
-#  tcplPlot(fld = "aeid",
-#           val = 2642:2646,
-#           compare = "dsstox_substance_id",
-#           output = "pdf", multi = TRUE, flags = TRUE,
-#           fileprefix = "medium_plot_compare")
+# # default parameters used here: type = "mc", verbose = TRUE
+# tcplPlot(fld = "aeid",
+#          val = 2642:2646,
+#          compare = "dsstox_substance_id",
+#          output = "pdf", multi = TRUE, flags = TRUE,
+#          fileprefix = "medium_plot_compare")
 
 ## ----large_plot_compare, eval = FALSE-----------------------------------------
-#  # default parameters used here: type = "mc", verbose = TRUE, group.fld = "modl", group.threshold = 9
-#  tcplPlot(fld = "aeid",
-#           val = 3168,
-#           compare = "aeid",
-#           output = "jpg", flags = TRUE, dpi = 100,
-#           fileprefix = "large_plot_compare")
+# # default parameters used here: type = "mc", verbose = TRUE, group.fld = "modl", group.threshold = 9
+# tcplPlot(fld = "aeid",
+#          val = 3168,
+#          compare = "aeid",
+#          output = "jpg", flags = TRUE, dpi = 100,
+#          fileprefix = "large_plot_compare")
 
 ## ----plot_standalone, eval = FALSE--------------------------------------------
-#  # tcplConf() configured with some connection like database or CTX APIs
-#  plot_data1 <- tcplPlotLoadData(fld = "aeid", val = 704, type = "mc", flags = TRUE)
-#  
-#  # Fill with different database connection information
-#  tcplConf(user = "", pass = "", db = "invitrodb", drvr = "MySQL", host = "")
-#  
-#  # Load more data
-#  plot_data2 <- tcplPlotLoadData(fld = "aeid", val = 704, type = "mc", flags = TRUE)
-#  
-#  # Combine the data.tables together
-#  plot_data <- rbind(plot_data1, plot_data2, fill = TRUE)
-#  
-#  # Plot comparisons of aeid 704 from one database version to another and output to pdf
-#  tcplPlot(dat = plot_data, compare = c("aeid", "spid"),
-#           output = "pdf", multi = TRUE, flags = TRUE, fileprefix = "version_compare")
+# # tcplConf() configured with some connection like database or CTX APIs
+# plot_data1 <- tcplPlotLoadData(fld = "aeid", val = 704, type = "mc", flags = TRUE)
+# 
+# # Fill with different database connection information
+# tcplConf(user = "", pass = "", db = "invitrodb", drvr = "MySQL", host = "")
+# 
+# # Load more data
+# plot_data2 <- tcplPlotLoadData(fld = "aeid", val = 704, type = "mc", flags = TRUE)
+# 
+# # Combine the data.tables together
+# plot_data <- rbind(plot_data1, plot_data2, fill = TRUE)
+# 
+# # Plot comparisons of aeid 704 from one database version to another and output to pdf
+# tcplPlot(dat = plot_data, compare = c("aeid", "spid"),
+#          output = "pdf", multi = TRUE, flags = TRUE, fileprefix = "version_compare")
 
 ## ----plot_aeid_spid, eval = FALSE---------------------------------------------
-#  # Load all matching spids
-#  plot_data <- tcplPlotLoadData(fld = "spid", val = "01504209", flags = TRUE) # 81 rows of data
-#  
-#  # Subset using the aeid desired to find m4id
-#  m4id <- plot_data[aeid == 80]$m4id # subset to 1 aeid extract m4id
-#  # Default parameters used here: fld = "m4id", verbose = TRUE, type = "mc"
-#  # (type can never be "sc" when connected to API)
-#  tcplPlot(val = m4id, flags = TRUE, output = "jpg", fileprefix = "output_jpg")
-#  
-#  # Alternatively, subset the plot_data object and use it in 'dat'
-#  plot_data <- plot_data[aeid == 80]
-#  # Default parameters used here: verbose = TRUE, type = "mc"
-#  tcplPlot(dat = plot_data, flags = TRUE, output = "jpg", fileprefix = "output_jpg")
+# # Load all matching spids
+# plot_data <- tcplPlotLoadData(fld = "spid", val = "01504209", flags = TRUE) # 81 rows of data
+# 
+# # Subset using the aeid desired to find m4id
+# m4id <- plot_data[aeid == 80]$m4id # subset to 1 aeid extract m4id
+# # Default parameters used here: fld = "m4id", verbose = TRUE, type = "mc"
+# # (type can never be "sc" when connected to API)
+# tcplPlot(val = m4id, flags = TRUE, output = "jpg", fileprefix = "output_jpg")
+# 
+# # Alternatively, subset the plot_data object and use it in 'dat'
+# plot_data <- plot_data[aeid == 80]
+# # Default parameters used here: verbose = TRUE, type = "mc"
+# tcplPlot(dat = plot_data, flags = TRUE, output = "jpg", fileprefix = "output_jpg")
 
 ## ----api_compare, eval = FALSE------------------------------------------------
-#  # default parameters used here: type = "mc", verbose = TRUE
-#  tcplPlot(fld = "aeid", val = 2642:2646, compare = "chnm", output = "pdf",
-#           multi = TRUE, flags = TRUE, fileprefix = "api_compare")
+# # default parameters used here: type = "mc", verbose = TRUE
+# tcplPlot(fld = "aeid", val = 2642:2646, compare = "chnm", output = "pdf",
+#          multi = TRUE, flags = TRUE, fileprefix = "api_compare")
 
 ## ----BPA, eval = FALSE--------------------------------------------------------
-#  # Provide the chemical name and assign to 'chnm'. Synonyms will not be matched, so other chemical identifiers may be more appropriate to query.
-#  chnm <- 'Bisphenol A'
-#  # Load the chemical data from the database
-#  chem <- tcplLoadChem(field = 'chnm', val = chnm)
-#  # Load mc5 data from the database for the specified chemical
-#  BPA.mc5 <- tcplLoadData(lvl = 5, fld = 'spid', val = chem[, spid], type = 'mc')
+# # Provide the chemical name and assign to 'chnm'. Synonyms will not be matched, so other chemical identifiers may be more appropriate to query.
+# chnm <- 'Bisphenol A'
+# # Load the chemical data from the database
+# chem <- tcplLoadChem(field = 'chnm', val = chnm)
+# # Load mc5 data from the database for the specified chemical
+# BPA.mc5 <- tcplLoadData(lvl = 5, fld = 'spid', val = chem[, spid], type = 'mc')
 
 ## ----spid_plot_1, eval=FALSE--------------------------------------------------
-#  # Load mc% data summary values for select aeids
-#  mc5 <- tcplPrepOtpt(tcplLoadData(lvl = 5, fld = 'aeid', val = tcplLoadAeid(fld = "asid", val = 25)$aeid, type = 'mc', add.fld = TRUE))
-#  
-#  # Identify sample subset
-#  spid.mc5 <- mc5[spid %in% c("EPAPLT0018N08", "EPAPLT0023A16", "EPAPLT0020C11", "EPAPLT0018B13", "EPAPLT0018B14", "EPAPLT0018B15"),]
-#  
-#  # Plot by endpoint for sample subset
-#  tcplPlot(fld = c("spid", "aeid"), val = list(spid.mc5$spid, spid.mc5$aeid), by = "aeid", multi = TRUE, output = "pdf", fileprefix = "upitt")
+# # Load mc% data summary values for select aeids
+# mc5 <- tcplPrepOtpt(tcplLoadData(lvl = 5, fld = 'aeid', val = tcplLoadAeid(fld = "asid", val = 25)$aeid, type = 'mc', add.fld = TRUE))
+# 
+# # Identify sample subset
+# spid.mc5 <- mc5[spid %in% c("EPAPLT0018N08", "EPAPLT0023A16", "EPAPLT0020C11", "EPAPLT0018B13", "EPAPLT0018B14", "EPAPLT0018B15"),]
+# 
+# # Plot by endpoint for sample subset
+# tcplPlot(fld = c("spid", "aeid"), val = list(spid.mc5$spid, spid.mc5$aeid), by = "aeid", multi = TRUE, output = "pdf", fileprefix = "upitt")
 
 ## ----spid_plot_2, eval=FALSE--------------------------------------------------
-#  plot_data <- tcplPlotLoadData(fld = 'aeid', val = tcplLoadAeid(fld = "asid", val = 25)$aeid, type = 'mc')
-#  
-#  # Identify sample subset.
-#  plot_data <- plot_data[spid %in% c("EPAPLT0018N08", "EPAPLT0023A16", "EPAPLT0020C11", "EPAPLT0018B13", "EPAPLT0018B14", "EPAPLT0018B15"),]
-#  
-#  # Plot by endpoint for sample subset.
-#  tcplPlot(dat = plot_data, by = "aeid", multi = TRUE, output = "pdf", fileprefix = "upitt")
+# plot_data <- tcplPlotLoadData(fld = 'aeid', val = tcplLoadAeid(fld = "asid", val = 25)$aeid, type = 'mc')
+# 
+# # Identify sample subset.
+# plot_data <- plot_data[spid %in% c("EPAPLT0018N08", "EPAPLT0023A16", "EPAPLT0020C11", "EPAPLT0018B13", "EPAPLT0018B14", "EPAPLT0018B15"),]
+# 
+# # Plot by endpoint for sample subset.
+# tcplPlot(dat = plot_data, by = "aeid", multi = TRUE, output = "pdf", fileprefix = "upitt")
 
 ## ----plot_loec, eval = FALSE--------------------------------------------------
-#  # default parameters used here: type = "mc"
-#  tcplPlot(fld = "aeid", val = 3211, verbose = FALSE,
-#           output = "pdf", multi = TRUE, fileprefix = "loec")
+# # default parameters used here: type = "mc"
+# tcplPlot(fld = "aeid", val = 3211, verbose = FALSE,
+#          output = "pdf", multi = TRUE, fileprefix = "loec")
 
 ## ----txrf-data-liver-subset, eval=FALSE---------------------------------------
-#  toxref_chnm_liver <- toxref_batch_download_chnm %>%
-#    filter(endpoint_target == 'liver')
-#  
-#  toxref_chnm_liver_lel <- toxref_chnm_liver %>%
-#    summarise(lel = min(dose_adjusted[treatment_related == 1]),
-#              loael = min(dose_adjusted[critical_effect == 1]))
+# toxref_chnm_liver <- toxref_batch_download_chnm %>%
+#   filter(endpoint_target == 'liver')
+# 
+# toxref_chnm_liver_lel <- toxref_chnm_liver %>%
+#   summarise(lel = min(dose_adjusted[treatment_related == 1]),
+#             loael = min(dose_adjusted[critical_effect == 1]))
 
 ## ----txct-annotations-liver-subset, warning=FALSE, eval=FALSE-----------------
-#  toxcast_annotations_subset <- tcplLoadAeid(fld = "tissue", val = "liver", add.fld = "tissue")
+# toxcast_annotations_subset <- tcplLoadAeid(fld = "tissue", val = "liver", add.fld = "tissue")
 
 ## ----txct-data-pull, fig.align='center',class.source="scroll-100",message=FALSE, eval=FALSE----
-#  # Load the chemical data from the database
-#  chnm <- 'Pentachlorophenol'
-#  chem <- tcplLoadChem(field = 'chnm', val = chnm)
-#  
-#  # Load Level 5 data from the database for the specified chemical
-#  mc5 <- tcplLoadData(lvl = 5, fld = 'spid', val = chem[, spid], type = 'mc')
-#  
-#  # Join with Level 6 flag information
-#  mc6 <- tcplPrepOtpt(tcplLoadData(lvl = 6, fld = 'm4id', val = mc5$m4id, type = 'mc'))
-#  setDT(mc6)
-#  mc6_mthds <- mc6[ , .( mc6_mthd_id = paste(mc6_mthd_id, collapse=",")), by = m4id]
-#  mc6_flags <- mc6[ , .( flag = paste(flag, collapse=";")), by = m4id]
-#  mc5$mc6_flags <- mc6_mthds$mc6_mthd_id[match(mc5$m4id, mc6_mthds$m4id)]
-#  mc5[, flag.length := ifelse(!is.na(mc6_flags),
-#                       count.fields(textConnection(mc6_flags), sep = ','), NA)]
-#  
-#  # Filter the potency and activity using coarse filters related to hitc, flags, fitc
-#  mc5[hitc >= 0.9 & flag.length < 3, use.me := 1]
-#  mc5[hitc >= 0.9 & is.na(flag.length), use.me := 1]
-#  mc5[hitc >= 0.9 & flag.length >= 3, use.me := 0]
-#  mc5[fitc %in% c(36, 45), use.me := 0]
-#  mc5[hitc < 0.9, use.me := 0]
-#  mc5[use.me == 0, ac50 := as.numeric(NA)]
-#  mc5[use.me == 0, hitc := 0]
-#  mc5[hitc == 0, ac50 := as.numeric(NA)]
-#  mc5[hitc >= 0.9, ac50_uM := ifelse(!is.na(ac50), ac50, NA)]
-#  
-#  #Filter to only liver endpoints
-#  toxcast_mc5_liver <- mc5[aeid %in% toxcast_annotations_subset$aeid,]
+# # Load the chemical data from the database
+# chnm <- 'Pentachlorophenol'
+# chem <- tcplLoadChem(field = 'chnm', val = chnm)
+# 
+# # Load Level 5 data from the database for the specified chemical
+# mc5 <- tcplLoadData(lvl = 5, fld = 'spid', val = chem[, spid], type = 'mc')
+# 
+# # Join with Level 6 flag information
+# mc6 <- tcplPrepOtpt(tcplLoadData(lvl = 6, fld = 'm4id', val = mc5$m4id, type = 'mc'))
+# setDT(mc6)
+# mc6_mthds <- mc6[ , .( mc6_mthd_id = paste(mc6_mthd_id, collapse=",")), by = m4id]
+# mc6_flags <- mc6[ , .( flag = paste(flag, collapse=";")), by = m4id]
+# mc5$mc6_flags <- mc6_mthds$mc6_mthd_id[match(mc5$m4id, mc6_mthds$m4id)]
+# mc5[, flag.length := ifelse(!is.na(mc6_flags),
+#                      count.fields(textConnection(mc6_flags), sep = ','), NA)]
+# 
+# # Filter the potency and activity using coarse filters related to hitc, flags, fitc
+# mc5[hitc >= 0.9 & flag.length < 3, use.me := 1]
+# mc5[hitc >= 0.9 & is.na(flag.length), use.me := 1]
+# mc5[hitc >= 0.9 & flag.length >= 3, use.me := 0]
+# mc5[fitc %in% c(36, 45), use.me := 0]
+# mc5[hitc < 0.9, use.me := 0]
+# mc5[use.me == 0, ac50 := as.numeric(NA)]
+# mc5[use.me == 0, hitc := 0]
+# mc5[hitc == 0, ac50 := as.numeric(NA)]
+# mc5[hitc >= 0.9, ac50_uM := ifelse(!is.na(ac50), ac50, NA)]
+# 
+# #Filter to only liver endpoints
+# toxcast_mc5_liver <- mc5[aeid %in% toxcast_annotations_subset$aeid,]
 
 ## ----httk-prep, eval=FALSE----------------------------------------------------
-#  # Calculating summary statistics for AC50 values for httk processing to calculate AED
-#  toxcast_mc5_liver_summary <- toxcast_mc5_liver[,list(
-#    p5.ac50uM = quantile(ac50_uM, probs = c(0.05), na.rm = T),
-#    p50.ac50uM = quantile(ac50_uM, probs = c(0.50), na.rm = T),
-#    mean.ac50uM = mean(ac50_uM, na.rm = T))]
+# # Calculating summary statistics for AC50 values for httk processing to calculate AED
+# toxcast_mc5_liver_summary <- toxcast_mc5_liver[,list(
+#   p5.ac50uM = quantile(ac50_uM, probs = c(0.05), na.rm = T),
+#   p50.ac50uM = quantile(ac50_uM, probs = c(0.50), na.rm = T),
+#   mean.ac50uM = mean(ac50_uM, na.rm = T))]
 
 ## ----httk-aed, warning=FALSE, message=FALSE, eval=FALSE-----------------------
-#  # Generate AEDs
-#  toxcast_aed_liver_summary <- toxcast_mc5_liver_summary %>%
-#        summarize(aed.p5ac50.hu.css.50 = calc_mc_oral_equiv(conc=p5.ac50uM,
-#                    dtxsid = 'DTXSID7021106', which.quantile = c(0.95),
-#                    species ='Human', restrictive.clearance = T,
-#                    output.units = 'mgpkgpday', model = '3compartmentss'),
-#          aed.p50ac50.hu.css.50 = calc_mc_oral_equiv(conc = p50.ac50uM,
-#                    dtxsid = 'DTXSID7021106', which.quantile = c(0.95),
-#                    species = 'Human', restrictive.clearance = T,
-#                    output.units = 'mgpkgpday', model = '3compartmentss'),
-#          aed.meanac50.hu.css.50 = calc_mc_oral_equiv(conc = mean.ac50uM,
-#                    dtxsid = 'DTXSID7021106', which.quantile = c(0.95),
-#                    species = 'Human', restrictive.clearance = T,
-#                    output.units = 'mgpkgpday', model = '3compartmentss'))
+# # Generate AEDs
+# toxcast_aed_liver_summary <- toxcast_mc5_liver_summary %>%
+#       summarize(aed.p5ac50.hu.css.50 = calc_mc_oral_equiv(conc=p5.ac50uM,
+#                   dtxsid = 'DTXSID7021106', which.quantile = c(0.95),
+#                   species ='Human', restrictive.clearance = T,
+#                   output.units = 'mgpkgpday', model = '3compartmentss'),
+#         aed.p50ac50.hu.css.50 = calc_mc_oral_equiv(conc = p50.ac50uM,
+#                   dtxsid = 'DTXSID7021106', which.quantile = c(0.95),
+#                   species = 'Human', restrictive.clearance = T,
+#                   output.units = 'mgpkgpday', model = '3compartmentss'),
+#         aed.meanac50.hu.css.50 = calc_mc_oral_equiv(conc = mean.ac50uM,
+#                   dtxsid = 'DTXSID7021106', which.quantile = c(0.95),
+#                   species = 'Human', restrictive.clearance = T,
+#                   output.units = 'mgpkgpday', model = '3compartmentss'))
 
 ## ----compare, echo=FALSE------------------------------------------------------
 # Create comparison table
@@ -2237,64 +2254,64 @@ kable(Table)%>%
   kable_styling("striped")
 
 ## ----txct-data-pull2, fig.align='center',class.source="scroll-100",message=FALSE, eval=FALSE----
-#  # Identify the lel and loaels from toxref chemical subset
-#  toxref_chnm_POD<-toxref_chnm_EE2 %>%
-#    summarise(lel=min(dose_adjusted[treatment_related==1]),
-#              loael=min(dose_adjusted[critical_effect==1]))
-#  
-#  # Load the chemical data from the database
-#  chem <- tcplLoadChem(field = 'dsstox_substance_id',val = "DTXSID5020576")
-#  
-#  # Load Level 5 data from the database for the specified chemical
-#  mc5 <- tcplLoadData(lvl = 5, # data level
-#                          fld = 'spid', # field to query on
-#                          val = chem[,spid], # value for each field (fld)
-#                          type = 'mc') # data type - mc
-#  
-#  # Join with Level 6 flag information
-#  mc6 <- tcplPrepOtpt(tcplLoadData(lvl = 6, fld = 'm4id', val = mc5$m4id, type = 'mc'))
-#  setDT(mc6)
-#  mc6_mthds <- mc6[ , .( mc6_mthd_id = paste(mc6_mthd_id, collapse = ",")), by = m4id]
-#  mc6_flags <- mc6[ , .( flag = paste(flag, collapse = ";")), by = m4id]
-#  mc5$mc6_flags <- mc6_mthds$mc6_mthd_id[match(mc5$m4id, mc6_mthds$m4id)]
-#  mc5[, flag.length := ifelse(!is.na(mc6_flags),
-#                       count.fields(textConnection(mc6_flags), sep =','), NA)]
-#  
-#  # Filter the potency and activity using coarse filters related to hitc, flags, fitc
-#  mc5[hitc >= 0.9 & flag.length < 3, use.me := 1]
-#  mc5[hitc >= 0.9 & is.na(flag.length), use.me := 1]
-#  mc5[hitc >= 0.9 & flag.length >= 3, use.me := 0]
-#  mc5[fitc %in% c(36,45), use.me := 0]
-#  mc5[hitc < 0.9, use.me := 0]
-#  mc5[use.me == 0, ac50 := as.numeric(NA)]
-#  mc5[use.me == 0, hitc := 0]
-#  mc5[hitc == 0, ac50 := as.numeric(NA)]
-#  mc5[hitc >= 0.9,ac50_uM := ifelse(!is.na(ac50), ac50, NA)]
-#  
-#  # Calculate summary statistics for AC50 values for httk processing to calculate AED
-#  toxcast_mc5_EE2_summary <- mc5[,list(
-#    p5.ac50uM = quantile(ac50_uM, probs = c(0.05), na.rm=T),
-#    p50.ac50uM = quantile(ac50_uM, probs = c(0.50), na.rm=T),
-#    mean.ac50uM = mean(ac50_uM, na.rm=T))]
-#  
-#  # Generate AEDs
-#  toxcast_aed_EE2_summary <- toxcast_mc5_EE2_summary %>%
-#        summarize(aed.p5ac50.hu.css.50 = calc_mc_oral_equiv(conc = p5.ac50uM,
-#                    dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
-#                    species ='Human', restrictive.clearance = T,
-#                    output.units = 'mgpkgpday', model = '3compartmentss'),
-#          aed.p50ac50.hu.css.50 = calc_mc_oral_equiv(conc = p50.ac50uM,
-#                    dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
-#                    species ='Human', restrictive.clearance = T,
-#                    output.units='mgpkgpday', model='3compartmentss'),
-#          aed.meanac50.hu.css.50 = calc_mc_oral_equiv(conc=mean.ac50uM,
-#                    dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
-#                    species = 'Human', restrictive.clearance = T,
-#                    output.units = 'mgpkgpday', model = '3compartmentss'),
-#          aed.minac50.aeid807.hu.css.50 = calc_mc_oral_equiv(conc = 0.0002448276,
-#                    dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
-#                    species ='Human', restrictive.clearance = T,
-#                    output.units = 'mgpkgpday', model = '3compartmentss'))
+# # Identify the lel and loaels from toxref chemical subset
+# toxref_chnm_POD<-toxref_chnm_EE2 %>%
+#   summarise(lel=min(dose_adjusted[treatment_related==1]),
+#             loael=min(dose_adjusted[critical_effect==1]))
+# 
+# # Load the chemical data from the database
+# chem <- tcplLoadChem(field = 'dsstox_substance_id',val = "DTXSID5020576")
+# 
+# # Load Level 5 data from the database for the specified chemical
+# mc5 <- tcplLoadData(lvl = 5, # data level
+#                         fld = 'spid', # field to query on
+#                         val = chem[,spid], # value for each field (fld)
+#                         type = 'mc') # data type - mc
+# 
+# # Join with Level 6 flag information
+# mc6 <- tcplPrepOtpt(tcplLoadData(lvl = 6, fld = 'm4id', val = mc5$m4id, type = 'mc'))
+# setDT(mc6)
+# mc6_mthds <- mc6[ , .( mc6_mthd_id = paste(mc6_mthd_id, collapse = ",")), by = m4id]
+# mc6_flags <- mc6[ , .( flag = paste(flag, collapse = ";")), by = m4id]
+# mc5$mc6_flags <- mc6_mthds$mc6_mthd_id[match(mc5$m4id, mc6_mthds$m4id)]
+# mc5[, flag.length := ifelse(!is.na(mc6_flags),
+#                      count.fields(textConnection(mc6_flags), sep =','), NA)]
+# 
+# # Filter the potency and activity using coarse filters related to hitc, flags, fitc
+# mc5[hitc >= 0.9 & flag.length < 3, use.me := 1]
+# mc5[hitc >= 0.9 & is.na(flag.length), use.me := 1]
+# mc5[hitc >= 0.9 & flag.length >= 3, use.me := 0]
+# mc5[fitc %in% c(36,45), use.me := 0]
+# mc5[hitc < 0.9, use.me := 0]
+# mc5[use.me == 0, ac50 := as.numeric(NA)]
+# mc5[use.me == 0, hitc := 0]
+# mc5[hitc == 0, ac50 := as.numeric(NA)]
+# mc5[hitc >= 0.9,ac50_uM := ifelse(!is.na(ac50), ac50, NA)]
+# 
+# # Calculate summary statistics for AC50 values for httk processing to calculate AED
+# toxcast_mc5_EE2_summary <- mc5[,list(
+#   p5.ac50uM = quantile(ac50_uM, probs = c(0.05), na.rm=T),
+#   p50.ac50uM = quantile(ac50_uM, probs = c(0.50), na.rm=T),
+#   mean.ac50uM = mean(ac50_uM, na.rm=T))]
+# 
+# # Generate AEDs
+# toxcast_aed_EE2_summary <- toxcast_mc5_EE2_summary %>%
+#       summarize(aed.p5ac50.hu.css.50 = calc_mc_oral_equiv(conc = p5.ac50uM,
+#                   dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
+#                   species ='Human', restrictive.clearance = T,
+#                   output.units = 'mgpkgpday', model = '3compartmentss'),
+#         aed.p50ac50.hu.css.50 = calc_mc_oral_equiv(conc = p50.ac50uM,
+#                   dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
+#                   species ='Human', restrictive.clearance = T,
+#                   output.units='mgpkgpday', model='3compartmentss'),
+#         aed.meanac50.hu.css.50 = calc_mc_oral_equiv(conc=mean.ac50uM,
+#                   dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
+#                   species = 'Human', restrictive.clearance = T,
+#                   output.units = 'mgpkgpday', model = '3compartmentss'),
+#         aed.minac50.aeid807.hu.css.50 = calc_mc_oral_equiv(conc = 0.0002448276,
+#                   dtxsid = 'DTXSID5020576', which.quantile = c(0.95),
+#                   species ='Human', restrictive.clearance = T,
+#                   output.units = 'mgpkgpday', model = '3compartmentss'))
 
 ## ----compare2, echo=FALSE-----------------------------------------------------
 # Create comparison table
